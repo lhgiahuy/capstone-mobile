@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-export default function explore() {
+export default function CustomButton() {
   return (
     <View>
-      <Text>explore</Text>
+      <Text>CustomButton</Text>
     </View>
   );
 }

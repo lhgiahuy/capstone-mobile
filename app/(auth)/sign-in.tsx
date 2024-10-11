@@ -8,17 +8,21 @@ import {
   ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import { useNavigation } from "@react-navigation/native";
+import { Link } from "expo-router";
 const LoginScreen = () => {
+  // const navigation = useNavigation();
   return (
     <ImageBackground
-      source={require("../assets/images/event.png")}
-      style={styles.background}
+      source={require("../../assets/images/light-event.jpg")}
+      className="flex-1 justify-center"
       resizeMode="cover"
     >
       <View style={styles.overlay} />
-      <View style={styles.container}>
-        <Text style={styles.greeting}>Xin Chào!</Text>
+      <View className="flex-1 justify-center bg-transparent p-6">
+        <Text className="text-[32px] font-bold text-gray-300 text-center mt-2 ">
+          Xin Chào tới Fvent!
+        </Text>
         <Text style={styles.subGreeting}>Đăng nhập tài khoản của bạn</Text>
         <View style={styles.box}>
           <Icon name="user-o" size={20} style={styles.icon} />
@@ -43,12 +47,19 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.signInButton}>
-          <Text style={styles.signInButtonText}>Đăng nhập</Text>
+          <Text style={styles.signInButtonText}>
+            <Link href="/home">Đăng nhập</Link>
+          </Text>
         </TouchableOpacity>
 
         <Text style={styles.createAccount}>
           Bạn chưa có tài khoản?
-          <Text style={styles.createText}>Đăng kí ngay</Text>
+          <Text
+            style={styles.createText}
+            // onPress={() => navigation.navigate("Register")}
+          >
+            <Link href="/sign-up">Đăng kí ngay</Link>
+          </Text>
         </Text>
       </View>
     </ImageBackground>
@@ -56,19 +67,9 @@ const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "transparent",
-    padding: 20,
-  },
-  background: {
-    flex: 1,
-    justifyContent: "center",
-  },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.3)", // Overlay màu đen với độ trong suốt
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
   greeting: {
     fontSize: 48,
