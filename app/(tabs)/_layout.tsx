@@ -1,6 +1,6 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { Tabs } from "expo-router";
+import { Link, Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout() {
@@ -20,12 +20,28 @@ export default function TabLayout() {
         name="home"
         options={{
           title: "Fvent",
-
           tabBarIcon: ({ color }) => (
             <Ionicons name="home" size={24} color={color} />
           ),
           headerStyle: {
             backgroundColor: "#CAFF4C",
+          },
+          headerRight: () => {
+            return (
+              <View style={{ flexDirection: "row", marginRight: 10 }}>
+                <TouchableOpacity style={{ marginRight: 15 }}>
+                  <Link href="/calendar">
+                    <Ionicons name="search" size={24} color="black" />
+                  </Link>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => alert("Notifications clicked")}
+                >
+                  <Ionicons name="notifications" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
+            );
           },
         }}
       />
@@ -43,12 +59,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="chat"
         options={{
-          title: "Haha",
-
+          title: "Chat box",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="people-circle" size={24} color={color} />
+            <Ionicons name="chatbubble" size={24} color={color} />
           ),
           headerStyle: {
             backgroundColor: "#CAFF4C",
@@ -56,11 +71,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="chat"
+        name="explore"
         options={{
-          title: "Chat box",
+          title: "Haha",
+
           tabBarIcon: ({ color }) => (
-            <Ionicons name="chatbox" size={24} color={color} />
+            <Ionicons name="person" size={27} color={color} />
           ),
           headerStyle: {
             backgroundColor: "#CAFF4C",
