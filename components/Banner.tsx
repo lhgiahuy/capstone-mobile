@@ -17,19 +17,19 @@ export default function Banner() {
       >
         <View className="flex-1 justify-center items-center">
           <Image
-            source={require("../assets/images/event.png")}
-            className="w-full h-full object-cover rounded-md"
-          />
-        </View>
-        <View className="flex-1 justify-center items-center">
-          <Image
-            source={require("../assets/images/light-event.jpg")}
+            source={require("../assets/images/banner1.png")}
             className="w-full h-full object-cover rounded-md"
           />
         </View>
         <View className="flex-1 justify-center items-center">
           <Image
             source={require("../assets/images/event.png")}
+            className="w-full h-full object-cover rounded-md"
+          />
+        </View>
+        <View className="flex-1 justify-center items-center">
+          <Image
+            source={require("../assets/images/banner1.png")}
             className="w-full h-full object-cover rounded-md"
           />
         </View>

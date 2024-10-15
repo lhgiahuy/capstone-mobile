@@ -8,10 +8,9 @@ import {
   ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { useNavigation } from "@react-navigation/native";
+
 import { Link } from "expo-router";
 const LoginScreen = () => {
-  // const navigation = useNavigation();
   return (
     <ImageBackground
       source={require("../../assets/images/light-event.jpg")}
@@ -29,7 +28,7 @@ const LoginScreen = () => {
           <TextInput
             style={styles.input}
             placeholder="Email"
-            placeholderTextColor="black"
+            placeholderTextColor="white"
           />
         </View>
         <View style={styles.box}>
@@ -37,7 +36,7 @@ const LoginScreen = () => {
           <TextInput
             style={styles.input}
             placeholder="mật khẩu"
-            placeholderTextColor="black"
+            placeholderTextColor="white"
             secureTextEntry
           />
         </View>
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
   },
   subGreeting: {
     fontSize: 18,
-    color: "black",
+    color: "white",
     marginBottom: 20,
     textAlign: "center",
   },
@@ -96,20 +95,21 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+    color: "white",
   },
   input: {
     flex: 1,
     fontSize: 16,
   },
   forgotPassword: {
-    color: "black",
+    color: "white",
     textAlign: "right",
     marginBottom: 30,
     fontSize: 16,
     fontWeight: "bold",
   },
   signInButton: {
-    backgroundColor: "#CC3366",
+    backgroundColor: "black",
     paddingVertical: 15,
     borderRadius: 5,
     alignItems: "center",
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     color: "#666",
   },
   createText: {
-    color: "#FF7F50",
+    color: "white",
     fontWeight: "bold",
   },
 });
