@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import React from "react";
 import Banner from "@/components/Banner";
 import SpecialEvent from "@/components/SpecialEvent";
