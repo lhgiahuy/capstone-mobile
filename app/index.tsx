@@ -7,12 +7,14 @@ import {
   Image,
 } from "react-native";
 import React from "react";
-import { Link } from "expo-router";
+// import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native";
 
 export default function App() {
+  const router = useRouter();
   return (
     <SafeAreaView>
       <ScrollView
@@ -35,10 +37,14 @@ export default function App() {
               Trải nghiệm và tìm kiếm những sự kiện liên quan tới chuyên ngành
               và sở thích của bạn
             </Text>
+
             <View className="flex-row mt-12 justify-center">
-              <TouchableOpacity className="bg-gray-200 w-[70%] h-[46px] rounded-[8px] ">
+              <TouchableOpacity
+                className="bg-gray-200 w-[70%] h-[46px] rounded-[8px]"
+                onPress={() => router.push("/sign-in")}
+              >
                 <Text className="text-center font-bold text-[18px] text-black p-2">
-                  <Link href="/sign-in">Khám phá ngay</Link>
+                  Khám phá ngay
                 </Text>
               </TouchableOpacity>
             </View>

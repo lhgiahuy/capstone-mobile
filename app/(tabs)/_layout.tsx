@@ -23,14 +23,16 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="home" size={24} color={color} />
           ),
+
           headerStyle: {
             backgroundColor: "#CAFF4C",
           },
+
           headerRight: () => {
             return (
               <View style={{ flexDirection: "row", marginRight: 10 }}>
                 <TouchableOpacity style={{ marginRight: 15 }}>
-                  <Link href="/calendar">
+                  <Link href="/search">
                     <Ionicons name="search" size={24} color="black" />
                   </Link>
                 </TouchableOpacity>
