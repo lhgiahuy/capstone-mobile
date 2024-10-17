@@ -49,7 +49,7 @@ export default function SpecialEvent() {
             onPress={() => router.push(`/events/${event.eventId}`)}
           >
             <Image
-              source={{ uri: event.imageUrl }} // Make sure to use a valid image URL
+              source={{ uri: event.imageUrl }}
               className="h-[320px] w-[208px] rounded-[16px]"
             />
             <Text className="text-white text-center mt-2">

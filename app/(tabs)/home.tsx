@@ -8,7 +8,7 @@ import Talkshow from "@/components/Talkshow";
 
 export default function Home() {
   return (
-    <SafeAreaView className="bg-black h-full">
+    <SafeAreaView className="bg-black flex-1 ">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="h-[258px]">
           <Banner />
