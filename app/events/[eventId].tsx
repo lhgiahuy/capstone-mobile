@@ -12,7 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchEventById } from "@/lib/axios";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-import RatingEvent from "@/components/RatingEvent";
+import RatingEvent from "@/components/DetailEvent/RatingEvent";
 
 export interface EventData {
   eventId: string;
@@ -35,6 +35,17 @@ export default function DetailEvent() {
     queryKey: ["events", eventId],
     queryFn: () => fetchEventById(eventId as string),
   });
+
+  const formatDateTime = (dateTime: string) => {
+    const date = new Date(dateTime);
+
+    const hours = date.getHours();
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${hours}:00 h , ${day} Tháng ${month},${year}`;
+  };
 
   if (isLoading) return <ActivityIndicator size="large" />;
   if (error) return <Text>Error loading event details</Text>;
@@ -73,7 +84,7 @@ export default function DetailEvent() {
           <View className="flex-row mt-4">
             <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
             <Text className="text-white ml-2">
-              {data.startTime} tới {data.endTime}
+              {formatDateTime(data.startTime)}
             </Text>
           </View>
           <View className="flex-row mt-4">
