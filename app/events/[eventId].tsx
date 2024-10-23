@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchEventById } from "@/lib/axios";
 import { LinearGradient } from "expo-linear-gradient";
@@ -101,10 +101,13 @@ export default function DetailEvent() {
           <View className="bg-white w-full rounded-[24px] p-4 mt-4 mb-2">
             <Text className="font-bold text-[17px] mb-2">Ban tổ chức</Text>
             <View className="flex-row">
-              <Image
-                source={require("../../assets/images/fpt.png")}
-                className="h-[60px] w-[140px] rounded-[40px]"
-              />
+              <Link href="/organizer/infor">
+                <Image
+                  source={require("../../assets/images/fpt.png")}
+                  className="h-[60px] w-[140px] rounded-[40px]"
+                />
+              </Link>
+
               <Text className="ml-4 mt-5"> {data.organizerName}</Text>
             </View>
           </View>

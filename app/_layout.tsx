@@ -72,6 +72,22 @@ export default function RootLayout() {
               },
             }}
           />
+          <Stack.Screen
+            name="organizer/infor"
+            options={{
+              headerTitle: () => (
+                <View>
+                  <Text className="font-bold text-[18px] text-[#000]">
+                    Ban tổ chức
+                  </Text>
+                </View>
+              ),
+              headerTitleAlign: "center",
+              headerStyle: {
+                backgroundColor: "#CAFF4C",
+              },
+            }}
+          />
         </Stack>
       </QueryClientProvider>
     </ThemeProvider>
