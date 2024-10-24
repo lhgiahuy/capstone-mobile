@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { Link, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchEventById } from "@/lib/axios";
+import { getEventById } from "@/lib/axios";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import RatingEvent from "@/components/DetailEvent/RatingEvent";
@@ -33,7 +33,7 @@ export default function DetailEvent() {
   const { eventId } = useLocalSearchParams();
   const { data, isLoading, error } = useQuery<EventData, Error>({
     queryKey: ["events", eventId],
-    queryFn: () => fetchEventById(eventId as string),
+    queryFn: () => getEventById(eventId as string),
   });
 
   const formatDateTime = (dateTime: string) => {

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useRouter } from "expo-router";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchEvents } from "@/lib/axios";
+import { getEvents } from "@/lib/axios";
 
 interface Event {
   eventId: string;
@@ -20,7 +20,7 @@ export default function SpecialEvent() {
     error,
   } = useQuery<Event[], Error>({
     queryKey: ["events"],
-    queryFn: fetchEvents,
+    queryFn: getEvents,
   });
 
   if (isLoading) {
