@@ -9,12 +9,12 @@ export const api = axios.create({
   },
 });
 
-export const fetchEventById = async (eventId: string) => {
+export const getEventById = async (eventId: string) => {
   const response = await api.get(`/events/${eventId}`);
   return response.data;
 };
 
-export const fetchEvents = async () => {
+export const getEvents = async () => {
   const response = await api.get("/events");
   return response.data.items;
 };
