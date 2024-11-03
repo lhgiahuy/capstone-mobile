@@ -3,8 +3,10 @@ import React from "react";
 import Banner from "@/components/Banner";
 import SpecialEvent from "@/components/SpecialEvent";
 import { SafeAreaView } from "react-native-safe-area-context";
-import TrendEvent from "@/components/TrendEvent";
-import Talkshow from "@/components/Talkshow";
+import TrendEvent from "@/components/UpcomingEvent";
+
+import UpcomingEvent from "@/components/UpcomingEvent";
+import CurrentEvent from "@/components/CurrentEvent";
 
 export default function Home() {
   return (
@@ -14,8 +16,9 @@ export default function Home() {
           <Banner />
         </View>
         <SpecialEvent />
-        <TrendEvent />
-        <Talkshow />
+        {/* <TrendEvent /> */}
+        <UpcomingEvent />
+        <CurrentEvent />
       </ScrollView>
     </SafeAreaView>
   );

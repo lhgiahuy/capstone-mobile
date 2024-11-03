@@ -7,8 +7,8 @@ export default function CardEvent() {
     <View>
       <View className="flex-row  h-[190px]   ">
         <View className="bg-[#373737] w-[30%] h-full first-letter:text-center items-center justify-center rounded-l-[12px] rounded-r-[17px] ">
-          <Text className="text-white w-[100px] font-bold text-[17px] p-2 text-center">
-            6 Tháng 9, 2024
+          <Text className="text-white w-[120px] font-bold text-[17px] p-2 text-center">
+            6 Tháng 11, 2024
           </Text>
         </View>
         <View
