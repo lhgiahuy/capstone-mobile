@@ -72,38 +72,8 @@ export default function RootLayout() {
 
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
-            <Stack.Screen
-              name="search/index"
-              options={{
-                headerTitle: () => (
-                  <View>
-                    <Text className="font-bold text-[18px] text-[#000]">
-                      Tìm kiếm
-                    </Text>
-                  </View>
-                ),
-                headerTitleAlign: "center",
-                headerStyle: {
-                  backgroundColor: "#CAFF4C",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="events/[eventId]"
-              options={{
-                headerTitle: () => (
-                  <View>
-                    <Text className="font-bold text-[18px] text-[#000]">
-                      Chi tiết sự kiện
-                    </Text>
-                  </View>
-                ),
-                headerTitleAlign: "center",
-                headerStyle: {
-                  backgroundColor: "#CAFF4C",
-                },
-              }}
-            />
+            <Stack.Screen name="search" options={{ headerShown: false }} />
+            <Stack.Screen name="events" options={{ headerShown: false }} />
             <Stack.Screen
               name="organizer/infor"
               options={{
@@ -120,6 +90,7 @@ export default function RootLayout() {
                 },
               }}
             />
+            <Stack.Screen name="user" options={{ headerShown: false }} />
           </Stack>
         </QueryClientProvider>
       </ClerkLoaded>

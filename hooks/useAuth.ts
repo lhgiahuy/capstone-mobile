@@ -15,12 +15,11 @@ export const useAuth = () => {
       await SecureStore.setItemAsync("authToken", token);
       console.log(token);
 
-      // Khi mà mình đăng nhập thành công sẽ trả về true
       return true;
     } catch (error) {
       // console.error("Đăng nhập thất bại:", error);
       console.log("Đăng nhập thất bại");
-      // Khi mà mình đăng nhập thất bại sẽ trả về fasle
+
       return false;
     } finally {
       setLoading(false);

@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Link, Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import ProtectedRoute from "../(auth)/ProtectedRoute";
+import ProtectedRoute from "../(auth)/protected-route";
 
 export default function TabLayout() {
   return (
@@ -21,7 +21,12 @@ export default function TabLayout() {
         <Tabs.Screen
           name="home"
           options={{
-            title: "Fvent",
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[20px] text-[#000]">Fvent</Text>
+              </View>
+            ),
+
             tabBarIcon: ({ color }) => (
               <Ionicons name="home" size={24} color={color} />
             ),
@@ -39,10 +44,10 @@ export default function TabLayout() {
                     </Link>
                   </TouchableOpacity>
 
-                  <TouchableOpacity
-                    onPress={() => alert("Notifications clicked")}
-                  >
-                    <Ionicons name="notifications" size={24} color="black" />
+                  <TouchableOpacity>
+                    <Link href="/user/notification">
+                      <Ionicons name="notifications" size={24} color="black" />
+                    </Link>
                   </TouchableOpacity>
                 </View>
               );
@@ -52,7 +57,14 @@ export default function TabLayout() {
         <Tabs.Screen
           name="calendar"
           options={{
-            title: "Lịch",
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[20px] text-[#000]">
+                  Sự kiện của tôi
+                </Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
 
             tabBarIcon: ({ color }) => (
               <Ionicons name="calendar" size={24} color={color} />
@@ -65,7 +77,14 @@ export default function TabLayout() {
         <Tabs.Screen
           name="chat"
           options={{
-            title: "Chat box",
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[20px] text-[#000]">
+                  Nhắn tin
+                </Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
             tabBarIcon: ({ color }) => (
               <Ionicons name="chatbubble" size={24} color={color} />
             ),
@@ -75,9 +94,14 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="explore"
+          name="profile"
           options={{
-            title: "Haha",
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[20px] text-[#000]">Hồ sơ</Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
 
             tabBarIcon: ({ color }) => (
               <Ionicons name="person" size={27} color={color} />

@@ -21,7 +21,7 @@ export default function Upcoming() {
           </Text>
           <View className="flex-row mt-4">
             <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-            <Text className="text-white ml-2 ">06 Tháng 10, 2024</Text>
+            <Text className="text-white ml-2 ">06 Tháng 11, 2024</Text>
           </View>
           <Text className="text-white w-[160px] h-[200px] mt-4 text-[14px]">
             FPT University HCM đang nóng lên từng ngày trước thềm Lễ Tôn Vinh

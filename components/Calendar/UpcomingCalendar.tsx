@@ -11,7 +11,7 @@ interface DayObject {
   timestamp: number;
 }
 
-export default function UpcomingEvent() {
+export default function UpcomingCalendar() {
   const [selected, setSelected] = useState<string>("");
   console.log(selected);
   return (
@@ -43,7 +43,7 @@ export default function UpcomingEvent() {
         />
         <View className="mt-6 mb-4">
           <Text className="text-[#CAFF4C] font-bold text-[18px] mb-4">
-            Sự kiện đăng ký trong tháng
+            Sự kiện đăng ký
           </Text>
           <CardEvent />
         </View>

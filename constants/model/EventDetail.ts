@@ -15,4 +15,5 @@ export interface EventData {
   eventTypeName: string;
   statusId: number;
   eventTags: string;
+  imageUrl: string;
 }

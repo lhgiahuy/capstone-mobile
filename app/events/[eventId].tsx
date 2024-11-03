@@ -5,29 +5,18 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import React from "react";
-import { Link, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-import { getEventById } from "@/lib/axios";
+
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import RatingEvent from "@/components/DetailEvent/RatingEvent";
-
-export interface EventData {
-  eventId: string;
-  eventName: string;
-  description: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  maxAttendees: number;
-  processNote: string;
-  organizerName: string;
-  eventTypeName: string;
-  statusId: number;
-  eventTags: string;
-}
+import Comment from "@/components/DetailEvent/Comment";
+import { getEventById } from "@/api/event";
+import { EventData } from "@/constants/model/EventDetail";
 
 export default function DetailEvent() {
   const { eventId } = useLocalSearchParams();
@@ -44,7 +33,7 @@ export default function DetailEvent() {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
 
-    return `${hours}:00 h , ${day} Tháng ${month},${year}`;
+    return `${hours}:00 , ${day} Tháng ${month} , ${year}`;
   };
 
   if (isLoading) return <ActivityIndicator size="large" />;
@@ -95,22 +84,23 @@ export default function DetailEvent() {
           {data.statusId === 1 && <RatingEvent rating={data.statusId} />}
 
           <View className="bg-white w-full rounded-[24px] p-4 mt-4">
-            <Text className="font-bold text-[17px] mb-2"> Giới Thiệu</Text>
+            <Text className="font-bold text-[17px] mb-2"> Giới thiệu</Text>
             <Text> {data.description}</Text>
           </View>
           <View className="bg-white w-full rounded-[24px] p-4 mt-4 mb-2">
             <Text className="font-bold text-[17px] mb-2">Ban tổ chức</Text>
             <View className="flex-row">
-              <Link href="/organizer/infor">
+              <Pressable onPress={() => router.push("/organizer/infor")}>
                 <Image
                   source={require("../../assets/images/fpt.png")}
                   className="h-[60px] w-[140px] rounded-[40px]"
                 />
-              </Link>
+              </Pressable>
 
               <Text className="ml-4 mt-5"> {data.organizerName}</Text>
             </View>
           </View>
+          <Comment />
         </LinearGradient>
       </ScrollView>
 

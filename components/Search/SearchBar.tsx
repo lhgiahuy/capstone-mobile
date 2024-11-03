@@ -8,9 +8,7 @@ export default function SearchBar() {
   const router = useRouter();
 
   const handleSearch = () => {
-    if (keyword.trim()) {
-      router.push(`/search/${keyword}`);
-    }
+    router.push(`/search/result`);
   };
   return (
     <View className="flex-row items-center bg-white h-[56px]   my-4 p-2 rounded-[12px] mx-2 ">

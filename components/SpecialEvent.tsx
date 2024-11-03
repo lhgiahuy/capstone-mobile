@@ -1,16 +1,11 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 // import Swiper from "react-native-swiper";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
 import { useQuery } from "@tanstack/react-query";
-import { getEvents } from "@/lib/axios";
-
-interface Event {
-  eventId: string;
-  eventName: string;
-  imageUrl: string;
-}
+import { getEvents } from "@/api/event";
+import { EventData } from "@/constants/model/EventDetail";
 
 export default function SpecialEvent() {
   const router = useRouter();
@@ -18,7 +13,7 @@ export default function SpecialEvent() {
     data: events,
     isLoading,
     error,
-  } = useQuery<Event[], Error>({
+  } = useQuery<EventData[], Error>({
     queryKey: ["events"],
     queryFn: getEvents,
   });
@@ -34,7 +29,7 @@ export default function SpecialEvent() {
   return (
     <View className="py-2">
       <Text className=" ml-4 text-[#CAFF4C] text-xl font-bold">
-        Sự kiện đặc biệt
+        Sự kiện đang diễn ra
       </Text>
 
       <ScrollView
