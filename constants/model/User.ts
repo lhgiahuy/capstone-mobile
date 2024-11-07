@@ -11,3 +11,15 @@ export interface User {
   roleName: string;
   campus: string;
 }
+
+export interface Register {
+  email: string;
+  password: string;
+  phoneNumber: string;
+  role: string;
+}
+
+export interface Password {
+  oldPassword: string;
+  newPassword: string;
+}

@@ -49,6 +49,11 @@ export default function RootLayout() {
 
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    DancingScript: require("../assets/fonts/DancingScript-VariableFont_wght.ttf"),
+    PacifioRegular: require("../assets/fonts/Pacifico-Regular.ttf"),
+    Inter: require("../assets/fonts/Inter-VariableFont_opsz,wght.ttf"),
+    Itim: require("../assets/fonts/Itim-Regular.ttf"),
+    Premanent: require("../assets/fonts/PermanentMarker-Regular.ttf"),
   });
 
   useEffect(() => {

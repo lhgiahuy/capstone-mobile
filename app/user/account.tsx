@@ -64,7 +64,10 @@ export default function Account() {
 
           <Ionicons name="chevron-forward-outline" color={"white"} size={30} />
         </TouchableOpacity>
-        <TouchableOpacity className="bg-gray-950 flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-4">
+        <TouchableOpacity
+          className="bg-gray-950 flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-4"
+          onPress={() => router.push(`/user/infor`)}
+        >
           <View className="flex-row items-center">
             <Ionicons
               name="navigate-circle"

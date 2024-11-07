@@ -1,4 +1,4 @@
-import { User } from "@/constants/model/User";
+import { Password, User } from "@/constants/model/User";
 import { api } from "@/lib/axios";
 import * as SecureStore from "expo-secure-store";
 
@@ -37,6 +37,23 @@ export const updateUser = async (userData: Partial<User>) => {
   });
   return response.data;
 };
+
+export const changePassword = async (Password: Partial<Password>) => {
+  const token = await SecureStore.getItemAsync("authToken");
+  console.log("day la token:", token);
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.put(`/users/change-password`, Password, {
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
+  return response.data;
+};
+
 export const getNotifications = async () => {
   const token = await SecureStore.getItemAsync("authToken");
 

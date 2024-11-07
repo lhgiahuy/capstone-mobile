@@ -1,6 +1,10 @@
 export interface EventDetail {
-  title: string;
-  data: EventData[];
+  pageNumber: number;
+  pageSize: number;
+  count: number;
+  totalItems: number;
+  totalPages: number;
+  items: EventData[];
 }
 export interface EventData {
   eventId: string;
@@ -9,11 +13,15 @@ export interface EventData {
   startTime: string;
   endTime: string;
   location: string;
+  linkEvent: string;
+  passwordMeeting: string;
   maxAttendees: number;
   processNote: string;
   organizerName: string;
   eventTypeName: string;
-  statusId: number;
-  eventTags: string;
-  imageUrl: string;
+  posterImg: string;
+  thumbnailImg: string;
+  status: string;
+  isRegistered: boolean | null;
+  eventTags: string[];
 }

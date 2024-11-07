@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ImageBackground,
-  Alert,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useAuth } from "@/hooks/useAuth";
+import { Ionicons } from "@expo/vector-icons";
 
 const SignIn = () => {
   const router = useRouter();
@@ -31,19 +25,26 @@ const SignIn = () => {
   };
 
   return (
-    <ImageBackground
-      source={require("../../assets/images/light-event.jpg")}
-      className="flex-1 justify-center"
-      resizeMode="cover"
-    >
-      <View className="flex-1 justify-center bg-transparent p-6">
-        <Text className="text-4xl font-bold text-gray-300 text-center mt-2">
-          Xin chào tới Fvent!
+    <View className="bg-[#CAFF4C] flex-1 justify-center  ">
+      <View className="h-[30%] justify-center ml-4">
+        <Ionicons
+          name="arrow-back-circle-outline"
+          size={40}
+          onPress={() => router.back()}
+        />
+        <Text className="text-[56px] font-bold text-[#374E00] text-center  ">
+          FVENT
         </Text>
-        <Text className="text-center text-white text-lg mt-2">
+      </View>
+
+      <View className="bg-black h-[70%] rounded-tl-[92px] justify-center items-center">
+        <Text className="text-4xl font-inter font-bold text-white text-center  ">
+          Đăng nhập
+        </Text>
+        <Text className="text-center text-white font-inter  text-lg mb-8 ">
           Đăng nhập tài khoản của bạn
         </Text>
-        <View className="flex-row items-center border border-gray-400 rounded-lg px-4 py-2 mt-4">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 my-2 mx-8">
           <Icon name="user-o" size={20} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px]"
@@ -53,7 +54,7 @@ const SignIn = () => {
             onChangeText={setEmail}
           />
         </View>
-        <View className="flex-row items-center border border-gray-400 rounded-lg px-4 py-2 mt-4">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-4 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px]"
@@ -65,29 +66,31 @@ const SignIn = () => {
           />
         </View>
 
-        <TouchableOpacity>
-          <Text className="text-white text-right mt-2 font-bold">
+        <TouchableOpacity className="mt-2 self-end mr-10 ">
+          <Text className="text-white text-right  font-bold">
             Quên mật khẩu?
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="bg-black py-4 rounded-lg mt-4 items-center"
+          className="bg-[#CAFF4C] py-4 rounded-[32px] mt-4 w-[220px]  items-center justify-center"
           onPress={handleLogin}
         >
-          <Text className="text-white font-bold text-lg">Đăng nhập</Text>
+          <Text className="text-[#374E00] font-bold text-[20px]">
+            Đăng nhập
+          </Text>
         </TouchableOpacity>
 
-        <View className="flex-row mt-4 justify-center">
+        {/* <View className="flex-row mt-4 justify-center">
           <Text className="text-center text-gray-900">
             Bạn chưa có tài khoản?
           </Text>
-          <Text className="text-white font-bold ml-1 ">
+          <Text className="text-white font-bold  ">
             <Link href="/sign-up">Đăng ký ngay</Link>
           </Text>
-        </View>
+        </View> */}
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
