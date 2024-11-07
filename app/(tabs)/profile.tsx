@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable, ScrollView } from "react-native";
+import { View, Text, ScrollView, ActivityIndicator } from "react-native";
 import React from "react";
 import VerifyInfo from "@/components/User/VerifyInfo";
 import Setting from "@/components/User/Setting";
@@ -18,9 +18,7 @@ export default function Profile() {
     queryFn: getUser,
   });
 
-  if (isLoading) {
-    return <Text>Loading...</Text>;
-  }
+  if (isLoading) return <ActivityIndicator size="large" />;
 
   if (error) {
     return (
@@ -40,7 +38,7 @@ export default function Profile() {
           {user?.username}
         </Text>
         <Text className=" text-gray-400 text-[16px]  w-[260px] h-auto text-center">
-          Ho Chi Minh , Vietnam
+          Hồ Chí Minh , Việt Nam
         </Text>
 
         <VerifyInfo />

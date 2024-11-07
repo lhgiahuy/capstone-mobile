@@ -4,12 +4,13 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { getUser, updateUser } from "@/api/user";
 import { User } from "@/constants/model/User";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import UpdateModal from "@/components/User/UpdateModal";
+import Avatar from "@/components/User/Avatar";
 
 export default function EditProfile() {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   const {
     data: user,
@@ -20,11 +21,9 @@ export default function EditProfile() {
     queryFn: getUser,
   });
 
-  const [firstName, setFirstName] = useState(user?.firstName || "");
-  const [lastName, setLastName] = useState(user?.lastName || "");
-  const [email, setEmail] = useState(user?.email || "");
   const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || "");
-
+  const [userName, setUserName] = useState(user?.username || "");
+  const [avatarUrl, setavatarUrl] = useState(user?.avatarUrl || "");
   const [modalVisible, setModalVisible] = useState(false);
 
   const mutation = useMutation({
@@ -47,15 +46,9 @@ export default function EditProfile() {
   });
   const handleSave = () => {
     mutation.mutate({
-      avatarUrl: user?.avatarUrl || "",
-      username: user?.username || "",
-      cardUrl: user?.cardUrl || "",
-      password: user?.password || "",
-      firstName,
-      lastName,
-      email,
+      username: userName,
+      avatarUrl,
       phoneNumber,
-      campus: user?.campus || "",
     });
   };
 
@@ -74,38 +67,20 @@ export default function EditProfile() {
   return (
     <SafeAreaProvider className="flex-1 bg-primary  ">
       <SafeAreaView>
-        <View className="justify-center  mt-8 mx-2">
+        <View className="justify-center items-center  mx-2">
+          <Avatar />
+        </View>
+        <View className="justify-center mt-8  mx-2">
           <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
-            Họ
+            Tên người dùng
           </Text>
           <TextInput
-            value={lastName}
-            onChangeText={setLastName}
+            value={userName}
+            onChangeText={setUserName}
             className="bg-[#171717]  h-[54px] w-full p-4 mb-2 rounded-[18px] text-gray-400"
           />
         </View>
-        <View className="justify-center  mx-2">
-          <Text className="text-white my-2 ml-4 font-bold text-[18px]">
-            Tên
-          </Text>
-          <TextInput
-            value={firstName}
-            onChangeText={setFirstName}
-            className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400"
-          />
-        </View>
 
-        <View className="justify-center mx-2">
-          <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
-            Email
-          </Text>
-          <TextInput
-            value={email}
-            onChangeText={setEmail}
-            className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400"
-            // 171717
-          />
-        </View>
         <View className="justify-center mx-2">
           <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
             Số điện thoại
@@ -114,7 +89,7 @@ export default function EditProfile() {
             value={phoneNumber}
             onChangeText={setPhoneNumber}
             className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400"
-            keyboardType="numeric"
+            // 171717
           />
         </View>
 

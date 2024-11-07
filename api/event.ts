@@ -13,3 +13,14 @@ export const getEvents = async () => {
   const response = await api.get("/events");
   return response.data.items;
 };
+
+export const getEventsByKeyword = async (
+  SearchKeyword: string,
+  pageNumber: number,
+  pageSize: number
+) => {
+  const response = await api.get(
+    `/events?SearchKeyword=${SearchKeyword}&PageNumber=${pageNumber}&PageSize=${pageSize}`
+  );
+  return response.data;
+};

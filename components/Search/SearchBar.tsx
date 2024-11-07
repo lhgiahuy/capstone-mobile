@@ -1,32 +1,48 @@
-import { View, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 
 export default function SearchBar() {
-  const [keyword, setKeyword] = useState("");
-  const router = useRouter();
+  const [keyword, setKeyword] = useState<string>("");
 
   const handleSearch = () => {
-    router.push(`/search/result`);
+    if (keyword.trim() === "") {
+      Alert.alert("Thông báo", "Bạn chưa nhập từ khóa tìm kiếm.");
+    } else {
+      router.push({
+        pathname: "/search/result",
+        params: { keyword: keyword },
+      });
+    }
   };
   return (
-    <View className="flex-row items-center bg-white h-[56px]   my-4 p-2 rounded-[12px] mx-2 ">
-      <TextInput
-        className="flex-1 p-2 ml-2"
-        placeholder="SỰ KIỆN ĐANG HOT!"
-        value={keyword}
-        onChangeText={setKeyword}
-        onSubmitEditing={handleSearch}
-      />
-      <TouchableOpacity onPress={handleSearch}>
-        <Ionicons
-          name="search"
-          size={25}
-          color="black"
-          style={{ marginRight: 10 }}
-        />
-      </TouchableOpacity>
+    <View className="py-2">
+      <ScrollView>
+        <View className="flex-row items-center bg-white h-[56px]   my-4 p-2 rounded-[12px] mx-2 ">
+          <TextInput
+            className="flex-1 p-2 ml-2"
+            placeholder="SỰ KIỆN ĐANG HOT!"
+            value={keyword}
+            onChangeText={setKeyword}
+            onSubmitEditing={handleSearch}
+          />
+          <TouchableOpacity onPress={handleSearch}>
+            <Ionicons
+              name="search"
+              size={25}
+              color="black"
+              style={{ marginRight: 10 }}
+            />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 }

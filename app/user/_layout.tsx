@@ -71,6 +71,22 @@ export default function AccountLayout() {
             },
           }}
         />
+        <Stack.Screen
+          name="infor"
+          options={{
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[18px] text-[#000]">
+                  Thông tin cá nhân
+                </Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#CAFF4C",
+            },
+          }}
+        />
       </Stack>
 
       {/* <Loader isLoading={loading} />

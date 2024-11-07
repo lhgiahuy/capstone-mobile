@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Pressable,
+  SafeAreaView,
 } from "react-native";
 import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
@@ -13,7 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-import RatingEvent from "@/components/DetailEvent/RatingEvent";
+// import RatingEvent from "@/components/DetailEvent/RatingEvent";
 import Comment from "@/components/DetailEvent/Comment";
 import { getEventById } from "@/api/event";
 import { EventData } from "@/constants/model/EventDetail";
@@ -36,7 +37,14 @@ export default function DetailEvent() {
     return `${hours}:00 , ${day} Tháng ${month} , ${year}`;
   };
 
-  if (isLoading) return <ActivityIndicator size="large" />;
+  if (isLoading) {
+    return (
+      <SafeAreaView className="bg-primary h-full justify-center items-center">
+        <ActivityIndicator size="large" color="#CAFF4C" />
+        <Text className="text-white mt-2">Đang tải sự kiện...</Text>
+      </SafeAreaView>
+    );
+  }
   if (error) return <Text>Error loading event details</Text>;
 
   if (!data) {
@@ -80,8 +88,18 @@ export default function DetailEvent() {
             <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
             <Text className="text-white ml-2">{data.location}</Text>
           </View>
+          <View className="flex-row mt-2 items-center justify-center">
+            {data.eventTags.map((tag, index) => (
+              <Text
+                key={index}
+                className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
+              >
+                {tag}
+              </Text>
+            ))}
+          </View>
 
-          {data.statusId === 1 && <RatingEvent rating={data.statusId} />}
+          {/* {data.statusId === 1 && <RatingEvent rating={data.statusId} />} */}
 
           <View className="bg-white w-full rounded-[24px] p-4 mt-4">
             <Text className="font-bold text-[17px] mb-2"> Giới thiệu</Text>

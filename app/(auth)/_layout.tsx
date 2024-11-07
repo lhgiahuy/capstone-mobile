@@ -18,6 +18,12 @@ export default function AuthRoutesLayout() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="all-done"
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack>
 
       {/* <Loader isLoading={loading} />
