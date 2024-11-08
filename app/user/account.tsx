@@ -76,7 +76,7 @@ export default function Account() {
               className=""
             />
             <Text className="text-white text-[18px] font-bold text-center ml-2 ">
-              Vị trí
+              Thông tin cá nhân
             </Text>
           </View>
           <Ionicons name="chevron-forward-outline" color={"white"} size={30} />

@@ -25,3 +25,15 @@ export interface EventData {
   isRegistered: boolean | null;
   eventTags: string[];
 }
+
+export interface Rating {
+  avgRate: number;
+}
+
+export interface ButtonProps {
+  eventId: string;
+}
+export interface ButtonRegisterProps {
+  eventId: string;
+  register: boolean | null;
+}

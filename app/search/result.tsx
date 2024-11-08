@@ -88,7 +88,7 @@ export default function Result() {
             onPress={() => router.push(`/events/${event?.eventId}`)}
           >
             <Image
-              source={require("@/assets/images/fcode.png")}
+              source={{ uri: event.posterImg }}
               className="h-[240px] w-[160px] rounded-[16px]"
             />
             <View className="mt-6 h-[60px] w-[204px]  items-center ">
@@ -114,7 +114,7 @@ export default function Result() {
                 FPT University HCM đang nóng lên từng ngày trước thềm Lễ Tôn
                 Vinh Top 100 Sinh Viên Xuất Sắc
               </Text>
-              <View className="flex-row mt-2">
+              {/* <View className="flex-row mt-2">
                 {event.eventTags.map((tag, index) => (
                   <Text
                     key={index}
@@ -123,7 +123,7 @@ export default function Result() {
                     {tag}
                   </Text>
                 ))}
-              </View>
+              </View> */}
               <View className="flex-row justify-center items-center mt-2">
                 <Text className="text-[#CAFF4C] font-bold text-[16px] ">
                   Xem chi tiết
