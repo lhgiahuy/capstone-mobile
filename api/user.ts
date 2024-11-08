@@ -1,13 +1,10 @@
 import { Password, User } from "@/constants/model/User";
 import { api } from "@/lib/axios";
 import * as SecureStore from "expo-secure-store";
-
-// export const Token = async()=>{
-//   const token = await SecureStore.getItemAsync("authToken");
-// }
+import { getAuthToken } from "./auth";
 
 export const getUser = async () => {
-  const token = await SecureStore.getItemAsync("authToken");
+  const token = await getAuthToken();
   console.log("day la token:", token);
 
   if (!token) {
@@ -23,7 +20,7 @@ export const getUser = async () => {
 };
 
 export const updateUser = async (userData: Partial<User>) => {
-  const token = await SecureStore.getItemAsync("authToken");
+  const token = await getAuthToken();
   console.log("day la token:", token);
 
   if (!token) {
@@ -39,7 +36,7 @@ export const updateUser = async (userData: Partial<User>) => {
 };
 
 export const changePassword = async (Password: Partial<Password>) => {
-  const token = await SecureStore.getItemAsync("authToken");
+  const token = await getAuthToken();
   console.log("day la token:", token);
 
   if (!token) {
@@ -55,13 +52,28 @@ export const changePassword = async (Password: Partial<Password>) => {
 };
 
 export const getNotifications = async () => {
-  const token = await SecureStore.getItemAsync("authToken");
+  const token = await getAuthToken();
 
   if (!token) {
     throw new Error("No authentication token found");
   }
 
   const response = await api.get(`/users/notifications`, {
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const getUserParticipant = async () => {
+  const token = await getAuthToken();
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.get(`/users/participant`, {
     headers: {
       Cookie: `authCookie=${token}`,
     },

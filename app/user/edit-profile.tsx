@@ -4,14 +4,12 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { getUser, updateUser } from "@/api/user";
 import { User } from "@/constants/model/User";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import UpdateModal from "@/components/User/UpdateModal";
 import Avatar from "@/components/User/Avatar";
 
 export default function EditProfile() {
-  // const queryClient = useQueryClient();
-
   const {
     data: user,
     isLoading,
@@ -25,12 +23,15 @@ export default function EditProfile() {
   const [userName, setUserName] = useState(user?.username || "");
   const [avatarUrl, setavatarUrl] = useState(user?.avatarUrl || "");
   const [modalVisible, setModalVisible] = useState(false);
-
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (updatedUser: Partial<User>) => updateUser(updatedUser),
     onSuccess: (data) => {
       setModalVisible(true);
       console.log("User updated profile successfully:", data);
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
 
       // queryClient.setQueryData<User>(["user"], (oldData: User | undefined) => {
       //   if (oldData) {

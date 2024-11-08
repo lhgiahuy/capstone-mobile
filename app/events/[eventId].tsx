@@ -4,20 +4,20 @@ import {
   ActivityIndicator,
   Image,
   ScrollView,
-  TouchableOpacity,
   Pressable,
   SafeAreaView,
 } from "react-native";
 import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-// import RatingEvent from "@/components/DetailEvent/RatingEvent";
+import RatingEvent from "@/components/DetailEvent/RatingEvent";
 import Comment from "@/components/DetailEvent/Comment";
 import { getEventById } from "@/api/event";
 import { EventData } from "@/constants/model/EventDetail";
+import SubscribeButton from "@/components/DetailEvent/SubscribeButton";
+// import RenderHtml from "react-native-render-html";
 
 export default function DetailEvent() {
   const { eventId } = useLocalSearchParams();
@@ -45,7 +45,14 @@ export default function DetailEvent() {
       </SafeAreaView>
     );
   }
-  if (error) return <Text>Error loading event details</Text>;
+  if (error) {
+    return (
+      <SafeAreaView className="bg-primary h-full justify-center items-center">
+        <ActivityIndicator size="large" color="#CAFF4C" />
+        <Text className="text-white mt-2">Đang tải sự kiện...</Text>
+      </SafeAreaView>
+    );
+  }
 
   if (!data) {
     return (
@@ -70,12 +77,11 @@ export default function DetailEvent() {
           className=" items-center "
         >
           <Image
-            //  source={{ uri: data.imageUrl }}
-            source={require("../../assets/images/special1.png")}
-            className="h-[240px] w-[330px] rounded-[20px] mt-6 opacity-75"
+            source={{ uri: data.posterImg }}
+            className="h-[260px] w-[330px] rounded-[20px] mt-6 opacity-75"
           />
 
-          <Text className="text-[#CAFF4C] font-bold text-[24px] mt-2">
+          <Text className="text-[#CAFF4C] font-bold text-[22px] mt-2 text-center mx-2">
             {data.eventName}
           </Text>
           <View className="flex-row mt-4">
@@ -88,26 +94,36 @@ export default function DetailEvent() {
             <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
             <Text className="text-white ml-2">{data.location}</Text>
           </View>
-          <View className="flex-row mt-2 items-center justify-center">
-            {data.eventTags.map((tag, index) => (
-              <Text
-                key={index}
-                className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
-              >
-                {tag}
-              </Text>
-            ))}
-          </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingHorizontal: 16, gap: 16 }}
+          >
+            <View className="flex-row mt-3 items-center justify-center">
+              {data.eventTags.map((tag, index) => (
+                <Text
+                  key={index}
+                  className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
+                >
+                  {tag}
+                </Text>
+              ))}
+            </View>
+          </ScrollView>
 
-          {/* {data.statusId === 1 && <RatingEvent rating={data.statusId} />} */}
+          <RatingEvent eventId={data.eventId} />
 
           <View className="bg-white w-full rounded-[24px] p-4 mt-4">
             <Text className="font-bold text-[17px] mb-2"> Giới thiệu</Text>
             <Text> {data.description}</Text>
+            {/* <RenderHtml
+              source={{ html: data.description }}
+              contentWidth={500}
+            /> */}
           </View>
           <View className="bg-white w-full rounded-[24px] p-4 mt-4 mb-2">
             <Text className="font-bold text-[17px] mb-2">Ban tổ chức</Text>
-            <View className="flex-row">
+            <View className="flex-row justify-center items-center">
               <Pressable onPress={() => router.push("/organizer/infor")}>
                 <Image
                   source={require("../../assets/images/fpt.png")}
@@ -115,23 +131,19 @@ export default function DetailEvent() {
                 />
               </Pressable>
 
-              <Text className="ml-4 mt-5"> {data.organizerName}</Text>
+              <Text className="ml-6 font-pacifo w-[120px] text-center text-[20px]">
+                {data.organizerName}
+              </Text>
             </View>
           </View>
           <Comment />
         </LinearGradient>
       </ScrollView>
 
-      <TouchableOpacity
-        className="align-middle bg-[#CAFF4C]  w-[320px] h-[50px] rounded-[18px] items-center justify-center"
-        style={{
-          position: "absolute",
-          bottom: 10,
-          alignSelf: "center",
-        }}
-      >
-        <Text className="text-black text-[20px] font-bold ">Đăng ký</Text>
-      </TouchableOpacity>
+      <SubscribeButton
+        eventId={eventId as string}
+        register={data.isRegistered}
+      />
     </View>
   );
 }

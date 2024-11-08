@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 const Chat = () => {
   return (
-    <View>
+    <View className="flex-1 bg-black">
       <Text>Chat box</Text>
     </View>
   );

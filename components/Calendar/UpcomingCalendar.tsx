@@ -13,6 +13,7 @@ interface DayObject {
 
 export default function UpcomingCalendar() {
   const [selected, setSelected] = useState<string>("");
+
   console.log(selected);
   return (
     <View className="flex-1 p-2 bg-black ">

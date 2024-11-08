@@ -1,5 +1,7 @@
+import { Register } from "@/constants/model/User";
 import { Ionicons } from "@expo/vector-icons";
-
+import { useMutation } from "@tanstack/react-query";
+import { userRegister } from "@/api/auth";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
@@ -10,8 +12,36 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const [phoneNumber, setPhoneNumber] = useState("");
-  // const [role, setRole] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const mutation = useMutation({
+    mutationFn: (registerData: Partial<Register>) => userRegister(registerData),
+    onSuccess: (data) => {
+      console.log("User registered successfully:", data);
+      router.push("/all-done");
+
+      setTimeout(() => {
+        router.push("/sign-in");
+      }, 3000);
+    },
+    onError: (error) => {
+      console.error("Failed to update user:", error);
+    },
+  });
+  const handleRegister = () => {
+    if (password === confirmPassword) {
+      mutation.mutate({
+        username,
+        email,
+        password,
+        phoneNumber,
+        role: "student",
+      });
+    } else {
+      console.error("Mật khẩu không đúng với xác nhận mật khẩu");
+    }
+  };
+
   return (
     <View className="bg-[#CAFF4C] flex-1 justify-center  ">
       <View className="h-[30%] justify-center ml-4">
@@ -53,6 +83,16 @@ const SignUp = () => {
           />
         </View>
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
+          <Ionicons name="call-outline" size={20} color={"white"} />
+          <TextInput
+            className=" text-white ml-2  w-[250px]"
+            placeholder="Số điện thoại"
+            placeholderTextColor="white"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+          />
+        </View>
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px]"
@@ -70,6 +110,7 @@ const SignUp = () => {
             className=" text-white ml-2  w-[250px]"
             placeholder="Xác nhận mật khẩu"
             placeholderTextColor="white"
+            secureTextEntry
             value={confirmPassword}
             onChangeText={setConfirmPassword}
           />
@@ -77,8 +118,7 @@ const SignUp = () => {
 
         <TouchableOpacity
           className="bg-[#CAFF4C] py-4 rounded-[32px] mt-4 w-[220px]  items-center justify-center"
-          // onPress={handleLogin}
-          onPress={() => router.push("/all-done")}
+          onPress={handleRegister}
         >
           <Text className="text-[#374E00] font-bold text-[20px]">Đăng kí</Text>
         </TouchableOpacity>

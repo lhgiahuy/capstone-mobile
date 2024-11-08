@@ -6,7 +6,7 @@ export default function EndedEvent() {
   return (
     <ScrollView className="bg-primary flex-1 mx-2 ">
       <Text className="text-[#CAFF4C] text-[19px] font-bold mt-7 ">
-        Sự kiện đã diễn ra
+        Sự kiện bạn đã tham gia
       </Text>
       <Text className="text-white text-[15px] my-4 font-bold">
         THÁNG 8,2024

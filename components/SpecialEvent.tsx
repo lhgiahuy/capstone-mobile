@@ -45,10 +45,14 @@ export default function SpecialEvent() {
           >
             <Image
               // source={{ uri: event.imageUrl }}
-              source={require("../assets/images/special1.png")}
+              source={{ uri: event.posterImg }}
               className="h-[320px] w-[208px] rounded-[16px]"
             />
-            <Text className="text-white text-center mt-2">
+            <Text
+              className="text-white text-center mt-2 w-[200px]"
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
               {event.eventName}
             </Text>
           </TouchableOpacity>

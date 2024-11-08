@@ -1,14 +1,13 @@
 import { Register } from "@/constants/model/User";
 import { api } from "@/lib/axios";
-// import * as SecureStore from "expo-secure-store";
-//   const token = await SecureStore.getItemAsync("authToken");
-//   console.log("day la token:", token);
+import * as SecureStore from "expo-secure-store";
 
-//   if (!token) {
-//     throw new Error("No authentication token found");
-//   }
+export const getAuthToken = async (): Promise<string | null> => {
+  const token = await SecureStore.getItemAsync("authToken");
+  return token;
+};
 
-export const UserRegister = async (userData: Partial<Register>) => {
+export const userRegister = async (userData: Partial<Register>) => {
   const response = await api.post(`users/register`, userData);
   return response.data;
 };
