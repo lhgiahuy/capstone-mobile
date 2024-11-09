@@ -45,7 +45,7 @@ export default function SpecialEvent() {
           >
             <Image
               // source={{ uri: event.imageUrl }}
-              source={{ uri: event.posterImg }}
+              source={{ uri: event.thumbnailImg }}
               className="h-[320px] w-[208px] rounded-[16px]"
             />
             <Text

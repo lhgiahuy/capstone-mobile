@@ -1,26 +1,44 @@
 import { View, Text, Image, ImageBackground } from "react-native";
 import React from "react";
+import { NavOrganizerProps } from "@/constants/model/Organizer";
 // import { LinearGradient } from "expo-linear-gradient";
+import { useQuery } from "@tanstack/react-query";
+import { Organizer } from "@/constants/model/Organizer";
+import { getOrganizer } from "@/api/organizer";
 
-export default function BannerOrganizer() {
+export default function BannerOrganizer({ organizerId }: NavOrganizerProps) {
+  console.log(organizerId);
+
+  const { data, isLoading, error } = useQuery<Organizer, Error>({
+    queryKey: ["organizer", organizerId],
+    queryFn: () => getOrganizer(organizerId as string),
+  });
+
   return (
-    <View className="bg-white h-[330px] w-[342px] mt-4 mx-2 rounded-[30px] items-center">
+    <View className="bg-white h-[360px]  mt-4 mx-2 rounded-[30px] items-center">
       <Image
         source={require("../../assets/images/banner2.png")}
-        className="h-[240px] w-[342px] rounded-[26px] "
+        // source={{ uri: data.cardUrl }}
+        className="h-[248px] w-[346px] rounded-[26px] "
       />
 
       <View className="flex-row">
         <View className="bg-gray-100 translate-y-[-60px] p-2  ml-2 rounded-[70px] justify-center items-center">
           <Image
             source={require("@/assets/images/logo2.png")}
-            className="h-[120px] w-[120px] rounded-[60px] "
+            // source={{ uri: data.avatarUrl }}
+            className="h-[132px] w-[132px] rounded-[70px] "
           />
         </View>
 
-        <Text className="text-[#228B22] w-[180px] ml-2 text-[16px] my-4 font-bold mx-2">
-          Phòng CTSV FPT University Campus HCM
-        </Text>
+        <View className="w-[180px] ml-2  my-4 mx-2">
+          <Text className="text-[#228B22]  text-[16px] font-pacifo  text-center">
+            {data?.username}
+          </Text>
+          <Text className="text-[#228B22]  text-[16px]  font-itim text-center">
+            {data?.email}
+          </Text>
+        </View>
       </View>
     </View>
   );

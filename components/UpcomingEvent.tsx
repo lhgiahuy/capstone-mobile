@@ -52,7 +52,7 @@ export default function UpcomingEvent() {
             onPress={() => router.push(`/events/${event.eventId}`)}
           >
             <Image
-              source={{ uri: event.posterImg }}
+              source={{ uri: event.thumbnailImg }}
               className="h-[140px] w-[224px] rounded-[20px]"
             />
 

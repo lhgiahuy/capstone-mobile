@@ -6,6 +6,8 @@ import {
   ScrollView,
   Pressable,
   SafeAreaView,
+  Alert,
+  Dimensions,
 } from "react-native";
 import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
@@ -17,6 +19,7 @@ import Comment from "@/components/DetailEvent/Comment";
 import { getEventById } from "@/api/event";
 import { EventData } from "@/constants/model/EventDetail";
 import SubscribeButton from "@/components/DetailEvent/SubscribeButton";
+import HTMLView from "react-native-htmlview";
 // import RenderHtml from "react-native-render-html";
 
 export default function DetailEvent() {
@@ -65,6 +68,18 @@ export default function DetailEvent() {
     );
   }
 
+  const NavInforOrganizer = (organizerId: string) => {
+    if (!organizerId) {
+      Alert.alert("Thông báo", "Không tìm thấy thông tin tổ chức.");
+    } else {
+      router.push({
+        pathname: "/organizer/infor",
+        params: { organizerId: organizerId },
+      });
+    }
+  };
+  // const contentWidth = Dimensions.get("window").width;
+
   return (
     <View className="flex-1 bg-primary">
       <ScrollView contentContainerStyle={{ paddingBottom: 62 }}>
@@ -77,10 +92,9 @@ export default function DetailEvent() {
           className=" items-center "
         >
           <Image
-            source={{ uri: data.posterImg }}
+            source={{ uri: data.thumbnailImg }}
             className="h-[260px] w-[330px] rounded-[20px] mt-6 opacity-75"
           />
-
           <Text className="text-[#CAFF4C] font-bold text-[22px] mt-2 text-center mx-2">
             {data.eventName}
           </Text>
@@ -110,21 +124,21 @@ export default function DetailEvent() {
               ))}
             </View>
           </ScrollView>
-
           <RatingEvent eventId={data.eventId} />
-
           <View className="bg-white w-full rounded-[24px] p-4 mt-4">
             <Text className="font-bold text-[17px] mb-2"> Giới thiệu</Text>
-            <Text> {data.description}</Text>
+            {/* <Text> {data.description}</Text> */}
             {/* <RenderHtml
-              source={{ html: data.description }}
-              contentWidth={500}
+              source={{ html: data?.description }}
+              contentWidth={contentWidth}
             /> */}
+            <HTMLView value={data.description} />
           </View>
+
           <View className="bg-white w-full rounded-[24px] p-4 mt-4 mb-2">
             <Text className="font-bold text-[17px] mb-2">Ban tổ chức</Text>
             <View className="flex-row justify-center items-center">
-              <Pressable onPress={() => router.push("/organizer/infor")}>
+              <Pressable onPress={() => NavInforOrganizer(data.organizerId)}>
                 <Image
                   source={require("../../assets/images/fpt.png")}
                   className="h-[60px] w-[140px] rounded-[40px]"
