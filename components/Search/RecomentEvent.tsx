@@ -58,7 +58,7 @@ export default function RecomentEvent() {
             onPress={() => router.push(`/events/${event.eventId}`)}
           >
             <Image
-              source={require("../../assets/images/voucher.png")}
+              source={{ uri: event.thumbnailImg }}
               className="h-[140px] w-[224px] rounded-[20px]"
             />
 

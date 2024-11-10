@@ -1,6 +1,6 @@
 import { Password, User } from "@/constants/model/User";
 import { api } from "@/lib/axios";
-import * as SecureStore from "expo-secure-store";
+
 import { getAuthToken } from "./auth";
 
 export const getUser = async () => {

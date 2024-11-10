@@ -7,12 +7,19 @@ import Nav from "@/components/Organizer/Nav";
 import Ended from "@/components/Organizer/Ended";
 import Upcoming from "@/components/Organizer/Upcoming";
 
+import { useLocalSearchParams } from "expo-router";
+import Ongoing from "@/components/Organizer/Ongoing";
+
 export default function Infor() {
-  const [selectedTab, setSelectedTab] = useState<"upcoming" | "ended">(
-    "upcoming"
-  );
+  const { organizerId } = useLocalSearchParams();
+  console.log(organizerId);
+
+  const [selectedTab, setSelectedTab] = useState<
+    "upcoming" | "ended" | "ongoing"
+  >("upcoming");
+
   return (
-    <View className="flex-1 bg-black">
+    <View className="flex-1 bg-black ">
       <ScrollView>
         <LinearGradient
           colors={["#2B2B2B", "#A8E063", "#000000"]}
@@ -21,10 +28,19 @@ export default function Infor() {
           end={{ x: 0, y: 1 }}
           className="flex-1"
         >
-          <BannerOrganizer />
+          <BannerOrganizer organizerId={organizerId as string} />
           <Nav selectedTab={selectedTab} onSelectTab={setSelectedTab} />
           <View className="flex-1  ">
-            {selectedTab === "upcoming" ? <Upcoming /> : <Ended />}
+            {selectedTab === "upcoming" && (
+              <Upcoming organizerId={organizerId as string} />
+            )}
+
+            {selectedTab === "ongoing" && (
+              <Ongoing organizerId={organizerId as string} />
+            )}
+            {selectedTab === "ended" && (
+              <Ended organizerId={organizerId as string} />
+            )}
           </View>
         </LinearGradient>
       </ScrollView>

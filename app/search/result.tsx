@@ -81,17 +81,16 @@ export default function Result() {
     <SafeAreaView className="flex-1 bg-primary h-full">
       <ScrollView>
         {data?.items?.map((event) => (
-          <TouchableOpacity
+          <View
             // className="h-[220px] justify-center my-2 p-2 border-line border-[1px]"
-            className="flex-row w-full h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black"
+            className="flex-row w-full h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black mt-2"
             key={event?.eventId}
-            onPress={() => router.push(`/events/${event?.eventId}`)}
           >
             <Image
-              source={{ uri: event.posterImg }}
+              source={{ uri: event.thumbnailImg }}
               className="h-[240px] w-[160px] rounded-[16px]"
             />
-            <View className="mt-6 h-[60px] w-[204px]  items-center ">
+            <View className="p-2 h-[60px] w-[204px]  items-center text-center ">
               <Text
                 className="text-white w-[160px] font-bold text-[18px]"
                 numberOfLines={2}
@@ -106,13 +105,18 @@ export default function Result() {
                 </Text>
               </View>
 
+              <View className="flex-row mt-4">
+                <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
+                <Text className="text-white ml-2 w-[120px] text-center">
+                  {event.location}
+                </Text>
+              </View>
               <Text
                 className="text-white h-[60px] mt-4 text-[14px] mx-2 overflow-hidden text-ellipsis whitespace-nowrap"
                 numberOfLines={3}
                 ellipsizeMode="tail"
               >
-                FPT University HCM đang nóng lên từng ngày trước thềm Lễ Tôn
-                Vinh Top 100 Sinh Viên Xuất Sắc
+                {event?.description}
               </Text>
               {/* <View className="flex-row mt-2">
                 {event.eventTags.map((tag, index) => (
@@ -124,7 +128,10 @@ export default function Result() {
                   </Text>
                 ))}
               </View> */}
-              <View className="flex-row justify-center items-center mt-2">
+              <TouchableOpacity
+                className="flex-row justify-center items-center mt-2"
+                onPress={() => router.push(`/events/${event?.eventId}`)}
+              >
                 <Text className="text-[#CAFF4C] font-bold text-[16px] ">
                   Xem chi tiết
                 </Text>
@@ -133,11 +140,11 @@ export default function Result() {
                   color={"#CAFF4C"}
                   size={20}
                 />
-              </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+          </View>
         ))}
-        <View className="flex-row justify-between p-4">
+        <View className="flex-row justify-between p-4 mt-4">
           <Text className="text-white font-bold text-[16px]">
             Trang {data.pageNumber || 1} / {data.totalPages || 1}
           </Text>

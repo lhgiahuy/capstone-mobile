@@ -17,6 +17,7 @@ export interface EventData {
   passwordMeeting: string;
   maxAttendees: number;
   processNote: string;
+  organizerId: string;
   organizerName: string;
   eventTypeName: string;
   posterImg: string;

@@ -15,7 +15,7 @@ import { getEventOfOrganizer } from "@/api/organizer";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 
-export default function Upcoming({ organizerId }: NavOrganizerProps) {
+export default function Ongoing({ organizerId }: NavOrganizerProps) {
   const { data, isLoading, error } = useQuery<EventData[], Error>({
     queryKey: ["event-organizer", organizerId],
     queryFn: () => getEventOfOrganizer(organizerId as string),
