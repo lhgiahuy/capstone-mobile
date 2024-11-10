@@ -4,9 +4,10 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Password } from "@/constants/model/User";
 import { useMutation } from "@tanstack/react-query";
 import { changePassword } from "@/api/user";
-import UpdateModal from "@/components/User/UpdateModal";
+
 import { Ionicons } from "@expo/vector-icons";
 import { AxiosError } from "axios";
+import SuccessModal from "@/components/User/SuccessModal";
 
 export default function ChangePassword() {
   // const {
@@ -137,9 +138,10 @@ export default function ChangePassword() {
             <Text className="text-[#214C53] text-[18px]">Lưu thay đổi</Text>
           </TouchableOpacity>
         </View>
-        <UpdateModal
+        <SuccessModal
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
+          message="Mật khẩu của bạn đã được cập nhật thành công!"
         />
       </SafeAreaView>
     </SafeAreaProvider>

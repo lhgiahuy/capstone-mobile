@@ -51,10 +51,10 @@ export default function Notify() {
   }
 
   return (
-    <ScrollView className="flex-1 bg-[#d8f3f3] opacity-70">
+    <ScrollView className="flex-1 bg-[#d8f3f3] opacity-70 mx-1">
       {notification?.map((notify) => (
         <View
-          className="bg-white h-[140px] w-full  rounded-[20px] justify-center mt-2 p-2 border-[1px] "
+          className="bg-white  w-full  rounded-[20px] justify-center mt-2 p-2 border-[1px] "
           key={notify.notiId}
         >
           <View className="mt-2 mx-2 flex-row w-[320px]  items-center ">
@@ -71,9 +71,7 @@ export default function Notify() {
             <Text className="w-[40%] ">{formatDateTime(notify.sendTime)}</Text>
           </View>
 
-          <Text className="mx-2 mb-2 w-[320px] h-[60px] p-2 ">
-            {notify.message}
-          </Text>
+          <Text className="mx-2 mb-2 w-[320px] p-2 ">{notify.message}</Text>
 
           <TouchableOpacity className="  py-2 rounded-md items-center w-auto flex-row ml-6 ">
             <Ionicons name="checkmark-outline" size={18} color={"#22d334d2"} />

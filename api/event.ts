@@ -1,6 +1,6 @@
 import { api } from "@/lib/axios";
 import { getAuthToken } from "./auth";
-
+import { Review } from "@/constants/model/Comment";
 export const getEventById = async (eventId: string) => {
   const response = await api.get(`/events/${eventId}`);
   return response.data;
@@ -56,6 +56,62 @@ export const EventUnregister = async (eventId: string) => {
   }
 
   const response = await api.delete(`/events/${eventId}/unregister`, {
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const getListComment = async (eventId: string) => {
+  const token = await getAuthToken();
+  console.log("day la token:", token);
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.get(`/events/${eventId}/comments`, {
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const postReviewEvent = async (review: Review) => {
+  const token = await getAuthToken();
+  console.log("Authentication token:", token);
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.post(
+    `/events/${review.eventId}/reviews`,
+    {
+      rating: review.rating,
+      comment: review.comment,
+    },
+    {
+      headers: {
+        Cookie: `authCookie=${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};
+
+export const getListReview = async (eventId: string) => {
+  const token = await getAuthToken();
+  console.log("day la token:", token);
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.get(`/events/${eventId}/reviews`, {
     headers: {
       Cookie: `authCookie=${token}`,
     },

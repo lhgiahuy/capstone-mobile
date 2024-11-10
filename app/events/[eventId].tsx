@@ -7,9 +7,9 @@ import {
   Pressable,
   SafeAreaView,
   Alert,
-  Dimensions,
+  TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { LinearGradient } from "expo-linear-gradient";
@@ -24,6 +24,7 @@ import HTMLView from "react-native-htmlview";
 
 export default function DetailEvent() {
   const { eventId } = useLocalSearchParams();
+
   const { data, isLoading, error } = useQuery<EventData, Error>({
     queryKey: ["events", eventId],
     queryFn: () => getEventById(eventId as string),
@@ -75,6 +76,17 @@ export default function DetailEvent() {
       router.push({
         pathname: "/organizer/infor",
         params: { organizerId: organizerId },
+      });
+    }
+  };
+
+  const NavReview = (eventId: string) => {
+    if (!eventId) {
+      Alert.alert("Thông báo", "Không tìm thấy thông tin tổ chức.");
+    } else {
+      router.push({
+        pathname: "/events/review",
+        params: { eventId: eventId },
       });
     }
   };
@@ -135,7 +147,7 @@ export default function DetailEvent() {
             <HTMLView value={data.description} />
           </View>
 
-          <View className="bg-white w-full rounded-[24px] p-4 mt-4 mb-2">
+          <View className="bg-white w-full rounded-[24px] p-4 mt-4">
             <Text className="font-bold text-[17px] mb-2">Ban tổ chức</Text>
             <View className="flex-row justify-center items-center">
               <Pressable onPress={() => NavInforOrganizer(data.organizerId)}>
@@ -150,7 +162,15 @@ export default function DetailEvent() {
               </Text>
             </View>
           </View>
-          <Comment />
+
+          <TouchableOpacity
+            className="bg-white rounded-[24px] p-2 mt-4 mb-2 w-full"
+            onPress={() => NavReview(data.eventId)}
+          >
+            <Text className="font-bold text-center text-[18px]">
+              Viết đánh giá{" "}
+            </Text>
+          </TouchableOpacity>
         </LinearGradient>
       </ScrollView>
 
