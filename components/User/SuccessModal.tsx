@@ -2,12 +2,17 @@ import { View, Text, TouchableOpacity, Modal } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-interface UpdateModalProps {
+interface SuccessModalProps {
   visible: boolean;
   onClose: () => void;
+  message: string;
 }
 
-export default function UpdateModal({ visible, onClose }: UpdateModalProps) {
+export default function SuccessModal({
+  visible,
+  onClose,
+  message,
+}: SuccessModalProps) {
   return (
     <Modal
       animationType="fade"
@@ -25,7 +30,7 @@ export default function UpdateModal({ visible, onClose }: UpdateModalProps) {
           </View>
 
           <Text className="text-base text-center text-gray-700 mb-4">
-            Thông tin của bạn đã được cập nhật thành công.
+            {message}
           </Text>
           <TouchableOpacity
             className="bg-[#CAFF4C] rounded-full py-2 px-6"

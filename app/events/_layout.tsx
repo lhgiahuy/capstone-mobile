@@ -38,6 +38,38 @@ export default function EventLayout() {
             },
           }}
         />
+        <Stack.Screen
+          name="review"
+          options={{
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[18px] text-[#000]">
+                  Chia sẻ trải nghiệm
+                </Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#CAFF4C",
+            },
+          }}
+        />
+        <Stack.Screen
+          name="list-review"
+          options={{
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[18px] text-[#000]">
+                  Danh sách chia sẻ
+                </Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#CAFF4C",
+            },
+          }}
+        />
       </Stack>
     </>
   );

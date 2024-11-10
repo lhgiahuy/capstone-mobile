@@ -6,8 +6,8 @@ import { getUser, updateUser } from "@/api/user";
 import { User } from "@/constants/model/User";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import UpdateModal from "@/components/User/UpdateModal";
 import Avatar from "@/components/User/Avatar";
+import SuccessModal from "@/components/User/SuccessModal";
 
 export default function EditProfile() {
   const {
@@ -102,9 +102,10 @@ export default function EditProfile() {
             <Text className="text-[#214C53] text-[18px]">Lưu thay đổi</Text>
           </TouchableOpacity>
         </View>
-        <UpdateModal
+        <SuccessModal
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
+          message=" Thông tin của bạn đã được cập nhật thành công!"
         />
       </SafeAreaView>
     </SafeAreaProvider>
