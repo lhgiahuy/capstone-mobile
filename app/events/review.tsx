@@ -6,8 +6,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postReviewEvent } from "@/api/event";
 import { useLocalSearchParams } from "expo-router";
 
-import ReviewModal from "@/components/User/ReviewModal";
-import ErrorModal from "@/components/ErrorModal";
+import ReviewModal from "@/components/Modal/ReviewModal";
+import ErrorModal from "@/components/Modal/ErrorModal";
 
 export default function ReviewEvent() {
   const { eventId } = useLocalSearchParams();

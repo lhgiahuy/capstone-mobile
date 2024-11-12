@@ -1,14 +1,13 @@
 import { View, Text, TouchableOpacity, Modal } from "react-native";
 import React, { useState } from "react";
 import { ButtonRegisterProps } from "@/constants/model/EventDetail";
-import {
-  QueryClient,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { EventRegister, EventUnregister } from "@/api/event";
-import SubscibeModal from "./SubscibeModal";
+import SubscibeModal from "../Modal/SubscibeModal";
 import UnsubscribeModal from "./UnsubscribeModal";
+import { getUser } from "@/api/user";
+import { User } from "@/constants/model/User";
+import VerifyModal from "../Modal/VerifyModal";
 
 export default function SubscribeButton({
   eventId,
@@ -16,9 +15,15 @@ export default function SubscribeButton({
 }: ButtonRegisterProps) {
   const [register, setRegister] = useState<boolean | null>(initialRegister);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isVerifyAlertVisible, setVerifyAlertVisible] = useState(false);
   const [isConfirmUnregisterVisible, setConfirmUnregisterVisible] =
     useState(false);
   const queryClient = useQueryClient();
+
+  const { data: user } = useQuery<User>({
+    queryKey: ["user"],
+    queryFn: getUser,
+  });
 
   const registerMutation = useMutation({
     mutationFn: (eventId: string) => EventRegister(eventId),
@@ -50,6 +55,12 @@ export default function SubscribeButton({
   });
 
   const handleSubscribe = () => {
+    // check verify
+    if (user?.verifyStatus !== "Verified") {
+      setVerifyAlertVisible(true);
+      return;
+    }
+
     if (!register) {
       registerMutation.mutate(eventId);
     } else {
@@ -75,6 +86,12 @@ export default function SubscribeButton({
           {register ? "Đã đăng ký" : "Đăng ký"}
         </Text>
       </TouchableOpacity>
+
+      <VerifyModal
+        visible={isVerifyAlertVisible}
+        onClose={() => setVerifyAlertVisible(false)}
+        message="Vui lòng xác thực tài khoản để đăng ký sự kiện"
+      />
 
       <SubscibeModal
         visible={isModalVisible}

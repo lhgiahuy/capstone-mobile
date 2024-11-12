@@ -7,7 +7,7 @@ import { changePassword } from "@/api/user";
 
 import { Ionicons } from "@expo/vector-icons";
 import { AxiosError } from "axios";
-import SuccessModal from "@/components/User/SuccessModal";
+import SuccessModal from "@/components/Modal/SuccessModal";
 
 export default function ChangePassword() {
   // const {

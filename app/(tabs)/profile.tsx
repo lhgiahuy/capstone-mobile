@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, ActivityIndicator } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import VerifyInfo from "@/components/User/VerifyInfo";
 import Setting from "@/components/User/Setting";
 
@@ -17,7 +17,11 @@ export default function Profile() {
     queryKey: ["user"],
     queryFn: getUser,
   });
+  const [avatarUrl, setAvatarUrl] = useState(user?.avatarUrl || "");
 
+  const handleAvatarChange = (url: string) => {
+    setAvatarUrl(url);
+  };
   if (isLoading) return <ActivityIndicator size="large" />;
 
   if (error) {
@@ -33,7 +37,7 @@ export default function Profile() {
   return (
     <ScrollView className="flex-1 bg-primary ">
       <View className="flex-1  items-center mb-2">
-        <Avatar />
+        <Avatar onAvatarChange={handleAvatarChange} />
         <Text className=" text-white text-[18px] font-bold w-[260px] h-auto text-center mt-2 ">
           {user?.username}
         </Text>
