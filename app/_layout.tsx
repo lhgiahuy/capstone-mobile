@@ -8,6 +8,7 @@ import { Text, View } from "react-native";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import * as SecureStore from "expo-secure-store";
+import Toast from "react-native-toast-message";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -99,6 +100,7 @@ export default function RootLayout() {
           </Stack>
         </QueryClientProvider>
       </ClerkLoaded>
+      <Toast />
     </ClerkProvider>
   );
 }

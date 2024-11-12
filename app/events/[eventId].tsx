@@ -168,7 +168,7 @@ export default function DetailEvent() {
             onPress={() => NavReview(data.eventId)}
           >
             <Text className="font-bold text-center text-[18px]">
-              Viết đánh giá{" "}
+              Viết đánh giá
             </Text>
           </TouchableOpacity>
         </LinearGradient>

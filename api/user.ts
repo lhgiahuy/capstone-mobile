@@ -1,4 +1,4 @@
-import { Password, User } from "@/constants/model/User";
+import { InforUser, Password } from "@/constants/model/User";
 import { api } from "@/lib/axios";
 
 import { getAuthToken } from "./auth";
@@ -19,7 +19,7 @@ export const getUser = async () => {
   return response.data;
 };
 
-export const updateUser = async (userData: Partial<User>) => {
+export const updateUser = async (userData: Partial<InforUser>) => {
   const token = await getAuthToken();
   console.log("day la token:", token);
 

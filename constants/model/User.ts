@@ -3,13 +3,10 @@ export interface User {
   username: string;
   avatarUrl: string;
   email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  verifyStatus: string;
   phoneNumber: string;
   cardUrl: string;
   roleName: string;
-  campus: string;
 }
 
 export interface Register {
@@ -20,7 +17,19 @@ export interface Register {
   role: string;
 }
 
+// For change pasword
 export interface Password {
   oldPassword: string;
   newPassword: string;
+}
+
+// For update frofile
+export interface InforUser {
+  username: string;
+  avatarUrl: string;
+  phoneNumber: string;
+}
+
+export interface FptCard {
+  cardUrl: string;
 }

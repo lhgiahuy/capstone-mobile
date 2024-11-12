@@ -6,6 +6,7 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Toast from "react-native-toast-message";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -13,11 +14,26 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const mutation = useMutation({
     mutationFn: (registerData: Partial<Register>) => userRegister(registerData),
     onSuccess: (data) => {
       console.log("User registered successfully:", data);
+      Toast.show({
+        type: "success",
+        text1: "Đăng kí tài khoản thành công",
+        text2: "Vui lòng kiểm tra email để kích hoạt tài khoản!",
+        visibilityTime: 5000,
+        text1Style: {
+          fontSize: 18,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
       router.push("/all-done");
 
       setTimeout(() => {
@@ -29,17 +45,77 @@ const SignUp = () => {
     },
   });
   const handleRegister = () => {
-    if (password === confirmPassword) {
-      mutation.mutate({
-        username,
-        email,
-        password,
-        phoneNumber,
-        role: "student",
+    if (!username || !email || !password || !confirmPassword || !phoneNumber) {
+      Toast.show({
+        type: "error",
+        text1: "Lỗi",
+        text2: "Vui lòng điền đầy đủ thông tin!",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
       });
-    } else {
-      console.error("Mật khẩu không đúng với xác nhận mật khẩu");
+      return;
     }
+    // validate phonenumber
+    if (phoneNumber.length !== 10) {
+      Toast.show({
+        type: "error",
+        text1: "Lỗi",
+        text2: "Số điện thoại phải có 10 số!",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
+      return;
+    }
+    // validate password
+    if (password.length < 8) {
+      Toast.show({
+        type: "error",
+        text1: "Lỗi",
+        text2: "Mật khẩu phải có ít nhất 8 ký tự!",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      Toast.show({
+        type: "error",
+        text1: "Lỗi",
+        text2: "Mật khẩu không khớp với xác nhận mật khẩu!",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
+      return;
+    }
+
+    mutation.mutate({
+      username,
+      email,
+      password,
+      phoneNumber,
+      role: "student",
+    });
   };
 
   return (
@@ -95,25 +171,45 @@ const SignUp = () => {
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[250px]"
+            className=" text-white ml-2  w-[200px]"
             placeholder="Mật khẩu"
             placeholderTextColor="white"
-            secureTextEntry
+            secureTextEntry={!showPassword}
             value={password}
             onChangeText={setPassword}
           />
+          <TouchableOpacity
+            onPress={() => setShowPassword(!showPassword)}
+            className="px-4 py-1"
+          >
+            <Ionicons
+              name={showPassword ? "eye-outline" : "eye-off-outline"}
+              size={20}
+              color={"#7f7d7d"}
+            />
+          </TouchableOpacity>
         </View>
 
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 my-3 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[250px]"
+            className=" text-white ml-2  w-[200px]"
             placeholder="Xác nhận mật khẩu"
             placeholderTextColor="white"
-            secureTextEntry
+            secureTextEntry={!showConfirmPassword}
             value={confirmPassword}
             onChangeText={setConfirmPassword}
           />
+          <TouchableOpacity
+            onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+            className="px-4 py-1"
+          >
+            <Ionicons
+              name={showConfirmPassword ? "eye-outline" : "eye-off-outline"}
+              size={20}
+              color={"#7f7d7d"}
+            />
+          </TouchableOpacity>
         </View>
 
         <TouchableOpacity
@@ -122,15 +218,6 @@ const SignUp = () => {
         >
           <Text className="text-[#374E00] font-bold text-[20px]">Đăng kí</Text>
         </TouchableOpacity>
-
-        {/* <View className="flex-row mt-4 justify-center">
-        <Text className="text-center text-gray-900">
-          Bạn chưa có tài khoản?
-        </Text>
-        <Text className="text-white font-bold  ">
-          <Link href="/sign-up">Đăng ký ngay</Link>
-        </Text>
-      </View> */}
       </View>
     </View>
   );

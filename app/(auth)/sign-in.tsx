@@ -4,23 +4,41 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
 import { useAuth } from "@/hooks/useAuth";
 import { Ionicons } from "@expo/vector-icons";
+import Toast from "react-native-toast-message";
 
 const SignIn = () => {
   const router = useRouter();
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     const success = await login(email, password);
     if (success) {
       router.push("/home");
       console.log("Thành công");
+      Toast.show({
+        type: "success",
+        text1: "Đăng nhập thành công",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
     } else {
-      Alert.alert(
-        "Đăng nhập thất bại",
-        "Vui lòng kiểm tra email và mật khẩu của bạn."
-      );
+      Toast.show({
+        type: "error",
+        text1: "Đăng nhập thất bại",
+        text2: "Vui lòng kiểm tra email và mật khẩu của bạn.",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
     }
   };
 
@@ -57,13 +75,23 @@ const SignIn = () => {
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-4 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[250px]"
+            className=" text-white ml-2  w-[200px] "
             placeholder="Mật khẩu"
             placeholderTextColor="white"
-            secureTextEntry
+            secureTextEntry={!showPassword}
             value={password}
             onChangeText={setPassword}
           />
+          <TouchableOpacity
+            onPress={() => setShowPassword(!showPassword)}
+            className="px-4 py-1"
+          >
+            <Ionicons
+              name={showPassword ? "eye-outline" : "eye-off-outline"}
+              size={20}
+              color={"#7f7d7d"}
+            />
+          </TouchableOpacity>
         </View>
 
         <TouchableOpacity className="mt-2 self-end mr-10 ">

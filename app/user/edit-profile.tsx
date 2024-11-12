@@ -7,7 +7,7 @@ import { User } from "@/constants/model/User";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import Avatar from "@/components/User/Avatar";
-import SuccessModal from "@/components/User/SuccessModal";
+import SuccessModal from "@/components/Modal/SuccessModal";
 
 export default function EditProfile() {
   const {
@@ -21,7 +21,7 @@ export default function EditProfile() {
 
   const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || "");
   const [userName, setUserName] = useState(user?.username || "");
-  const [avatarUrl, setavatarUrl] = useState(user?.avatarUrl || "");
+  const [avatarUrl, setAvatarUrl] = useState(user?.avatarUrl || "");
   const [modalVisible, setModalVisible] = useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -32,14 +32,6 @@ export default function EditProfile() {
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
-
-      // queryClient.setQueryData<User>(["user"], (oldData: User | undefined) => {
-      //   if (oldData) {
-      //     // Kết hợp oldData và dữ liệu mới để tạo ra dữ liệu người dùng đã cập nhật
-      //     return { ...oldData, ...data }; // data là dữ liệu trả về từ API
-      //   }
-      //   return data; // Nếu không có oldData, trả về data mới
-      // });
     },
     onError: (error) => {
       console.error("Failed to update user:", error);
@@ -51,6 +43,10 @@ export default function EditProfile() {
       avatarUrl,
       phoneNumber,
     });
+  };
+
+  const handleAvatarChange = (url: string) => {
+    setAvatarUrl(url);
   };
 
   if (isLoading) {
@@ -69,7 +65,7 @@ export default function EditProfile() {
     <SafeAreaProvider className="flex-1 bg-primary  ">
       <SafeAreaView>
         <View className="justify-center items-center  mx-2">
-          <Avatar />
+          <Avatar onAvatarChange={handleAvatarChange} />
         </View>
         <View className="justify-center mt-8  mx-2">
           <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
