@@ -1,16 +1,23 @@
-import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { EventData } from "@/constants/model/EventDetail";
 import { getUserParticipant } from "@/api/user";
 import { useQuery } from "@tanstack/react-query";
-import { EventData } from "@/constants/model/EventDetail";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import Toast from "react-native-toast-message";
 
-export default function CardEvent() {
+export default function EndedCalender() {
   const { data, isLoading, error } = useQuery<EventData[], Error>({
     queryKey: ["events"],
-    queryFn: () => getUserParticipant(false),
+    queryFn: () => getUserParticipant(true),
     // refetchOnWindowFocus: true,
     // refetchOnMount: true,
   });
@@ -45,8 +52,29 @@ export default function CardEvent() {
       </View>
     );
   }
+  const NavReview = (eventId: string) => {
+    if (!eventId) {
+      Toast.show({
+        type: "error",
+        text1: "Không tìm tháya dữ liệu về sự kiên này",
+
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
+    } else {
+      router.push({
+        pathname: "/events/review",
+        params: { eventId: eventId },
+      });
+    }
+  };
   return (
-    <View>
+    <ScrollView className="bg-primary flex-1 mx-2 ">
+      <Text className="text-[#CAFF4C] text-[19px] font-bold mt-7 ">
+        Sự kiện bạn đã tham gia
+      </Text>
       {data?.map((event) => (
         <TouchableOpacity
           className="flex-row  h-[200px] my-2"
@@ -93,6 +121,19 @@ export default function CardEvent() {
                 {event.organizerName}
               </Text>
             </View>
+            <TouchableOpacity
+              className="rounded-[24px] p-1 mt-4 mb-2 flex-row justify-center items-center"
+              onPress={() => NavReview(event.eventId)}
+            >
+              <Ionicons
+                name="arrow-forward-outline"
+                size={20}
+                color={"#CAFF4C"}
+              />
+              <Text className="font-itim text-center text-[18px] text-[#CAFF4C] ml-2">
+                Chia sẻ trải nghiệm
+              </Text>
+            </TouchableOpacity>
             {/* <View className="flex-row mt-4 justify-center ">
               {event.eventTags.map((tag, index) => (
                 <Text
@@ -106,6 +147,6 @@ export default function CardEvent() {
           </View>
         </TouchableOpacity>
       ))}
-    </View>
+    </ScrollView>
   );
 }

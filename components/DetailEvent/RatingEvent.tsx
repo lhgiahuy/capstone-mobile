@@ -1,12 +1,13 @@
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { ButtonProps, Rating } from "@/constants/model/EventDetail";
+import { NavRating, Rating } from "@/constants/model/EventDetail";
 import { getEventRating } from "@/api/event";
 import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
+import Toast from "react-native-toast-message";
 
-export default function RatingEvent({ eventId }: ButtonProps) {
+export default function RatingEvent({ eventId, status }: NavRating) {
   console.log("alo", eventId);
 
   const { data } = useQuery<Rating, Error>({
@@ -16,8 +17,32 @@ export default function RatingEvent({ eventId }: ButtonProps) {
 
   const navListReview = (eventId: string) => {
     if (!eventId) {
-      Alert.alert("Thông báo", "Không tìm thấy list event");
-    } else {
+      Toast.show({
+        type: "error",
+        text1: "Danh sách chia sẻ sẽ hiện đang trống",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
+      return;
+    }
+    if (status !== "Completed") {
+      Toast.show({
+        type: "error",
+        text1: "Vui lòng chờ tới khi sự kiện kết thúc",
+        text2: "Danh sách chia sẻ sẽ được cập nhật",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
+      return;
+    }
+    {
       router.push({
         pathname: "/events/list-review",
         params: { eventId },
@@ -26,13 +51,13 @@ export default function RatingEvent({ eventId }: ButtonProps) {
   };
 
   return (
-    <View className=" mt-4 w-full ">
+    <View className="mt-3 w-full justify-center items-center">
       <TouchableOpacity
         className="flex-row items-center justify-center"
         onPress={() => navListReview(eventId)}
       >
         <Ionicons name="star-outline" size={20} color={"#CAFF4C"} />
-        <Text className="text-white ml-2">
+        <Text className="text-white ml-1 font-itim text-[16px] mt-1">
           {data?.avgRate?.toFixed(1) || 0}/5 (219 lượt đánh giá)
         </Text>
       </TouchableOpacity>

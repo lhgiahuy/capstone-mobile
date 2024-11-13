@@ -16,9 +16,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 
 export default function Upcoming({ organizerId }: NavOrganizerProps) {
+  const status = "Upcoming";
   const { data, isLoading, error } = useQuery<EventData[], Error>({
     queryKey: ["event-organizer", organizerId],
-    queryFn: () => getEventOfOrganizer(organizerId as string),
+    queryFn: () => getEventOfOrganizer(organizerId as string, status),
   });
   if (isLoading) {
     return (
@@ -33,6 +34,19 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
       <SafeAreaView className="bg-primary h-full justify-center items-center">
         <ActivityIndicator size="large" color="#CAFF4C" />
         <Text className="text-white mt-2">Đang tải sự kiện...</Text>
+      </SafeAreaView>
+    );
+  }
+  if (!data || data.length === 0) {
+    return (
+      <SafeAreaView className="bg-primary h-full justify-center items-center">
+        <Text className="text-white font-bold text-lg text-center">
+          Chưa có sự kiện
+        </Text>
+        <Image
+          source={require("../../assets/images/not-found.png")}
+          className=" h-[320px] w-full rounded-[16px]"
+        />
       </SafeAreaView>
     );
   }

@@ -34,7 +34,13 @@ export interface Rating {
 export interface ButtonProps {
   eventId: string;
 }
+export interface NavRating {
+  eventId: string;
+  status: string;
+}
+
 export interface ButtonRegisterProps {
   eventId: string;
   register: boolean | null;
+  status: string;
 }

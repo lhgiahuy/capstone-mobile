@@ -1,19 +1,20 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { getEventType } from "@/api/event";
+import { getEvent } from "@/api/event";
 import { useQuery } from "@tanstack/react-query";
-import { EventData } from "@/constants/model/EventDetail";
+import { EventDetail } from "@/constants/model/EventDetail";
 import { router } from "expo-router";
 
 export default function UpcomingEvent() {
+  const status = "upcoming";
   const {
     data: events,
     isLoading,
     error,
-  } = useQuery<EventData[], Error>({
-    queryKey: ["events", "type 2"],
-    queryFn: () => getEventType("type 2"),
+  } = useQuery<EventDetail, Error>({
+    queryKey: ["events", status],
+    queryFn: () => getEvent({ Status: status }),
   });
 
   const formatDateTime = (dateTime: string) => {
@@ -45,7 +46,7 @@ export default function UpcomingEvent() {
         contentContainerStyle={{ paddingHorizontal: 12, gap: 16 }}
         className="mt-6"
       >
-        {events?.map((event) => (
+        {events?.items?.map((event) => (
           <TouchableOpacity
             className="h-[220px]"
             key={event.eventId}

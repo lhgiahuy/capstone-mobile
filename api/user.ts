@@ -66,17 +66,20 @@ export const getNotifications = async () => {
   return response.data;
 };
 
-export const getUserParticipant = async () => {
+export const getUserParticipant = async (isCompleted: boolean) => {
   const token = await getAuthToken();
 
   if (!token) {
     throw new Error("No authentication token found");
   }
 
-  const response = await api.get(`/users/participant`, {
-    headers: {
-      Cookie: `authCookie=${token}`,
-    },
-  });
+  const response = await api.get(
+    `/users/participant?isCompleted=${isCompleted}`,
+    {
+      headers: {
+        Cookie: `authCookie=${token}`,
+      },
+    }
+  );
   return response.data;
 };

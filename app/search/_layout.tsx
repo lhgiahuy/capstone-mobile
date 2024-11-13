@@ -38,6 +38,22 @@ export default function SearchLayout() {
             },
           }}
         />
+        <Stack.Screen
+          name="event-tag"
+          options={{
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[18px] text-[#000]">
+                  Danh sách sự kiện theo thể loại
+                </Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#CAFF4C",
+            },
+          }}
+        />
       </Stack>
     </>
   );

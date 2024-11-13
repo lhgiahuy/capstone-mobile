@@ -12,12 +12,16 @@ import VerifyModal from "../Modal/VerifyModal";
 export default function SubscribeButton({
   eventId,
   register: initialRegister,
+  status,
 }: ButtonRegisterProps) {
+  console.log(status);
+
   const [register, setRegister] = useState<boolean | null>(initialRegister);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isVerifyAlertVisible, setVerifyAlertVisible] = useState(false);
   const [isConfirmUnregisterVisible, setConfirmUnregisterVisible] =
     useState(false);
+  const isEventCompleted = status === "Completed";
   const queryClient = useQueryClient();
 
   const { data: user } = useQuery<User>({
@@ -81,9 +85,15 @@ export default function SubscribeButton({
           bottom: 10,
           alignSelf: "center",
         }}
+        disabled={isEventCompleted}
       >
         <Text className="text-black text-[20px] font-bold ">
-          {register ? "Đã đăng ký" : "Đăng ký"}
+          {/* {register ? "Đã đăng ký" : "Đăng ký"} */}
+          {isEventCompleted
+            ? "Sự kiện đã kết thúc"
+            : register
+              ? "Đã đăng ký"
+              : "Đăng ký"}
         </Text>
       </TouchableOpacity>
 

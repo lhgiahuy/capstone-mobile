@@ -24,6 +24,7 @@ import HTMLView from "react-native-htmlview";
 
 export default function DetailEvent() {
   const { eventId } = useLocalSearchParams();
+  // const defaultImage = "../../assets/images/frog.png";
 
   const { data, isLoading, error } = useQuery<EventData, Error>({
     queryKey: ["events", eventId],
@@ -38,7 +39,7 @@ export default function DetailEvent() {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
 
-    return `${hours}:00 , ${day} Tháng ${month} , ${year}`;
+    return `${hours}:00 , ${day}/${month}/${year}`;
   };
 
   if (isLoading) {
@@ -80,16 +81,6 @@ export default function DetailEvent() {
     }
   };
 
-  const NavReview = (eventId: string) => {
-    if (!eventId) {
-      Alert.alert("Thông báo", "Không tìm thấy thông tin tổ chức.");
-    } else {
-      router.push({
-        pathname: "/events/review",
-        params: { eventId: eventId },
-      });
-    }
-  };
   // const contentWidth = Dimensions.get("window").width;
 
   return (
@@ -104,21 +95,36 @@ export default function DetailEvent() {
           className=" items-center "
         >
           <Image
-            source={{ uri: data.thumbnailImg }}
+            // source={{ uri: data.thumbnailImg  }}
+            source={require("../../assets/images/frog.png")}
             className="h-[260px] w-[330px] rounded-[20px] mt-6 opacity-75"
           />
           <Text className="text-[#CAFF4C] font-bold text-[22px] mt-2 text-center mx-2">
             {data.eventName}
           </Text>
-          <View className="flex-row mt-4">
-            <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-            <Text className="text-white ml-2">
-              {formatDateTime(data.startTime)}
+
+          <View className="flex-row">
+            <Ionicons
+              name="calendar-clear-outline"
+              size={20}
+              color={"#CAFF4C"}
+            />
+            <Text className="text-white ml-3 font-itim text-[16px]">
+              Bắt đầu : {formatDateTime(data.startTime)}
             </Text>
           </View>
-          <View className="flex-row mt-4">
-            <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
-            <Text className="text-white ml-2">{data.location}</Text>
+          <View className="flex-row ">
+            <Ionicons name="calendar-outline" size={20} color={"#CAFF4C"} />
+            <Text className="text-white ml-2 font-itim text-[16px]">
+              Kết thúc : {formatDateTime(data.endTime)}
+            </Text>
+          </View>
+
+          <View className="flex-row mt-4 w-[80%] justify-center items-center">
+            <Ionicons name="location-outline" size={22} color={"#CAFF4C"} />
+            <Text className="text-white ml-2 font-itim text-[16px] text-center">
+              {data.location}
+            </Text>
           </View>
           <ScrollView
             horizontal
@@ -129,14 +135,14 @@ export default function DetailEvent() {
               {data.eventTags.map((tag, index) => (
                 <Text
                   key={index}
-                  className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
+                  className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded font-itim"
                 >
                   {tag}
                 </Text>
               ))}
             </View>
           </ScrollView>
-          <RatingEvent eventId={data.eventId} />
+          <RatingEvent eventId={data.eventId} status={data.status} />
           <View className="bg-white w-full rounded-[24px] p-4 mt-4">
             <Text className="font-bold text-[17px] mb-2"> Giới thiệu</Text>
             {/* <Text> {data.description}</Text> */}
@@ -147,7 +153,7 @@ export default function DetailEvent() {
             <HTMLView value={data.description} />
           </View>
 
-          <View className="bg-white w-full rounded-[24px] p-4 mt-4">
+          <View className="bg-white w-full rounded-[24px] p-4 mt-4 mb-2">
             <Text className="font-bold text-[17px] mb-2">Ban tổ chức</Text>
             <View className="flex-row justify-center items-center">
               <Pressable onPress={() => NavInforOrganizer(data.organizerId)}>
@@ -162,21 +168,13 @@ export default function DetailEvent() {
               </Text>
             </View>
           </View>
-
-          <TouchableOpacity
-            className="bg-white rounded-[24px] p-2 mt-4 mb-2 w-full"
-            onPress={() => NavReview(data.eventId)}
-          >
-            <Text className="font-bold text-center text-[18px]">
-              Viết đánh giá
-            </Text>
-          </TouchableOpacity>
         </LinearGradient>
       </ScrollView>
 
       <SubscribeButton
         eventId={eventId as string}
         register={data.isRegistered}
+        status={data.status}
       />
     </View>
   );

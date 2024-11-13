@@ -21,6 +21,7 @@ const SignIn = () => {
       Toast.show({
         type: "success",
         text1: "Đăng nhập thành công",
+        visibilityTime: 2000,
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",

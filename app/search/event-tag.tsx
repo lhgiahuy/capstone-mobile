@@ -1,37 +1,33 @@
-import React from "react";
-import { getEvent, getEventsByKeyword } from "@/api/event";
-import { EventDetail } from "@/constants/model/EventDetail";
-import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "@tanstack/react-query";
-import { router, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
-
-// import { Button } from "react-native";
 import {
   View,
   Text,
-  ScrollView,
   Image,
+  ScrollView,
   TouchableOpacity,
-  SafeAreaView,
   ActivityIndicator,
 } from "react-native";
+import React, { useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { useQuery } from "@tanstack/react-query";
+import { EventDetail } from "@/constants/model/EventDetail";
+import { getEvent } from "@/api/event";
 
-export default function ListEvent() {
+export default function ListEventTag() {
+  const { tagName } = useLocalSearchParams();
+  console.log(tagName);
+
   const pageSize = 3;
   const [pageNumber, setPageNumber] = useState<number>(1);
-  // const { data, isLoading, error } = useQuery<EventDetail, Error>({
-  //   queryKey: ["events", keyword, pageNumber, pageSize],
-  //   queryFn: () => getEventsByKeyword(keyword, pageNumber as number, pageSize),
-  // });
-  const status = "InProgress";
-  const {
-    data: events,
-    isLoading,
-    error,
-  } = useQuery<EventDetail, Error>({
-    queryKey: ["events", status, pageSize],
-    queryFn: () => getEvent({ Status: status, PageSize: pageSize }),
+  const { data, isLoading, error } = useQuery<EventDetail, Error>({
+    queryKey: ["events", tagName, pageNumber, pageSize],
+    queryFn: () =>
+      getEvent({
+        eventTag: tagName as string,
+        PageNumber: pageNumber,
+        PageSize: pageSize,
+      }),
   });
 
   const formatDateTime = (dateTime: string) => {
@@ -59,7 +55,7 @@ export default function ListEvent() {
   }
 
   const handleNextPage = () => {
-    if (events && events.pageNumber < events.totalPages) {
+    if (data && data.pageNumber < data.totalPages) {
       setPageNumber((prev) => prev + 1);
     }
   };
@@ -70,11 +66,11 @@ export default function ListEvent() {
     }
   };
 
-  if (!events || !events.items || events.items.length === 0) {
+  if (!data || !data.items || data.items.length === 0) {
     return (
       <SafeAreaView className="bg-primary h-full justify-center items-center">
         <Text className="text-white font-bold text-lg text-center">
-          Hiện tại chưa có sự kiện nào đang diễn ra
+          Không tìm thấy sự kiện mà bạn đang tìm kiếm
         </Text>
         <Image
           source={require("../../assets/images/not-found.png")}
@@ -86,18 +82,17 @@ export default function ListEvent() {
   return (
     <SafeAreaView className="flex-1 bg-primary h-full">
       <ScrollView>
-        {events?.items?.map((event) => (
-          <TouchableOpacity
+        {data?.items?.map((event) => (
+          <View
             // className="h-[220px] justify-center my-2 p-2 border-line border-[1px]"
-            className="flex-row w-full h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black"
+            className="flex-row w-full h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black mt-2"
             key={event?.eventId}
-            onPress={() => router.push(`/events/${event?.eventId}`)}
           >
             <Image
-              source={{ uri: event.posterImg }}
+              source={{ uri: event.thumbnailImg }}
               className="h-[240px] w-[160px] rounded-[16px]"
             />
-            <View className="mt-6 h-[60px] w-[204px]  items-center ">
+            <View className="p-2  w-[204px]  items-center  ">
               <Text
                 className="text-white w-[160px] font-bold text-[18px] text-center"
                 numberOfLines={2}
@@ -112,32 +107,37 @@ export default function ListEvent() {
                 </Text>
               </View>
 
-              <Text
+              <View className="flex-row mt-4">
+                <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
+                <Text className="text-white ml-2 w-[120px] text-center">
+                  {event.location}
+                </Text>
+              </View>
+              <Text className="text-white ml-2 w-[120px] text-center my-2">
+                {event.eventTypeName}
+              </Text>
+
+              {/* <Text
                 className="text-white h-[60px] mt-4 text-[14px] mx-2 overflow-hidden text-ellipsis whitespace-nowrap"
                 numberOfLines={3}
                 ellipsizeMode="tail"
               >
-                FPT University HCM đang nóng lên từng ngày trước thềm Lễ Tôn
-                Vinh Top 100 Sinh Viên Xuất Sắc
-              </Text>
-              {/* <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ paddingHorizontal: 16, gap: 16 }}
+                {event?.description}
+              </Text> */}
+              {/* <View className="flex-row mt-2">
+                {event.eventTags.map((tag, index) => (
+                  <Text
+                    key={index}
+                    className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
+                  >
+                    {tag}
+                  </Text>
+                ))}
+              </View> */}
+              <TouchableOpacity
+                className="flex-row justify-center items-center mt-2"
+                onPress={() => router.push(`/events/${event?.eventId}`)}
               >
-                <View className="flex-row mt-2">
-                  {event.eventTags.map((tag, index) => (
-                    <Text
-                      key={index}
-                      className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
-                    >
-                      {tag}
-                    </Text>
-                  ))}
-                </View>
-              </ScrollView> */}
-
-              <View className="flex-row justify-center items-center mt-2">
                 <Text className="text-[#CAFF4C] font-bold text-[16px] ">
                   Xem chi tiết
                 </Text>
@@ -146,13 +146,13 @@ export default function ListEvent() {
                   color={"#CAFF4C"}
                   size={20}
                 />
-              </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+          </View>
         ))}
-        <View className="flex-row justify-between p-4">
+        <View className="flex-row justify-between p-4 mt-4">
           <Text className="text-white font-bold text-[16px]">
-            Trang {events.pageNumber || 1} / {events.totalPages || 1}
+            Trang {data.pageNumber || 1} / {data.totalPages || 1}
           </Text>
           <View className="flex-row ">
             <Ionicons
@@ -167,7 +167,7 @@ export default function ListEvent() {
               size={22}
               color={"#CAFF4C"}
               onPress={handleNextPage}
-              disabled={events?.pageNumber === events?.totalPages}
+              disabled={data?.pageNumber === data?.totalPages}
               style={{ marginLeft: 16 }}
             />
           </View>
