@@ -1,20 +1,29 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
-import { EventData } from "@/constants/model/EventDetail";
-import { getEventType } from "@/api/event";
-import { Link, router } from "expo-router";
+import { EventDetail } from "@/constants/model/EventDetail";
+import { getEvent } from "@/api/event";
+import { router } from "expo-router";
 import { Pressable } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CurrentEvent() {
+  const status = "InProgress";
   const {
     data: events,
     isLoading,
     error,
-  } = useQuery<EventData[], Error>({
-    queryKey: ["events", "type 1"],
-    queryFn: () => getEventType("type 1"),
+  } = useQuery<EventDetail, Error>({
+    queryKey: ["events", status],
+    queryFn: () => getEvent({ Status: status }),
   });
 
   const formatDateTime = (dateTime: string) => {
@@ -28,12 +37,26 @@ export default function CurrentEvent() {
     return `${hours}:00 , ${day} Tháng ${month} , ${year}`;
   };
 
-  if (isLoading) {
-    return <Text>Loading...</Text>; // Loading state
-  }
-
+  if (isLoading) return <ActivityIndicator size="large" />;
   if (error) {
     return <Text>Error fetching events: {error.message}</Text>; // Error handling
+  }
+
+  if (!events || !events.items || events.items.length === 0) {
+    return (
+      <SafeAreaView className=" justify-center">
+        <Text className="ml-4 text-[#CAFF4C] text-xl font-bold">
+          Sự kiện đang diễn ra
+        </Text>
+        <Text className="text-white text-[16px] font-itim text-center mt-2">
+          Chưa có sự kiện đang diễn ra trong hôm nay
+        </Text>
+        <Image
+          source={require("../assets/images/Coming Soon.png")}
+          className=" h-[300px] w-full rounded-[16px] mx-2 items-center"
+        />
+      </SafeAreaView>
+    );
   }
   return (
     <>
@@ -58,7 +81,7 @@ export default function CurrentEvent() {
           contentContainerStyle={{ paddingHorizontal: 12, gap: 16 }}
           className="mt-6"
         >
-          {events?.map((event) => (
+          {events?.items?.map((event) => (
             <TouchableOpacity
               className="h-[220px]"
               key={event.eventId}

@@ -18,7 +18,7 @@ export const getOrganizer = async (userId: string) => {
   return response.data;
 };
 
-export const getEventOfOrganizer = async (Id: string) => {
+export const getEventOfOrganizer = async (Id: string, status: string) => {
   const token = await getAuthToken();
   console.log("day la token:", token);
 
@@ -26,10 +26,13 @@ export const getEventOfOrganizer = async (Id: string) => {
     throw new Error("No authentication token found");
   }
 
-  const response = await api.get(`/events/organizer?Id=${Id}`, {
-    headers: {
-      Cookie: `authCookie=${token}`,
-    },
-  });
+  const response = await api.get(
+    `/events/organizer?OrganizerId=${Id}&status=${status}`,
+    {
+      headers: {
+        Cookie: `authCookie=${token}`,
+      },
+    }
+  );
   return response.data;
 };

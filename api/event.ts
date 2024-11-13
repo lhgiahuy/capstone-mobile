@@ -1,13 +1,39 @@
 import { api } from "@/lib/axios";
 import { getAuthToken } from "./auth";
 import { Review } from "@/constants/model/Comment";
+
+interface getEventProps {
+  SearchKeyword?: string;
+  PageSize?: number;
+  PageNumber?: number;
+  isDescending?: boolean;
+  orderBy?: string;
+  EventTypes?: string;
+  eventTag?: string;
+  Status?: string;
+  inMonth?: number;
+  inYear?: number;
+}
+
+// Event
+
+export async function getEvent(props?: getEventProps) {
+  try {
+    const event = await api.get("/events", { params: props });
+    return event.data;
+  } catch (error) {
+    console.error("Failed to fetch event data", error);
+  }
+}
+
 export const getEventById = async (eventId: string) => {
   const response = await api.get(`/events/${eventId}`);
   return response.data;
 };
-export const getEventType = async (eventTypeName: string) => {
-  const response = await api.get(`/events?EventType=${eventTypeName}`);
-  return response.data.items;
+
+export const getEventTypes = async () => {
+  const response = await api.get("/event-types");
+  return response.data;
 };
 
 export const getEvents = async () => {
@@ -24,6 +50,38 @@ export const getEventsByKeyword = async (
     `/events?SearchKeyword=${SearchKeyword}&PageNumber=${pageNumber}&PageSize=${pageSize}`
   );
   return response.data;
+};
+
+export const getEventByStatus = async (Status: string) => {
+  const token = await getAuthToken();
+  console.log("day la token:", token);
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.get(`/events?SearchKeyword=${Status}`, {
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const getEventRecommendation = async () => {
+  const token = await getAuthToken();
+  console.log("day la token:", token);
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.get(`/events/recommendation`, {
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
+  return response.data.items;
 };
 
 export const getEventRating = async (eventId: string) => {
@@ -62,6 +120,8 @@ export const EventUnregister = async (eventId: string) => {
   });
   return response.data;
 };
+
+// Review
 
 export const getListComment = async (eventId: string) => {
   const token = await getAuthToken();

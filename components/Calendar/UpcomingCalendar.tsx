@@ -2,14 +2,7 @@ import { ScrollView, Text, View } from "react-native";
 import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
 import CardEvent from "./CardEvent";
-
-interface DayObject {
-  dateString: string;
-  day: number;
-  month: number;
-  year: number;
-  timestamp: number;
-}
+import { DayObject } from "@/constants/model/Calendar";
 
 export default function UpcomingCalendar() {
   const [selected, setSelected] = useState<string>("");

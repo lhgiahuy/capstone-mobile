@@ -71,7 +71,7 @@ export default function ReviewEvent() {
         </View>
         <View className=" mt-4 ">
           <Text className="m-2">
-            Hãy chia sẽ trải nghiêm của bạn ở dưới đây :
+            Hãy chia sẽ trải nghiệm của bạn ở dưới đây :
           </Text>
           <TextInput
             placeholder="Nhập bình luận của bạn..."

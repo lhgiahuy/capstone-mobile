@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { EventData } from "@/constants/model/EventDetail";
 import { useQuery } from "@tanstack/react-query";
-import { getEventType } from "@/api/event";
+import { getEventRecommendation } from "@/api/event";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -19,8 +19,8 @@ export default function RecomentEvent() {
     isLoading,
     error,
   } = useQuery<EventData[], Error>({
-    queryKey: ["events", "type 2"],
-    queryFn: () => getEventType("type 2"),
+    queryKey: ["events"],
+    queryFn: () => getEventRecommendation(),
   });
 
   const formatDateTime = (dateTime: string) => {

@@ -1,6 +1,7 @@
 // import { useEffect } from "react";
 
-import { getEventsByKeyword } from "@/api/event";
+import { getEvent, getEventsByKeyword } from "@/api/event";
+import DateTime from "@/components/Search/DateTime";
 import { EventDetail } from "@/constants/model/EventDetail";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
@@ -20,12 +21,35 @@ import {
 
 export default function Result() {
   const { keyword } = useLocalSearchParams();
+  console.log(keyword);
+
+  const { tagName } = useLocalSearchParams();
+  console.log(tagName);
+
   const pageSize = 3;
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+
   const { data, isLoading, error } = useQuery<EventDetail, Error>({
-    queryKey: ["events", keyword, pageNumber, pageSize],
+    queryKey: [
+      "events",
+      keyword,
+      tagName,
+      selectedMonth,
+      selectedYear,
+      pageNumber,
+      pageSize,
+    ],
     queryFn: () =>
-      getEventsByKeyword(keyword as string, pageNumber as number, pageSize),
+      getEvent({
+        SearchKeyword: keyword as string,
+        eventTag: tagName as string,
+        inMonth: selectedMonth as number,
+        inYear: selectedYear as number,
+        PageNumber: pageNumber,
+        PageSize: pageSize,
+      }),
   });
 
   const formatDateTime = (dateTime: string) => {
@@ -80,56 +104,72 @@ export default function Result() {
   return (
     <SafeAreaView className="flex-1 bg-primary h-full">
       <ScrollView>
+        <Text className="text-white font-bold text-[18px] mt-3 ml-4">
+          Danh sách sự kiện : {keyword || tagName}
+        </Text>
+        <DateTime
+          selectedMonth={selectedMonth}
+          selectedYear={selectedYear}
+          onMonthChange={setSelectedMonth}
+          onYearChange={setSelectedYear}
+        />
         {data?.items?.map((event) => (
           <View
             // className="h-[220px] justify-center my-2 p-2 border-line border-[1px]"
-            className="flex-row w-full h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black mt-2"
+            className="flex-row w-full h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black"
             key={event?.eventId}
           >
             <Image
-              source={{ uri: event.thumbnailImg }}
-              className="h-[240px] w-[160px] rounded-[16px]"
+              source={{ uri: event.posterImg }}
+              className="h-[100%] w-[46%] rounded-[16px]"
             />
-            <View className="p-2 h-[60px] w-[204px]  items-center text-center ">
+            <View className="p-2  w-[54%] h-[100%] items-center  ">
               <Text
-                className="text-white w-[160px] font-bold text-[18px]"
+                className="text-white w-[100%] font-bold text-[18px] text-center"
                 numberOfLines={2}
                 ellipsizeMode="tail"
               >
                 {event?.eventName}
               </Text>
-              <View className="flex-row mt-4">
+              <View className="flex-row mt-3 h-[10%] ">
                 <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
                 <Text className="text-white ml-2">
                   {formatDateTime(event.startTime)}
                 </Text>
               </View>
 
-              <View className="flex-row mt-4">
+              <View className="flex-row mt-4 h-[20%] ">
                 <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
-                <Text className="text-white ml-2 w-[120px] text-center">
+                <Text
+                  className="text-white ml-2 w-[120px] text-center"
+                  numberOfLines={2}
+                  ellipsizeMode="tail"
+                >
                   {event.location}
                 </Text>
               </View>
-              <Text
-                className="text-white h-[60px] mt-4 text-[14px] mx-2 overflow-hidden text-ellipsis whitespace-nowrap"
-                numberOfLines={3}
-                ellipsizeMode="tail"
-              >
-                {event?.description}
+              <Text className="text-white ml-2 w-[100%] text-center my-2 h-[10%] ">
+                {event.eventTypeName}
               </Text>
-              {/* <View className="flex-row mt-2">
-                {event.eventTags.map((tag, index) => (
-                  <Text
-                    key={index}
-                    className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
-                  >
-                    {tag}
-                  </Text>
-                ))}
-              </View> */}
+
+              <View className="  items-center justify-center w-[100%] px-2">
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{ paddingHorizontal: 16, gap: 16 }}
+                >
+                  {event.eventTags.map((tag, index) => (
+                    <Text
+                      key={index}
+                      className="text-[#797777d6] text-[14px]  px-2 rounded-[20px] "
+                    >
+                      {tag}
+                    </Text>
+                  ))}
+                </ScrollView>
+              </View>
               <TouchableOpacity
-                className="flex-row justify-center items-center mt-2"
+                className="flex-row justify-center items-center mt-2 w-[100%] h-[10%]"
                 onPress={() => router.push(`/events/${event?.eventId}`)}
               >
                 <Text className="text-[#CAFF4C] font-bold text-[16px] ">

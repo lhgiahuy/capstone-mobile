@@ -17,9 +17,10 @@ import HTMLView from "react-native-htmlview";
 import { router } from "expo-router";
 
 export default function Ended({ organizerId }: NavOrganizerProps) {
+  const status = "Completed";
   const { data, isLoading, error } = useQuery<EventData[], Error>({
     queryKey: ["event-organizer", organizerId],
-    queryFn: () => getEventOfOrganizer(organizerId as string),
+    queryFn: () => getEventOfOrganizer(organizerId as string, status),
   });
   if (isLoading) {
     return (
@@ -52,7 +53,7 @@ export default function Ended({ organizerId }: NavOrganizerProps) {
     return (
       <SafeAreaView className="bg-primary h-full justify-center items-center">
         <Text className="text-white font-bold text-lg text-center">
-          Không tìm thấy sự kiện mà bạn đang tìm kiếm
+          Chưa có sự kiện
         </Text>
         <Image
           source={require("../../assets/images/not-found.png")}
@@ -71,6 +72,7 @@ export default function Ended({ organizerId }: NavOrganizerProps) {
         >
           <Image
             source={{ uri: event.thumbnailImg }}
+            // source={require("../../assets/images/fcode.png")}
             className="h-[240px] w-[160px] rounded-[16px] items-center"
           />
           <View className="h-auto  items-center  p-2 mr-1 ">
@@ -114,6 +116,7 @@ export default function Ended({ organizerId }: NavOrganizerProps) {
                 ))}
               </ScrollView>
             </View>
+
             <TouchableOpacity
               className="flex-row justify-center items-center mt-2"
               onPress={() => router.push(`/events/${event.eventId}`)}

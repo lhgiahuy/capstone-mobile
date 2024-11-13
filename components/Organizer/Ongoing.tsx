@@ -16,9 +16,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 
 export default function Ongoing({ organizerId }: NavOrganizerProps) {
+  const status = "InProgress";
   const { data, isLoading, error } = useQuery<EventData[], Error>({
     queryKey: ["event-organizer", organizerId],
-    queryFn: () => getEventOfOrganizer(organizerId as string),
+    queryFn: () => getEventOfOrganizer(organizerId as string, status),
   });
   if (isLoading) {
     return (
@@ -47,6 +48,19 @@ export default function Ongoing({ organizerId }: NavOrganizerProps) {
 
     return `${hours}:00 , ${day}/${month}/${year}`;
   };
+  if (!data || data.length === 0) {
+    return (
+      <SafeAreaView className="bg-primary h-full justify-center items-center">
+        <Text className="text-white font-bold text-lg text-center">
+          Chưa có sự kiện
+        </Text>
+        <Image
+          source={require("../../assets/images/not-found.png")}
+          className=" h-[320px] w-full rounded-[16px]"
+        />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <ScrollView className="mt-2 mb-4">

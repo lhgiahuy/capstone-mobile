@@ -4,3 +4,8 @@ export interface Tag {
   tagName: string;
   createdAt: string;
 }
+
+export interface EventTypes {
+  eventTypeId: string;
+  eventTypeName: string;
+}
