@@ -20,6 +20,7 @@ import { getEventById } from "@/api/event";
 import { EventData } from "@/constants/model/EventDetail";
 import SubscribeButton from "@/components/DetailEvent/SubscribeButton";
 import HTMLView from "react-native-htmlview";
+import CardOrganizer from "@/components/DetailEvent/CardOrganizer";
 // import RenderHtml from "react-native-render-html";
 
 export default function DetailEvent() {
@@ -150,24 +151,12 @@ export default function DetailEvent() {
               source={{ html: data?.description }}
               contentWidth={contentWidth}
             /> */}
-            <HTMLView value={data.description} />
+            {/* <HTMLView value={data.description} /> */}
           </View>
-
-          <View className="bg-white w-full rounded-[24px] p-4 mt-4 mb-2">
-            <Text className="font-bold text-[17px] mb-2">Ban tổ chức</Text>
-            <View className="flex-row justify-center items-center">
-              <Pressable onPress={() => NavInforOrganizer(data.organizerId)}>
-                <Image
-                  source={require("../../assets/images/fpt.png")}
-                  className="h-[60px] w-[140px] rounded-[40px]"
-                />
-              </Pressable>
-
-              <Text className="ml-6 font-pacifo w-[120px] text-center text-[20px]">
-                {data.organizerName}
-              </Text>
-            </View>
-          </View>
+          <CardOrganizer
+            organizerName={data.organizerName}
+            organizerId={data.organizerId}
+          />
         </LinearGradient>
       </ScrollView>
 
@@ -175,6 +164,7 @@ export default function DetailEvent() {
         eventId={eventId as string}
         register={data.isRegistered}
         status={data.status}
+        form={data.form}
       />
     </View>
   );

@@ -17,16 +17,16 @@ export default function BannerOrganizer({ organizerId }: NavOrganizerProps) {
   return (
     <View className="bg-white h-[360px]  mt-4 mx-2 rounded-[30px] items-center">
       <Image
-        source={require("../../assets/images/banner2.png")}
-        // source={{ uri: data.cardUrl }}
+        // source={require("../../assets/images/banner2.png")}
+        source={{ uri: data?.avatarUrl }}
         className="h-[248px] w-[346px] rounded-[26px] "
       />
 
       <View className="flex-row">
         <View className="bg-gray-100 translate-y-[-60px] p-2  ml-2 rounded-[70px] justify-center items-center">
           <Image
-            source={require("@/assets/images/logo2.png")}
-            // source={{ uri: data.avatarUrl }}
+            // source={require("@/assets/images/logo2.png")}
+            source={{ uri: data?.avatarUrl }}
             className="h-[132px] w-[132px] rounded-[70px] "
           />
         </View>

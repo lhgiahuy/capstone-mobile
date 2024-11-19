@@ -8,11 +8,13 @@ import UnsubscribeModal from "./UnsubscribeModal";
 import { getUser } from "@/api/user";
 import { User } from "@/constants/model/User";
 import VerifyModal from "../Modal/VerifyModal";
+import { router } from "expo-router";
 
 export default function SubscribeButton({
   eventId,
   register: initialRegister,
   status,
+  form,
 }: ButtonRegisterProps) {
   console.log(status);
 
@@ -66,7 +68,15 @@ export default function SubscribeButton({
     }
 
     if (!register) {
-      registerMutation.mutate(eventId);
+      // registerMutation.mutate(eventId);
+      if (form?.length) {
+        router.push({
+          pathname: "/events/register-form",
+          params: { eventId: eventId },
+        });
+      } else {
+        registerMutation.mutate(eventId);
+      }
     } else {
       setConfirmUnregisterVisible(true);
     }

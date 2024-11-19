@@ -178,3 +178,21 @@ export const getListReview = async (eventId: string) => {
   });
   return response.data;
 };
+
+// sumbit register-form
+
+export const sumbitForm = async (eventId: string, data: any) => {
+  const token = await getAuthToken();
+  console.log("day la token:", token);
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.post(`/events/${eventId}/submit-form`, data, {
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
+  return response.data;
+};
