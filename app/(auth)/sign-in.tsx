@@ -56,14 +56,14 @@ const SignIn = () => {
         </Text>
       </View>
 
-      <View className="bg-black h-[70%] rounded-tl-[92px] justify-center items-center">
+      <View className="bg-black h-[70%] rounded-tl-[92px] justify-center items-center ">
         <Text className="text-4xl font-inter font-bold text-white text-center  ">
           Đăng nhập
         </Text>
         <Text className="text-center text-white font-inter  text-lg mb-8 ">
           Đăng nhập tài khoản của bạn
         </Text>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 my-2 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 my-2 mx-8  h-[56px]">
           <Icon name="user-o" size={20} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px]"
@@ -73,7 +73,7 @@ const SignIn = () => {
             onChangeText={setEmail}
           />
         </View>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-4 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-4 mx-8 h-[56px]">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[200px] "
@@ -109,15 +109,6 @@ const SignIn = () => {
             Đăng nhập
           </Text>
         </TouchableOpacity>
-
-        {/* <View className="flex-row mt-4 justify-center">
-          <Text className="text-center text-gray-900">
-            Bạn chưa có tài khoản?
-          </Text>
-          <Text className="text-white font-bold  ">
-            <Link href="/sign-up">Đăng ký ngay</Link>
-          </Text>
-        </View> */}
       </View>
     </View>
   );

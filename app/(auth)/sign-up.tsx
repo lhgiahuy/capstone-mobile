@@ -45,7 +45,7 @@ const SignUp = () => {
     },
   });
   const handleRegister = () => {
-    if (!username || !email || !password || !confirmPassword || !phoneNumber) {
+    if (!username || !email || !password || !confirmPassword) {
       Toast.show({
         type: "error",
         text1: "Lỗi",
@@ -60,22 +60,7 @@ const SignUp = () => {
       });
       return;
     }
-    // validate phonenumber
-    if (phoneNumber.length !== 10) {
-      Toast.show({
-        type: "error",
-        text1: "Lỗi",
-        text2: "Số điện thoại phải có 10 số!",
-        text1Style: {
-          fontSize: 16,
-          fontWeight: "bold",
-        },
-        text2Style: {
-          fontSize: 14,
-        },
-      });
-      return;
-    }
+
     // validate password
     if (password.length < 8) {
       Toast.show({
@@ -113,7 +98,7 @@ const SignUp = () => {
       username,
       email,
       password,
-      phoneNumber,
+      phoneNumber: "",
       role: "student",
     });
   };
@@ -135,10 +120,10 @@ const SignUp = () => {
         <Text className="text-4xl font-inter font-bold text-white text-center  ">
           Tạo tài khoản
         </Text>
-        <Text className="text-center text-white font-inter  text-[16px] mb-8 ">
+        <Text className="text-center text-white font-inter  text-[16px] mb-3 ">
           Đăng kí tài khoản bằng email của bạn
         </Text>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
           <Icon name="user-o" size={20} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px]"
@@ -158,7 +143,7 @@ const SignUp = () => {
             onChangeText={setEmail}
           />
         </View>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
+        {/* <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
           <Ionicons name="call-outline" size={20} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px]"
@@ -167,7 +152,7 @@ const SignUp = () => {
             value={phoneNumber}
             onChangeText={setPhoneNumber}
           />
-        </View>
+        </View> */}
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput

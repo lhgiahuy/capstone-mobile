@@ -70,6 +70,22 @@ export default function EventLayout() {
             },
           }}
         />
+        <Stack.Screen
+          name="register-form"
+          options={{
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[18px] text-[#000]">
+                  Phiếu đăng ký
+                </Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#CAFF4C",
+            },
+          }}
+        />
       </Stack>
     </>
   );

@@ -5,6 +5,7 @@ export interface EventDetail {
   totalItems: number;
   totalPages: number;
   items: EventData[];
+  form: FormData[];
 }
 export interface EventData {
   eventId: string;
@@ -25,6 +26,13 @@ export interface EventData {
   status: string;
   isRegistered: boolean | null;
   eventTags: string[];
+  form: FormData[];
+}
+
+export interface FormData {
+  name: string;
+  type: string;
+  options: string[];
 }
 
 export interface Rating {
@@ -43,4 +51,5 @@ export interface ButtonRegisterProps {
   eventId: string;
   register: boolean | null;
   status: string;
+  form: FormData[];
 }
