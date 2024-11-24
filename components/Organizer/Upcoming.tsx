@@ -83,14 +83,14 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
             </Text>
             <View className="flex-row mt-4">
               <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-              <Text className="text-white ml-1 ">
+              <Text className="text-white font-lexend ml-1 ">
                 {formatDateTime(event.startTime)}
               </Text>
             </View>
             <View className="flex-row mt-4  h-">
               <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
               <Text
-                className="text-white ml-2 w-[120px] "
+                className="text-white font-lexend ml-2 w-[120px] "
                 numberOfLines={3}
                 ellipsizeMode="tail"
               >
@@ -107,7 +107,7 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
                 {event.eventTags.map((tag, index) => (
                   <Text
                     key={index}
-                    className="text-[#797777d6] text-[14px]  px-2 rounded-[20px] mt-3"
+                    className="text-[#797777d6] text-[14px] font-lexend px-2 rounded-[20px] mt-3"
                   >
                     {tag}
                   </Text>
@@ -115,10 +115,10 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
               </ScrollView>
             </View>
             <TouchableOpacity
-              className="flex-row justify-center items-center mt-2"
+              className="flex-row justify-center items-center mt-3"
               onPress={() => router.push(`/events/${event.eventId}`)}
             >
-              <Text className="text-[#CAFF4C] font-bold text-[16px] ">
+              <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] ">
                 Xem chi tiết
               </Text>
               <Ionicons

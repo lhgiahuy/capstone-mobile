@@ -61,7 +61,7 @@ export default function RegisterForm() {
         },
       });
 
-      // router.push("/events");
+      router.push("/(tabs)/home");
     },
     onError: (err) => {
       console.error("Submit error: ", err);
@@ -101,20 +101,22 @@ export default function RegisterForm() {
 
   return (
     <ScrollView className="flex-1 bg-primary p-4">
-      <Text className="text-white text-xl mb-4">
-        Đăng ký tham gia: {eventData?.eventName}
+      <Text className="text-[22px] text-[#CAFF4C] mb-4 text-center font-inter font-bold">
+        ĐĂNG KÝ THAM GIA : {eventData?.eventName}
       </Text>
 
       {form?.map((question, index) => (
         <View key={index} className="mb-4">
-          <Text className="text-white mb-2">{question.name}</Text>
+          <Text className="text-white mb-2 font-bold font-inter">
+            {question.name}
+          </Text>
 
           {question.type === "Choice" && (
             <View>
               {question.options.map((option, i) => (
                 <TouchableOpacity
                   key={i}
-                  className={`p-2 bg-gray-700 mb-2 ${
+                  className={`p-3 bg-gray-700 mb-2 rounded-[8px] ${
                     formData[index]?.answer === option ? "bg-gray-500" : ""
                   }`}
                   onPress={() => handleInputChange(index, option)}
@@ -127,7 +129,7 @@ export default function RegisterForm() {
 
           {question.type === "Plain Text" && (
             <TextInput
-              className="p-2 bg-white text-black rounded"
+              className="p-3 bg-white text-black rounded-[8px]"
               placeholder={`Nhập ${question.name}`}
               value={formData[index]?.answer || ""}
               onChangeText={(text) => handleInputChange(index, text)}
@@ -136,7 +138,16 @@ export default function RegisterForm() {
         </View>
       ))}
 
-      <Button title="Gửi đăng ký" onPress={handleSubmit} />
+      <View className="justify-center items-center mt-3">
+        <TouchableOpacity
+          onPress={handleSubmit}
+          className="bg-[#CAFF4C] p-4 w-[180px] rounded-[18px]"
+        >
+          <Text className="font-bold font-inter text-center text-[18px]">
+            Đăng ký
+          </Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }

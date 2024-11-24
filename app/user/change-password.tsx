@@ -8,6 +8,7 @@ import { changePassword } from "@/api/user";
 import { Ionicons } from "@expo/vector-icons";
 import { AxiosError } from "axios";
 import SuccessModal from "@/components/Modal/SuccessModal";
+import Toast from "react-native-toast-message";
 
 export default function ChangePassword() {
   // const {
@@ -36,18 +37,39 @@ export default function ChangePassword() {
     },
     onError: (error) => {
       if (error instanceof AxiosError && error.response?.status === 401) {
-        console.error("Failed to update password:", error);
-        Alert.alert("Lỗi", "Mật khẩu cũ không chính xác.");
+        // console.error("Failed to update password:", error);
+        Toast.show({
+          type: "error",
+          text1: "Mật khẩu cũ không chính xác.",
+          text1Style: {
+            fontSize: 16,
+            fontWeight: "bold",
+          },
+        });
       } else {
-        console.error("Failed to update password:", error);
-        Alert.alert("Lỗi", "Cập nhật mật khẩu thất bại.");
+        // console.error("Failed to update password:", error);
+        Toast.show({
+          type: "error",
+          text1: "Cập nhật mật khẩu thất bại.",
+          text1Style: {
+            fontSize: 16,
+            fontWeight: "bold",
+          },
+        });
       }
     },
   });
 
   const handleSave = () => {
     if (newPassword !== confirmPassword) {
-      Alert.alert("Lỗi", "Mật khẩu và xác nhận mật khẩu không khớp.");
+      Toast.show({
+        type: "error",
+        text1: "Mật khẩu và xác nhận mật khẩu không khớp.",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
       return;
     }
 

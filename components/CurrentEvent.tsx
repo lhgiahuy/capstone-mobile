@@ -14,6 +14,7 @@ import { getEvent } from "@/api/event";
 import { router } from "expo-router";
 import { Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { formatDateTime } from "@/lib/utils/date-time";
 
 export default function CurrentEvent() {
   const status = "InProgress";
@@ -26,17 +27,6 @@ export default function CurrentEvent() {
     queryFn: () => getEvent({ Status: status }),
   });
 
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const hours = date.getHours();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${hours}:00 , ${day} Tháng ${month} , ${year}`;
-  };
-
   if (isLoading) return <ActivityIndicator size="large" />;
   if (error) {
     return <Text>Error fetching events: {error.message}</Text>; // Error handling
@@ -48,7 +38,7 @@ export default function CurrentEvent() {
         <Text className="ml-4 text-[#CAFF4C] text-xl font-bold">
           Sự kiện đang diễn ra
         </Text>
-        <Text className="text-white text-[16px] font-itim text-center mt-2">
+        <Text className="text-white text-[16px] font-lexend text-center mt-2">
           Chưa có sự kiện đang diễn ra trong hôm nay
         </Text>
         <Image

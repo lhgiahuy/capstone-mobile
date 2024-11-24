@@ -94,12 +94,12 @@ export default function ListEvent() {
             onPress={() => router.push(`/events/${event?.eventId}`)}
           >
             <Image
-              source={{ uri: event.posterImg }}
+              source={{ uri: event.thumbnailImg }}
               className="h-[240px] w-[160px] rounded-[16px]"
             />
             <View className="mt-6 h-[60px] w-[204px]  items-center ">
               <Text
-                className="text-white w-[160px] font-bold text-[18px] text-center"
+                className="text-white w-[160px] font-bold font-inter text-[18px] text-center"
                 numberOfLines={2}
                 ellipsizeMode="tail"
               >
@@ -138,7 +138,7 @@ export default function ListEvent() {
               </ScrollView> */}
 
               <View className="flex-row justify-center items-center mt-2">
-                <Text className="text-[#CAFF4C] font-bold text-[16px] ">
+                <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] ">
                   Xem chi tiết
                 </Text>
                 <Ionicons

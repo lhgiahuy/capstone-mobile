@@ -10,7 +10,7 @@ export interface EventDetail {
 export interface EventData {
   eventId: string;
   eventName: string;
-  description: string;
+  description?: string;
   startTime: string;
   endTime: string;
   location: string;
@@ -37,6 +37,7 @@ export interface FormData {
 
 export interface Rating {
   avgRate: number;
+  totalRate: number;
 }
 
 export interface ButtonProps {

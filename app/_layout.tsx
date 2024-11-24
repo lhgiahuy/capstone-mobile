@@ -55,6 +55,7 @@ export default function RootLayout() {
     Inter: require("../assets/fonts/Inter-VariableFont_opsz,wght.ttf"),
     Itim: require("../assets/fonts/Itim-Regular.ttf"),
     Premanent: require("../assets/fonts/PermanentMarker-Regular.ttf"),
+    Lexend: require("../assets/fonts/Lexend-VariableFont_wght.ttf"),
   });
 
   useEffect(() => {
@@ -80,6 +81,10 @@ export default function RootLayout() {
 
             <Stack.Screen name="search" options={{ headerShown: false }} />
             <Stack.Screen name="events" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="notificationsss"
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="organizer/infor"
               options={{

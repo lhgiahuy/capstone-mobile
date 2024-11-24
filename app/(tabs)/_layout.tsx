@@ -45,7 +45,7 @@ export default function TabLayout() {
                   </TouchableOpacity>
 
                   <TouchableOpacity>
-                    <Link href="/user/notification">
+                    <Link href="/(tabs)/notification">
                       <Ionicons name="notifications" size={24} color="black" />
                     </Link>
                   </TouchableOpacity>
@@ -75,18 +75,18 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="chat"
+          name="notification"
           options={{
             headerTitle: () => (
               <View>
                 <Text className="font-bold text-[20px] text-[#000]">
-                  Nhắn tin
+                  Thông báo
                 </Text>
               </View>
             ),
             headerTitleAlign: "center",
             tabBarIcon: ({ color }) => (
-              <Ionicons name="chatbubble" size={24} color={color} />
+              <Ionicons name="notifications" size={24} color={color} />
             ),
             headerStyle: {
               backgroundColor: "#CAFF4C",

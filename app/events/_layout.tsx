@@ -44,7 +44,7 @@ export default function EventLayout() {
             headerTitle: () => (
               <View>
                 <Text className="font-bold text-[18px] text-[#000]">
-                  Chia sẻ trải nghiệm
+                  Đánh giá sự kiện
                 </Text>
               </View>
             ),

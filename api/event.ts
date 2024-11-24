@@ -121,6 +121,13 @@ export const EventUnregister = async (eventId: string) => {
   return response.data;
 };
 
+// Banner
+
+export const getListBanner = async () => {
+  const response = await api.get(`/events/banners`);
+  return response.data;
+};
+
 // Review
 
 export const getListComment = async (eventId: string) => {

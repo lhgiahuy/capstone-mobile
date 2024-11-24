@@ -118,7 +118,7 @@ export default function VerifyInfo() {
         return (
           <View className="flex-row items-center">
             <Ionicons name="checkmark-outline" color={"#78f25a"} size={30} />
-            <Text className="text-white text-[18px] font-bold text-center ml-2 ">
+            <Text className="text-white text-[18px] font-bold font-inter text-center ml-2 ">
               Đã xác thực
             </Text>
           </View>
@@ -127,7 +127,7 @@ export default function VerifyInfo() {
         return (
           <View className="flex-row items-center">
             <Ionicons name="sad-outline" color={"#FFA500"} size={30} />
-            <Text className="text-white text-[18px] font-bold text-center ml-2 ">
+            <Text className="text-white text-[18px] font-bold font-inter text-center ml-2 ">
               Chưa xác thực
             </Text>
           </View>
@@ -140,7 +140,7 @@ export default function VerifyInfo() {
   return (
     <View className="flex row">
       <TouchableOpacity
-        className="bg-gray-900 flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-6"
+        className="bg-[#1F1F1F] flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-6"
         onPress={handleImageUpload}
       >
         <View className="items-center">{getStatusIcon()}</View>

@@ -38,7 +38,7 @@ export default function Profile() {
     <ScrollView className="flex-1 bg-primary ">
       <View className="flex-1  items-center mb-2">
         <Avatar onAvatarChange={handleAvatarChange} />
-        <Text className=" text-white text-[18px] font-bold w-[260px] h-auto text-center mt-2 ">
+        <Text className=" text-white text-[18px] font-bold font-inter w-[260px] h-auto text-center mt-2 ">
           {user?.username}
         </Text>
         <Text className=" text-gray-400 text-[16px]  w-[260px] h-auto text-center">

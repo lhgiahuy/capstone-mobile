@@ -22,4 +22,5 @@ export interface ListReviewData {
   comment: string;
   fullname: string;
   avatar: string;
+  reviewDate: string;
 }
