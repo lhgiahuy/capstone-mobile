@@ -4,6 +4,7 @@ import {
   ScrollView,
   ActivityIndicator,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,24 +14,13 @@ import { getUserParticipant } from "@/api/user";
 import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
 import Toast from "react-native-toast-message";
+import { formatDateTime, getDay, getMonth } from "@/lib/utils/date-time";
 
 export default function EndedCalender() {
   const { data, isLoading, error } = useQuery<EventData[], Error>({
-    queryKey: ["events"],
+    queryKey: ["events", "completed"],
     queryFn: () => getUserParticipant(true),
-    // refetchOnWindowFocus: true,
-    // refetchOnMount: true,
   });
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const hours = date.getHours();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${hours}:00 , ${day}/${month}/${year}`;
-  };
 
   if (isLoading) {
     return (
@@ -42,14 +32,17 @@ export default function EndedCalender() {
   }
   if (error) return <Text>Error loading event details</Text>;
 
-  if (!data) {
+  if (!data || data.length === 0) {
     return (
-      <View style={{ padding: 16 }}>
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-          Event Not Found
+      <SafeAreaView className="bg-primary justify-center items-center">
+        <Text className="text-white font-bold text-lg text-center">
+          Chưa có sự kiện đăng ký
         </Text>
-        <Text>This event does not exist or has been removed.</Text>
-      </View>
+        <Image
+          source={require("../../assets/images/not-found.png")}
+          className=" h-[320px] w-full rounded-[16px]"
+        />
+      </SafeAreaView>
     );
   }
   const NavReview = (eventId: string) => {
@@ -71,7 +64,7 @@ export default function EndedCalender() {
     }
   };
   return (
-    <ScrollView className="bg-primary flex-1 mx-2 ">
+    <ScrollView className="bg-primary flex-1 mx-2 p-1">
       <Text className="text-[#CAFF4C] text-[19px] font-inter font-bold mt-7 ">
         Sự kiện bạn đã tham gia
       </Text>
@@ -82,8 +75,11 @@ export default function EndedCalender() {
           onPress={() => router.push(`/events/${event.eventId}`)}
         >
           <View className="bg-[#373737] w-[30%] h-full first-letter:text-center items-center justify-center rounded-l-[12px] rounded-r-[22px] ">
-            <Text className="text-white w-[120px] font-lexend text-[17px] p-2 text-center">
-              {formatDateTime(event.startTime)}
+            <Text className=" w-[120px] font-lexend text-[26px] p-2 text-center text-[#CAFF4C]">
+              {getDay(event.startTime)}
+            </Text>
+            <Text className="w-[120px] font-lexend text-[17px] text-center">
+              {getMonth(event.startTime)}
             </Text>
           </View>
           <View
@@ -131,7 +127,7 @@ export default function EndedCalender() {
                 color={"#CAFF4C"}
               />
               <Text className="font-lexend text-center text-[18px] text-[#CAFF4C] ml-2">
-                Chia sẻ trải nghiệm
+                Đánh giá sự kiện
               </Text>
             </TouchableOpacity>
             {/* <View className="flex-row mt-4 justify-center ">

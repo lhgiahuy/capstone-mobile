@@ -14,6 +14,7 @@ import { getEvent } from "@/api/event";
 import { router } from "expo-router";
 import { Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { formatDateTime } from "@/lib/utils/date-time";
 
 export default function CurrentEvent() {
   const status = "InProgress";
@@ -25,17 +26,6 @@ export default function CurrentEvent() {
     queryKey: ["events", status],
     queryFn: () => getEvent({ Status: status }),
   });
-
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const hours = date.getHours();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${hours}:00 , ${day} Tháng ${month} , ${year}`;
-  };
 
   if (isLoading) return <ActivityIndicator size="large" />;
   if (error) {

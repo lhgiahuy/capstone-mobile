@@ -30,7 +30,7 @@ export default function App() {
         source={require("../assets/images/dark_background.png")}
         resizeMode="cover"
       >
-        <View className="px-4 pt-4">
+        <View className="px-4">
           <Text className="text-[52px]  text-[#CAFF4C] font-bold font-lexend text-center">
             FVENT
           </Text>

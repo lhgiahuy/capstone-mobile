@@ -47,7 +47,7 @@ export default function EventTag() {
         {data?.map((tag) => (
           <TouchableOpacity
             key={tag.tagId}
-            className="h-[36px] w-[100px] bg-[#797777d6] justify-between items-center rounded-[12px]"
+            className="h-[36px] w-[100px] bg-[#1F1F1F] justify-between items-center rounded-[12px]"
             onPress={() => NavEventTypes(tag.tagName)}
           >
             <View className="flex-row">

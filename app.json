@@ -20,7 +20,7 @@
       "package": "com.fvent.PushNotifications",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/banner1.png",
         "backgroundColor": "#ffffff"
       },
       "softwareKeyboardLayoutMode": "pan"
@@ -39,9 +39,7 @@
         {
           "icon": "./assets/images/fpt.png",
           "color": "#ffffff",
-          "defaultChannel": "default",
-
-          "enableBackgroundRemoteNotifications": false
+          "defaultChannel": "default"
         }
       ]
     ],

@@ -3,6 +3,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Image,
   // Pressable,
 } from "react-native";
 import React from "react";
@@ -11,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Notification } from "@/constants/model/Notification";
 import { getNotifications } from "@/api/user";
 import { router } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ListNotifications() {
   const {
@@ -41,6 +43,19 @@ export default function ListNotifications() {
     );
   }
 
+  if (!notification || notification.length === 0) {
+    return (
+      <SafeAreaView className="flex-1 bg-primary justify-center items-center">
+        <Text className="text-white font-bold text-lg text-center">
+          Hiện tại chưa có thông báo
+        </Text>
+        <Image
+          source={require("../../assets/images/not-found.png")}
+          className=" h-[320px] w-full rounded-[16px]"
+        />
+      </SafeAreaView>
+    );
+  }
   if (error) {
     return (
       <View className="flex-1 bg-primary justify-center">
@@ -52,48 +67,47 @@ export default function ListNotifications() {
   }
 
   return (
-    <ScrollView className="flex-1 bg-[#d8f3f3] opacity-70 mx-1">
+    <ScrollView className="flex-1 bg-primary p-3">
       {notification?.map((notify) => (
         <View
-          className="bg-white  w-full  rounded-[20px] justify-center mt-2 p-2 border-[1px] "
+          className="bg-[#1F1F1F]  w-full  rounded-[20px] justify-center mt-2 p-2 border-[1px]  "
           key={notify.notiId}
         >
-          <View className="mt-2 mx-2 flex-row w-[320px]  items-center ">
-            <View className="flex-row items-center w-[60%] bg-green-50 rounded-lg">
+          <View className="mt-2 mx-2 flex-row items-center  ">
+            <View className="flex-row items-center w-[60%]   ">
               <Ionicons
                 name="notifications-circle-outline"
                 size={20}
-                color={"#255740"}
+                color={"#CAFF4C"}
               />
-              <Text className="font-bold font-inter text-[18px] ml-2">
+              <Text className="font-bold font-inter text-[18px] ml-2 text-[#CAFF4C]">
                 Sắp có event mới !
               </Text>
             </View>
-            <Text className="w-[40%] font-lexend ">
-              {formatDateTime(notify.sendTime)}
-            </Text>
           </View>
-
-          <Text className="mx-2 mb-2 w-[320px] p-2 font-lexend">
+          <Text className=" font-lexend p-2 text-white">
+            {formatDateTime(notify.sendTime)}
+          </Text>
+          <Text className="mx-2 mb-2  font-lexend text-white">
             {notify.message}
           </Text>
 
-          <TouchableOpacity className="  py-2 rounded-md items-center w-auto flex-row ml-6 ">
+          <TouchableOpacity className="   rounded-md items-center w-auto flex-row ml-6 ">
             <Ionicons name="checkmark-outline" size={18} color={"#22d334d2"} />
-            <Text className="ml-1 text-green-500 font-bold font-lexend ">
+            <Text className="ml-1 text-green-500 font-bold font-lexend mb-2">
               Đánh giấu đã xem
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity className=" px-4 py-2 rounded-md items-center w-[100px] ml-4">
+          {/* <TouchableOpacity className=" py-2 rounded-md items-center w-[100px] ml-4">
             <Text className="text-black font-bold">Coi chi tiết</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             onPress={() => {
               router.push("/notification/test");
             }}
           >
             <Text className="">Aloi</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       ))}
     </ScrollView>

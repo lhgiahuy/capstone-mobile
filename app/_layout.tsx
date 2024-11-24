@@ -82,7 +82,7 @@ export default function RootLayout() {
             <Stack.Screen name="search" options={{ headerShown: false }} />
             <Stack.Screen name="events" options={{ headerShown: false }} />
             <Stack.Screen
-              name="notification"
+              name="notificationsss"
               options={{ headerShown: false }}
             />
             <Stack.Screen

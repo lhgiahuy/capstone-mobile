@@ -89,7 +89,14 @@ export default function SubscribeButton({
     <View className="flex-1">
       <TouchableOpacity
         onPress={handleSubscribe}
-        className="align-middle bg-[#CAFF4C]  w-[320px] h-[50px] rounded-[18px] items-center justify-center opacity-90"
+        className={`align-middle bg-[#CAFF4C]  w-[320px] h-[50px] rounded-[18px] items-center justify-center opacity-90 
+          ${
+            isEventCompleted
+              ? "bg-[#FFA500]"
+              : register
+                ? "bg-[#FF4C4C]"
+                : "bg-[#CAFF4C]"
+          }`}
         style={{
           position: "absolute",
           bottom: 10,
@@ -102,7 +109,7 @@ export default function SubscribeButton({
           {isEventCompleted
             ? "Sự kiện đã kết thúc"
             : register
-              ? "Đã đăng ký"
+              ? "Hủy đăng ký"
               : "Đăng ký"}
         </Text>
       </TouchableOpacity>

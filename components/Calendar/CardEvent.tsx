@@ -1,4 +1,10 @@
-import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { getUserParticipant } from "@/api/user";
@@ -6,56 +12,56 @@ import { useQuery } from "@tanstack/react-query";
 import { EventData } from "@/constants/model/EventDetail";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { formatDateTime, getDay, getMonth } from "@/lib/utils/date-time";
+interface dataProps {
+  data: EventData[];
+}
 
-export default function CardEvent() {
-  const { data, isLoading, error } = useQuery<EventData[], Error>({
-    queryKey: ["events"],
-    queryFn: () => getUserParticipant(false),
-    // refetchOnWindowFocus: true,
-    // refetchOnMount: true,
-  });
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
+export default function CardEvent({ data }: dataProps) {
+  // const { data, isLoading, error } = useQuery<EventData[], Error>({
+  //   queryKey: ["events"],
+  //   queryFn: () => getUserParticipant(false),
+  //   // refetchOnWindowFocus: true,
+  //   // refetchOnMount: true,
+  // });
 
-    const hours = date.getHours();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
+  // if (isLoading) {
+  //   return (
+  //     <SafeAreaView className="bg-primary h-full justify-center items-center">
+  //       <ActivityIndicator size="large" color="#CAFF4C" />
+  //       <Text className="text-white mt-2">Đang tải sự kiện...</Text>
+  //     </SafeAreaView>
+  //   );
+  // }
+  // if (error) return <Text>Error loading event details</Text>;
 
-    return `${hours}:00 , ${day}/${month}/${year}`;
-  };
-
-  if (isLoading) {
+  if (!data || data.length === 0) {
     return (
-      <SafeAreaView className="bg-primary h-full justify-center items-center">
-        <ActivityIndicator size="large" color="#CAFF4C" />
-        <Text className="text-white mt-2">Đang tải sự kiện...</Text>
-      </SafeAreaView>
-    );
-  }
-  if (error) return <Text>Error loading event details</Text>;
-
-  if (!data) {
-    return (
-      <View style={{ padding: 16 }}>
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-          Event Not Found
+      <SafeAreaView className="bg-primary justify-center items-center">
+        <Text className="text-white font-bold text-lg text-center">
+          Chưa có sự kiện đăng ký
         </Text>
-        <Text>This event does not exist or has been removed.</Text>
-      </View>
+        <Image
+          source={require("../../assets/images/not-found.png")}
+          className=" h-[320px] w-full rounded-[16px]"
+        />
+      </SafeAreaView>
     );
   }
   return (
     <View>
       {data?.map((event) => (
         <TouchableOpacity
-          className="flex-row  h-[200px] my-2"
+          className="flex-row  h-[160px] my-2"
           key={event.eventId}
           onPress={() => router.push(`/events/${event.eventId}`)}
         >
           <View className="bg-[#373737] w-[30%] h-full first-letter:text-center items-center justify-center rounded-l-[12px] rounded-r-[22px] ">
-            <Text className="text-white w-[120px] font-lexend text-[16px] p-2 text-center">
-              {formatDateTime(event.startTime)}
+            <Text className=" w-[120px] font-lexend text-[26px] p-2 text-center text-[#CAFF4C]">
+              {getDay(event.startTime)}
+            </Text>
+            <Text className="w-[120px] font-lexend text-[17px] text-center">
+              {getMonth(event.startTime)}
             </Text>
           </View>
           <View
@@ -64,7 +70,7 @@ export default function CardEvent() {
           />
           <View className="bg-[#373737] w-[70%] p-4 justify-center rounded-l-[20px] rounded-r-[12px] ">
             <Text
-              className="text-[#CAFF4C] font-bold font-inter w-[200px] text-center text-[16px]"
+              className="text-[#CAFF4C] font-bold font-inter text-center text-[14px]"
               numberOfLines={2}
               ellipsizeMode="tail"
             >
@@ -72,27 +78,22 @@ export default function CardEvent() {
             </Text>
             <View className="flex-row mt-4 ">
               <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-              <Text className="text-white ml-2 font-lexend  ">
+              <Text className="text-white ml-2 font-lexend text-[12px] ">
                 {formatDateTime(event.startTime)}
               </Text>
             </View>
 
             <View className="flex-row mt-2">
               <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
-              <Text className="text-white ml-2 font-lexend  ">
+              <Text
+                className="text-white ml-2 font-lexend text-[12px] max-w-[150px]"
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
                 {event.location}
               </Text>
             </View>
-            <View className="flex-row mt-2">
-              <Ionicons
-                name="person-circle-outline"
-                size={20}
-                color={"#CAFF4C"}
-              />
-              <Text className="text-white ml-2 font-lexend  ">
-                {event.organizerName}
-              </Text>
-            </View>
+
             {/* <View className="flex-row mt-4 justify-center ">
               {event.eventTags.map((tag, index) => (
                 <Text

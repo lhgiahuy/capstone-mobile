@@ -35,13 +35,24 @@ const SignUp = () => {
         },
       });
       router.push("/all-done");
-
       setTimeout(() => {
         router.push("/sign-in");
       }, 3000);
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     },
     onError: (error) => {
-      console.error("Failed to update user:", error);
+      // console.error("Failed to update user:", error);
+      Toast.show({
+        type: "error",
+        text1: "Đăng ký không thành công!",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
     },
   });
   const handleRegister = () => {
@@ -121,7 +132,7 @@ const SignUp = () => {
           Tạo tài khoản
         </Text>
         <Text className="text-center font-lexend text-white  text-[16px] mb-3 ">
-          Đăng kí tài khoản bằng email của bạn
+          Đăng ký tài khoản bằng email của bạn
         </Text>
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
           <Icon name="user-o" size={20} color={"white"} />

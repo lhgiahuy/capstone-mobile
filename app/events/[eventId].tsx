@@ -15,39 +15,26 @@ import { useQuery } from "@tanstack/react-query";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import RatingEvent from "@/components/DetailEvent/RatingEvent";
-import Comment from "@/components/DetailEvent/Comment";
+
 import { getEventById } from "@/api/event";
 import { EventData } from "@/constants/model/EventDetail";
 import SubscribeButton from "@/components/DetailEvent/SubscribeButton";
-import HTMLView from "react-native-htmlview";
-import { WebView } from "react-native-webview";
+
 import CardOrganizer from "@/components/DetailEvent/CardOrganizer";
-// import RenderHtml from "react-native-render-html";
-import RenderHtml from "react-native-render-html";
+
 import { useWindowDimensions } from "react-native";
-import AutoHeightWebView from "react-native-autoheight-webview";
+
 import Description from "@/components/DetailEvent/Description";
+import { formatDateTime } from "@/lib/utils/date-time";
 
 export default function DetailEvent() {
   const { eventId } = useLocalSearchParams();
   const { width } = useWindowDimensions();
-  // const defaultImage = "../../assets/images/frog.png";
 
   const { data, isLoading, error } = useQuery<EventData, Error>({
     queryKey: ["events", eventId],
     queryFn: () => getEventById(eventId as string),
   });
-
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const hours = date.getHours();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${hours}:00 , ${day}/${month}/${year}`;
-  };
 
   if (isLoading) {
     return (
@@ -83,7 +70,7 @@ export default function DetailEvent() {
   };
 
   return (
-    <View className="flex-1 bg-primary">
+    <View className="flex-1 bg-primary ">
       <ScrollView contentContainerStyle={{ paddingBottom: 62 }}>
         <LinearGradient
           colors={[
@@ -91,11 +78,10 @@ export default function DetailEvent() {
             "rgba(0, 0, 0, 0.63)",
             "rgba(102, 102, 102, 0.2)",
           ]}
-          className=" items-center "
+          className=" items-center p-3"
         >
           <Image
-            source={{ uri: data.thumbnailImg }}
-            // source={require("../../assets/images/frog.png")}
+            source={{ uri: data.posterImg }}
             className="h-[260px] w-[330px] rounded-[20px] mt-6 opacity-75"
           />
           <Text className="text-[#CAFF4C] font-bold font-inter text-[22px] my-2 text-center mx-2">
@@ -146,20 +132,9 @@ export default function DetailEvent() {
             <Text className="font-bold font-inter text-[18px] mb-2">
               Giới thiệu
             </Text>
-            {/* {data.description ? (
-              <RenderHtml
-                contentWidth={width}
-                source={{
-                  html:
-                    data?.description || "Hiện tại chưa có chi tiết nội dung",
-                }}
-                baseStyle={baseStyle}
-              />
-            ) : (
-              <Text>Không có mô tả</Text>
-            )} */}
-
-            <Description description={data.description} />
+            <View style={{ flex: 1 }}>
+              <Description description={data.description} />
+            </View>
           </View>
           <CardOrganizer
             organizerName={data.organizerName}

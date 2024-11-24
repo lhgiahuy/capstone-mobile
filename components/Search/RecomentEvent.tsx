@@ -42,8 +42,8 @@ export default function RecomentEvent() {
 
   return (
     <View className="py-2 mt-8">
-      <Text className=" ml-4 text-[#CAFF4C] text-xl font-bold">
-        Sự kiện bạn có thể quan tâm
+      <Text className=" ml-4 text-[#CAFF4C] text-xl font-lexend font-bold">
+        Các sự kiện nổi bật
       </Text>
       <ScrollView
         horizontal

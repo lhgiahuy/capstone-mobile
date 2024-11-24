@@ -36,6 +36,7 @@ const SignIn = () => {
           fontWeight: "bold",
         },
       });
+      setEmail(""), setPassword("");
     } else {
       Toast.show({
         type: "error",

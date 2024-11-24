@@ -18,14 +18,22 @@ export default function NotficationLayout() {
     Notifications.Notification | undefined
   >(undefined);
   const [fcmToken, setFcmToken] = useState("");
-  // const notificationListener = useRef<Notifications.Subscription>();
-  // const responseListener = useRef<Notifications.Subscription>();
+  const notificationListener = useRef<Notifications.EventSubscription>();
+  const responseListener = useRef<Notifications.EventSubscription>();
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token ?? "")
     );
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
 
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
     // Gọi getDevicePushTokenAsync() để lấy token từ APNs hoặc FCM
     const getDevicePushToken = async () => {
       try {
@@ -37,32 +45,23 @@ export default function NotficationLayout() {
         console.error("Error getting device push token: ", e);
       }
     };
+    getDevicePushToken();
+    return () => {
+      notificationListener.current &&
+        Notifications.removeNotificationSubscription(
+          notificationListener.current
+        );
+      responseListener.current &&
+        Notifications.removeNotificationSubscription(responseListener.current);
+    };
 
-    getDevicePushToken(); // Gọi hàm để lấy device push token
-
-    // .catch((error: any) => setExpoPushToken(`${error}`));
+    // Gọi hàm để lấy device push token
   }, []);
   console.log("Token", expoPushToken);
 
   return (
     <>
       <Stack>
-        <Stack.Screen
-          name="list-notification"
-          options={{
-            headerTitle: () => (
-              <View>
-                <Text className="font-bold text-[18px] text-[#000]">
-                  Thông báo
-                </Text>
-              </View>
-            ),
-            headerTitleAlign: "center",
-            headerStyle: {
-              backgroundColor: "#CAFF4C",
-            },
-          }}
-        />
         <Stack.Screen
           name="test"
           options={{

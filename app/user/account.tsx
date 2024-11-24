@@ -2,9 +2,6 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { User } from "@/constants/model/User";
-import { getUser } from "@/api/user";
-import { useQuery } from "@tanstack/react-query";
 
 export default function Account() {
   // const { data, isLoading, error } = useQuery<User>({

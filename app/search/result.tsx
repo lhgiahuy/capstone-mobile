@@ -102,7 +102,7 @@ export default function Result() {
     );
   }
   return (
-    <SafeAreaView className="flex-1 bg-primary h-full">
+    <SafeAreaView className="flex-1 bg-primary h-full p-3">
       <ScrollView>
         <Text className="text-white font-bold text-[18px] mt-3 ml-4">
           Danh sách sự kiện : {keyword || tagName}

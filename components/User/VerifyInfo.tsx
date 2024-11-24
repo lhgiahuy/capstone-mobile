@@ -140,7 +140,7 @@ export default function VerifyInfo() {
   return (
     <View className="flex row">
       <TouchableOpacity
-        className="bg-gray-900 flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-6"
+        className="bg-[#1F1F1F] flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-6"
         onPress={handleImageUpload}
       >
         <View className="items-center">{getStatusIcon()}</View>

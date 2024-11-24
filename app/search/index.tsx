@@ -10,7 +10,7 @@ import EventTag from "@/components/Search/EventTag";
 
 export default function search() {
   return (
-    <SafeAreaView className="bg-black h-full">
+    <SafeAreaView className="bg-black h-full p-3">
       <SearchBar />
       <EventTag />
       <RecomentEvent />
