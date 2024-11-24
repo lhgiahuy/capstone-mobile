@@ -30,7 +30,7 @@ export default function CardOrganizer({
   };
   return (
     <View className="bg-white w-full rounded-[24px] p-4 mt-4 mb-2">
-      <Text className="font-bold text-[17px] mb-2">Ban tổ chức</Text>
+      <Text className="font-bold text-[18px] mb-2">Ban tổ chức</Text>
       <View className="flex-row justify-around items-center">
         <Pressable onPress={() => NavInforOrganizer(organizerId)}>
           <Image
@@ -39,7 +39,7 @@ export default function CardOrganizer({
           />
         </Pressable>
 
-        <Text className="ml-6 font-bold w-[120px] text-center text-[20px]">
+        <Text className="ml-6 font-inter font-bold w-[148px] text-center text-[20px]">
           {organizerName}
         </Text>
       </View>

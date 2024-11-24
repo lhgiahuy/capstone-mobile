@@ -48,7 +48,7 @@ export default function CurrentEvent() {
         <Text className="ml-4 text-[#CAFF4C] text-xl font-bold">
           Sự kiện đang diễn ra
         </Text>
-        <Text className="text-white text-[16px] font-itim text-center mt-2">
+        <Text className="text-white text-[16px] font-lexend text-center mt-2">
           Chưa có sự kiện đang diễn ra trong hôm nay
         </Text>
         <Image

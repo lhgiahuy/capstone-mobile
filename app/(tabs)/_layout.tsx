@@ -45,7 +45,7 @@ export default function TabLayout() {
                   </TouchableOpacity>
 
                   <TouchableOpacity>
-                    <Link href="/user/notification">
+                    <Link href="/notification/list-notification">
                       <Ionicons name="notifications" size={24} color="black" />
                     </Link>
                   </TouchableOpacity>

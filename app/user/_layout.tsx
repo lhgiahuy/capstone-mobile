@@ -55,22 +55,7 @@ export default function AccountLayout() {
             },
           }}
         />
-        <Stack.Screen
-          name="notification"
-          options={{
-            headerTitle: () => (
-              <View>
-                <Text className="font-bold text-[18px] text-[#000]">
-                  Thông báo
-                </Text>
-              </View>
-            ),
-            headerTitleAlign: "center",
-            headerStyle: {
-              backgroundColor: "#CAFF4C",
-            },
-          }}
-        />
+
         <Stack.Screen
           name="infor"
           options={{

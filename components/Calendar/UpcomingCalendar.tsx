@@ -36,7 +36,7 @@ export default function UpcomingCalendar() {
           }}
         />
         <View className="mt-6 mb-4">
-          <Text className="text-[#CAFF4C] font-bold text-[18px] mb-4">
+          <Text className="text-[#CAFF4C] font-bold font-inter text-[18px] mb-4">
             Sự kiện đăng ký
           </Text>
           <CardEvent />

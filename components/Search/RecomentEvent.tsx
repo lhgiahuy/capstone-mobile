@@ -74,7 +74,7 @@ export default function RecomentEvent() {
               </Text>
               <View className="flex-row mt-2">
                 <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-                <Text className="text-white ml-2 ">
+                <Text className="text-white ml-2 font-lexend">
                   {formatDateTime(event.startTime)}
                 </Text>
               </View>

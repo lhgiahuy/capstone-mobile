@@ -1,10 +1,36 @@
+import { getListBanner } from "@/api/event";
+import { Banner } from "@/constants/model/Banner";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, ActivityIndicator, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Swiper from "react-native-swiper";
 
-export default function Banner() {
+export default function BannerEvent() {
+  const { data, isLoading, error } = useQuery<Banner[]>({
+    queryKey: ["banner"],
+    queryFn: () => getListBanner(),
+  });
+
+  if (isLoading) {
+    return (
+      <SafeAreaView className="bg-primary h-full justify-center items-center">
+        <ActivityIndicator size="large" color="#CAFF4C" />
+        <Text className="text-white mt-2">Đang tải ảnh sự kiện...</Text>
+      </SafeAreaView>
+    );
+  }
+  if (error) {
+    return (
+      <SafeAreaView className="bg-primary h-full justify-center items-center">
+        <ActivityIndicator size="large" color="#CAFF4C" />
+        <Text className="text-white mt-2">Ảnh sự kiện đăng gặp vấn đề...</Text>
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <View className="h-[200px] w-full">
+    <View className="h-[240px] w-full">
       <Swiper
         showsButtons={false}
         dot={
@@ -15,24 +41,21 @@ export default function Banner() {
         autoplayTimeout={3}
         paginationStyle={{ bottom: -20 }}
       >
-        <View className="flex-1 justify-center items-center">
-          <Image
-            source={require("../assets/images/banner1.png")}
-            className="w-full h-full object-cover rounded-md"
-          />
-        </View>
-        <View className="flex-1 justify-center items-center">
-          <Image
-            source={require("../assets/images/event.png")}
-            className="w-full h-full object-cover rounded-md"
-          />
-        </View>
-        <View className="flex-1 justify-center items-center">
-          <Image
-            source={require("../assets/images/banner1.png")}
-            className="w-full h-full object-cover rounded-md"
-          />
-        </View>
+        {data?.map((banner) => (
+          <View
+            className="flex-1 justify-center items-center"
+            key={banner?.eventId}
+          >
+            <Image
+              source={
+                banner?.posterImg
+                  ? { uri: banner.posterImg }
+                  : require("../assets/images/banner1.png")
+              }
+              className="w-full h-full object-cover rounded-md"
+            />
+          </View>
+        ))}
       </Swiper>
     </View>
   );

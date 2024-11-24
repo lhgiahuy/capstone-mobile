@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "552375546071",
+    "project_id": "fvent-6ccc1",
+    "storage_bucket": "fvent-6ccc1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552375546071:android:e83467ce9d80cdd1040092",
+        "android_client_info": {
+          "package_name": "com.fvent.PushNotifications"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByKMYaQvpX0N3oujyNcRkZmP0Qu7nsmfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

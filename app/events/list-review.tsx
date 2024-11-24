@@ -56,7 +56,7 @@ export default function ListReview() {
   return (
     <ScrollView className="flex-1 bg-black bg-opacity-50">
       <SafeAreaView className="flex-1 px-2 w-full bg-black justify-center">
-        <Text className="text-[17px] text-white font-bold ml-2 ">
+        <Text className="text-[17px] text-white font-bold font-inter ml-2 ">
           Bình luận :
         </Text>
 

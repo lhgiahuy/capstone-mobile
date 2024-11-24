@@ -111,22 +111,22 @@ const SignUp = () => {
           size={40}
           onPress={() => router.back()}
         />
-        <Text className="text-[56px] font-bold text-[#374E00] text-center  ">
+        <Text className="text-[56px] font-bold font-inter text-[#374E00] text-center  ">
           FVENT
         </Text>
       </View>
 
       <View className="bg-black h-[70%] rounded-tl-[92px] justify-center items-center ">
-        <Text className="text-4xl font-inter font-bold text-white text-center  ">
+        <Text className="text-4xl font-inter font-bold  text-white text-center  ">
           Tạo tài khoản
         </Text>
-        <Text className="text-center text-white font-inter  text-[16px] mb-3 ">
+        <Text className="text-center font-lexend text-white  text-[16px] mb-3 ">
           Đăng kí tài khoản bằng email của bạn
         </Text>
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
           <Icon name="user-o" size={20} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[250px]"
+            className=" text-white ml-2  w-[250px] font-lexend"
             placeholder="Tên người dùng"
             placeholderTextColor="white"
             value={username}
@@ -136,7 +136,7 @@ const SignUp = () => {
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
           <Ionicons name="mail-outline" size={20} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[250px]"
+            className=" text-white ml-2  w-[250px] font-lexend"
             placeholder="Email"
             placeholderTextColor="white"
             value={email}
@@ -156,7 +156,7 @@ const SignUp = () => {
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[200px]"
+            className=" text-white ml-2  w-[200px] font-lexend"
             placeholder="Mật khẩu"
             placeholderTextColor="white"
             secureTextEntry={!showPassword}
@@ -178,7 +178,7 @@ const SignUp = () => {
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 my-3 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[200px]"
+            className=" text-white ml-2  w-[200px] font-lexend"
             placeholder="Xác nhận mật khẩu"
             placeholderTextColor="white"
             secureTextEntry={!showConfirmPassword}
@@ -201,7 +201,9 @@ const SignUp = () => {
           className="bg-[#CAFF4C] py-4 rounded-[32px] mt-4 w-[220px]  items-center justify-center"
           onPress={handleRegister}
         >
-          <Text className="text-[#374E00] font-bold text-[20px]">Đăng kí</Text>
+          <Text className="text-[#374E00] font-bold font-inter text-[20px]">
+            Đăng kí
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

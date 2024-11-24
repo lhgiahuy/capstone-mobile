@@ -72,7 +72,7 @@ export default function EndedCalender() {
   };
   return (
     <ScrollView className="bg-primary flex-1 mx-2 ">
-      <Text className="text-[#CAFF4C] text-[19px] font-bold mt-7 ">
+      <Text className="text-[#CAFF4C] text-[19px] font-inter font-bold mt-7 ">
         Sự kiện bạn đã tham gia
       </Text>
       {data?.map((event) => (
@@ -82,7 +82,7 @@ export default function EndedCalender() {
           onPress={() => router.push(`/events/${event.eventId}`)}
         >
           <View className="bg-[#373737] w-[30%] h-full first-letter:text-center items-center justify-center rounded-l-[12px] rounded-r-[22px] ">
-            <Text className="text-white w-[120px] font-pacifo text-[17px] p-2 text-center">
+            <Text className="text-white w-[120px] font-lexend text-[17px] p-2 text-center">
               {formatDateTime(event.startTime)}
             </Text>
           </View>
@@ -92,7 +92,7 @@ export default function EndedCalender() {
           />
           <View className="bg-[#373737] w-[70%] p-4 justify-center rounded-l-[20px] rounded-r-[12px] ">
             <Text
-              className="text-[#CAFF4C] font-bold w-[200px] text-center text-[16px]"
+              className="text-[#CAFF4C] font-bold font-inter w-[200px] text-center text-[16px]"
               numberOfLines={2}
               ellipsizeMode="tail"
             >
@@ -100,14 +100,14 @@ export default function EndedCalender() {
             </Text>
             <View className="flex-row mt-4 ">
               <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-              <Text className="text-white ml-2 font-inter  ">
+              <Text className="text-white ml-2 font-lexend  ">
                 {formatDateTime(event.startTime)}
               </Text>
             </View>
 
             <View className="flex-row mt-2">
               <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
-              <Text className="text-white ml-2 font-inter  ">
+              <Text className="text-white ml-2 font-lexend  ">
                 {event.location}
               </Text>
             </View>
@@ -117,7 +117,7 @@ export default function EndedCalender() {
                 size={20}
                 color={"#CAFF4C"}
               />
-              <Text className="text-white ml-2 font-inter  ">
+              <Text className="text-white ml-2 font-lexend  ">
                 {event.organizerName}
               </Text>
             </View>
@@ -130,7 +130,7 @@ export default function EndedCalender() {
                 size={20}
                 color={"#CAFF4C"}
               />
-              <Text className="font-itim text-center text-[18px] text-[#CAFF4C] ml-2">
+              <Text className="font-lexend text-center text-[18px] text-[#CAFF4C] ml-2">
                 Chia sẻ trải nghiệm
               </Text>
             </TouchableOpacity>

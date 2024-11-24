@@ -9,7 +9,7 @@ export default function Setting() {
       <Text className="text-white font-bold text-[20px] ">Cài đặt</Text>
       <TouchableOpacity
         className="bg-gray-900 flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-2"
-        onPress={() => router.push("/user")}
+        onPress={() => router.push("/user/account")}
       >
         <View className="flex-row items-center">
           <Ionicons
@@ -27,7 +27,7 @@ export default function Setting() {
       </TouchableOpacity>
       <TouchableOpacity
         className="bg-gray-900 flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-2"
-        onPress={() => router.push("/user/notification")}
+        onPress={() => router.push("/notification/list-notification")}
       >
         <View className="flex-row items-center">
           <Ionicons

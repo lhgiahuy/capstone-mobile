@@ -10,8 +10,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { Notification } from "@/constants/model/Notification";
 import { getNotifications } from "@/api/user";
+import { router } from "expo-router";
 
-export default function Notify() {
+export default function ListNotifications() {
   const {
     data: notification,
     isLoading,
@@ -64,24 +65,35 @@ export default function Notify() {
                 size={20}
                 color={"#255740"}
               />
-              <Text className="font-bold text-[18px] ml-2">
+              <Text className="font-bold font-inter text-[18px] ml-2">
                 Sắp có event mới !
               </Text>
             </View>
-            <Text className="w-[40%] ">{formatDateTime(notify.sendTime)}</Text>
+            <Text className="w-[40%] font-lexend ">
+              {formatDateTime(notify.sendTime)}
+            </Text>
           </View>
 
-          <Text className="mx-2 mb-2 w-[320px] p-2 ">{notify.message}</Text>
+          <Text className="mx-2 mb-2 w-[320px] p-2 font-lexend">
+            {notify.message}
+          </Text>
 
           <TouchableOpacity className="  py-2 rounded-md items-center w-auto flex-row ml-6 ">
             <Ionicons name="checkmark-outline" size={18} color={"#22d334d2"} />
-            <Text className="ml-1 text-green-500 font-bold  ">
+            <Text className="ml-1 text-green-500 font-bold font-lexend ">
               Đánh giấu đã xem
             </Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity className=" px-4 py-2 rounded-md items-center w-[100px] ml-4">
-              <Text className="text-black font-bold">Coi chi tiết</Text>
-            </TouchableOpacity> */}
+          <TouchableOpacity className=" px-4 py-2 rounded-md items-center w-[100px] ml-4">
+            <Text className="text-black font-bold">Coi chi tiết</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              router.push("/notification/test");
+            }}
+          >
+            <Text className="">Aloi</Text>
+          </TouchableOpacity>
         </View>
       ))}
     </ScrollView>

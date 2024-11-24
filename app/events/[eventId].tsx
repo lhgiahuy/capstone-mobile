@@ -20,11 +20,17 @@ import { getEventById } from "@/api/event";
 import { EventData } from "@/constants/model/EventDetail";
 import SubscribeButton from "@/components/DetailEvent/SubscribeButton";
 import HTMLView from "react-native-htmlview";
+import { WebView } from "react-native-webview";
 import CardOrganizer from "@/components/DetailEvent/CardOrganizer";
 // import RenderHtml from "react-native-render-html";
+import RenderHtml from "react-native-render-html";
+import { useWindowDimensions } from "react-native";
+import AutoHeightWebView from "react-native-autoheight-webview";
+import Description from "@/components/DetailEvent/Description";
 
 export default function DetailEvent() {
   const { eventId } = useLocalSearchParams();
+  const { width } = useWindowDimensions();
   // const defaultImage = "../../assets/images/frog.png";
 
   const { data, isLoading, error } = useQuery<EventData, Error>({
@@ -70,19 +76,11 @@ export default function DetailEvent() {
       </View>
     );
   }
-
-  const NavInforOrganizer = (organizerId: string) => {
-    if (!organizerId) {
-      Alert.alert("Thông báo", "Không tìm thấy thông tin tổ chức.");
-    } else {
-      router.push({
-        pathname: "/organizer/infor",
-        params: { organizerId: organizerId },
-      });
-    }
+  const baseStyle = {
+    fontFamily: "lexend",
+    fontSize: 16,
+    color: "#000000",
   };
-
-  // const contentWidth = Dimensions.get("window").width;
 
   return (
     <View className="flex-1 bg-primary">
@@ -96,11 +94,11 @@ export default function DetailEvent() {
           className=" items-center "
         >
           <Image
-            // source={{ uri: data.thumbnailImg  }}
-            source={require("../../assets/images/frog.png")}
+            source={{ uri: data.thumbnailImg }}
+            // source={require("../../assets/images/frog.png")}
             className="h-[260px] w-[330px] rounded-[20px] mt-6 opacity-75"
           />
-          <Text className="text-[#CAFF4C] font-bold text-[22px] mt-2 text-center mx-2">
+          <Text className="text-[#CAFF4C] font-bold font-inter text-[22px] my-2 text-center mx-2">
             {data.eventName}
           </Text>
 
@@ -110,20 +108,20 @@ export default function DetailEvent() {
               size={20}
               color={"#CAFF4C"}
             />
-            <Text className="text-white ml-3 font-itim text-[16px]">
+            <Text className="text-white ml-3 font-lexend text-[16px]">
               Bắt đầu : {formatDateTime(data.startTime)}
             </Text>
           </View>
           <View className="flex-row ">
             <Ionicons name="calendar-outline" size={20} color={"#CAFF4C"} />
-            <Text className="text-white ml-2 font-itim text-[16px]">
+            <Text className="text-white ml-2 font-lexend text-[16px]">
               Kết thúc : {formatDateTime(data.endTime)}
             </Text>
           </View>
 
           <View className="flex-row mt-4 w-[80%] justify-center items-center">
             <Ionicons name="location-outline" size={22} color={"#CAFF4C"} />
-            <Text className="text-white ml-2 font-itim text-[16px] text-center">
+            <Text className="text-white ml-2 font-lexend text-[16px] text-center">
               {data.location}
             </Text>
           </View>
@@ -136,7 +134,7 @@ export default function DetailEvent() {
               {data.eventTags.map((tag, index) => (
                 <Text
                   key={index}
-                  className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded font-itim"
+                  className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded font-lexend"
                 >
                   {tag}
                 </Text>
@@ -145,13 +143,23 @@ export default function DetailEvent() {
           </ScrollView>
           <RatingEvent eventId={data.eventId} status={data.status} />
           <View className="bg-white w-full rounded-[24px] p-4 mt-4">
-            <Text className="font-bold text-[17px] mb-2"> Giới thiệu</Text>
-            {/* <Text> {data.description}</Text> */}
-            {/* <RenderHtml
-              source={{ html: data?.description }}
-              contentWidth={contentWidth}
-            /> */}
-            {/* <HTMLView value={data.description} /> */}
+            <Text className="font-bold font-inter text-[18px] mb-2">
+              Giới thiệu
+            </Text>
+            {/* {data.description ? (
+              <RenderHtml
+                contentWidth={width}
+                source={{
+                  html:
+                    data?.description || "Hiện tại chưa có chi tiết nội dung",
+                }}
+                baseStyle={baseStyle}
+              />
+            ) : (
+              <Text>Không có mô tả</Text>
+            )} */}
+
+            <Description description={data.description} />
           </View>
           <CardOrganizer
             organizerName={data.organizerName}

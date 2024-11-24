@@ -118,7 +118,7 @@ export default function VerifyInfo() {
         return (
           <View className="flex-row items-center">
             <Ionicons name="checkmark-outline" color={"#78f25a"} size={30} />
-            <Text className="text-white text-[18px] font-bold text-center ml-2 ">
+            <Text className="text-white text-[18px] font-bold font-inter text-center ml-2 ">
               Đã xác thực
             </Text>
           </View>
@@ -127,7 +127,7 @@ export default function VerifyInfo() {
         return (
           <View className="flex-row items-center">
             <Ionicons name="sad-outline" color={"#FFA500"} size={30} />
-            <Text className="text-white text-[18px] font-bold text-center ml-2 ">
+            <Text className="text-white text-[18px] font-bold font-inter text-center ml-2 ">
               Chưa xác thực
             </Text>
           </View>

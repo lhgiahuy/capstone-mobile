@@ -120,7 +120,7 @@ export default function Result() {
             key={event?.eventId}
           >
             <Image
-              source={{ uri: event.posterImg }}
+              source={{ uri: event.thumbnailImg }}
               className="h-[100%] w-[46%] rounded-[16px]"
             />
             <View className="p-2  w-[54%] h-[100%] items-center  ">
@@ -133,7 +133,7 @@ export default function Result() {
               </Text>
               <View className="flex-row mt-3 h-[10%] ">
                 <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-                <Text className="text-white ml-2">
+                <Text className="text-white font-lexend ml-2">
                   {formatDateTime(event.startTime)}
                 </Text>
               </View>
@@ -141,14 +141,14 @@ export default function Result() {
               <View className="flex-row mt-4 h-[20%] ">
                 <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
                 <Text
-                  className="text-white ml-2 w-[120px] text-center"
+                  className="text-white font-lexend ml-2 w-[120px] text-center"
                   numberOfLines={2}
                   ellipsizeMode="tail"
                 >
                   {event.location}
                 </Text>
               </View>
-              <Text className="text-white ml-2 w-[100%] text-center my-2 h-[10%] ">
+              <Text className="text-white font-lexend ml-2 w-[100%] text-center my-2 h-[10%] ">
                 {event.eventTypeName}
               </Text>
 
@@ -161,7 +161,7 @@ export default function Result() {
                   {event.eventTags.map((tag, index) => (
                     <Text
                       key={index}
-                      className="text-[#797777d6] text-[14px]  px-2 rounded-[20px] "
+                      className="text-[#797777d6] text-[14px] font-lexend  px-2 rounded-[20px] "
                     >
                       {tag}
                     </Text>
@@ -172,7 +172,7 @@ export default function Result() {
                 className="flex-row justify-center items-center mt-2 w-[100%] h-[10%]"
                 onPress={() => router.push(`/events/${event?.eventId}`)}
               >
-                <Text className="text-[#CAFF4C] font-bold text-[16px] ">
+                <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] ">
                   Xem chi tiết
                 </Text>
                 <Ionicons
@@ -185,7 +185,7 @@ export default function Result() {
           </View>
         ))}
         <View className="flex-row justify-between p-4 mt-4">
-          <Text className="text-white font-bold text-[16px]">
+          <Text className="text-white font-bold font-lexend text-[16px]">
             Trang {data.pageNumber || 1} / {data.totalPages || 1}
           </Text>
           <View className="flex-row ">

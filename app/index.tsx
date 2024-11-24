@@ -31,15 +31,15 @@ export default function App() {
         resizeMode="cover"
       >
         <View className="px-4 pt-4">
-          <Text className="text-[52px]  text-[#CAFF4C]  font-itim text-center">
+          <Text className="text-[52px]  text-[#CAFF4C] font-bold font-lexend text-center">
             FVENT
           </Text>
 
-          <Text className="text-[80px] text-center  font-pacifo text-white ">
+          <Text className="text-[70px] text-center  font-inter font-bold text-white ">
             Welcome
           </Text>
 
-          <Text className="text-[18px] text-center font-dancing  text-white">
+          <Text className="text-[18px] text-center  font-lexend  text-white">
             Find your favorite event with Fvent!
             {/* Tìm kiếm sự kiện yêu thích với Fvent */}
           </Text>
@@ -49,7 +49,7 @@ export default function App() {
               className="bg-[#CAFF4C] w-[70%] h-[46px] rounded-[26px]"
               onPress={() => router.push("/sign-up")}
             >
-              <Text className="text-center font-bold text-[18px] text-black p-2">
+              <Text className="text-center font-bold font-lexend text-[18px] text-black p-2">
                 Tạo tài khoản
               </Text>
             </TouchableOpacity>
@@ -59,7 +59,7 @@ export default function App() {
               className="bg-[#CAFF4C] w-[70%] h-[46px] rounded-[26px]"
               onPress={() => router.push("/sign-in")}
             >
-              <Text className="text-center font-bold text-[18px] text-black p-2">
+              <Text className="text-center  font-bold font-lexend text-[18px] text-black p-2">
                 Đăng nhập
               </Text>
             </TouchableOpacity>

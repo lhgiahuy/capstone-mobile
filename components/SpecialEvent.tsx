@@ -45,11 +45,11 @@ export default function SpecialEvent() {
           >
             <Image
               // source={{ uri: event.imageUrl }}
-              source={{ uri: event.posterImg }}
+              source={{ uri: event.thumbnailImg }}
               className="h-[320px] w-[208px] rounded-[16px]"
             />
             <Text
-              className="text-white text-center mt-2 w-[200px]"
+              className="text-white text-center mt-2 w-[200px] font-inter font-bold"
               numberOfLines={2}
               ellipsizeMode="tail"
             >

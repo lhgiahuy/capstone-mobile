@@ -32,10 +32,10 @@ export default function BannerOrganizer({ organizerId }: NavOrganizerProps) {
         </View>
 
         <View className="w-[180px] ml-2  my-4 mx-2">
-          <Text className="text-[#228B22]  text-[16px] font-pacifo  text-center">
+          <Text className="text-[#228B22]  text-[18px] font-lexend  text-center">
             {data?.username}
           </Text>
-          <Text className="text-[#228B22]  text-[16px]  font-itim text-center">
+          <Text className="text-[#228B22]  text-[18px]  font-lexend text-center">
             {data?.email}
           </Text>
         </View>

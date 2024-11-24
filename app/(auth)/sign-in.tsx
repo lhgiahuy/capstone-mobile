@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
 import { useAuth } from "@/hooks/useAuth";
 import { Ionicons } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const SignIn = () => {
   const router = useRouter();
@@ -44,6 +53,13 @@ const SignIn = () => {
   };
 
   return (
+    // <KeyboardAwareScrollView
+    //   className="flex-1"
+    //   resetScrollToCoords={{ x: 0, y: 0 }} // Đặt lại vị trí cuộn khi đóng bàn phím
+    //   contentContainerStyle={{ flexGrow: 1 }} // Cho phép màn hình tự động mở rộng
+    //   keyboardShouldPersistTaps="handled" // Đảm bảo rằng các hành động khác không bị gián đoạn khi bàn phím hiển thị
+    // >
+
     <View className="bg-[#CAFF4C] flex-1 justify-center  ">
       <View className="h-[30%] justify-center ml-4">
         <Ionicons
@@ -51,7 +67,7 @@ const SignIn = () => {
           size={40}
           onPress={() => router.back()}
         />
-        <Text className="text-[56px] font-bold text-[#374E00] text-center  ">
+        <Text className="text-[56px] font-bold font-inter text-[#374E00] text-center  ">
           FVENT
         </Text>
       </View>
@@ -60,13 +76,13 @@ const SignIn = () => {
         <Text className="text-4xl font-inter font-bold text-white text-center  ">
           Đăng nhập
         </Text>
-        <Text className="text-center text-white font-inter  text-lg mb-8 ">
+        <Text className="text-center text-white font-lexend  text-lg mb-8 ">
           Đăng nhập tài khoản của bạn
         </Text>
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 my-2 mx-8  h-[56px]">
           <Icon name="user-o" size={20} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[250px]"
+            className=" text-white ml-2  w-[250px] font-lexend"
             placeholder="Email"
             placeholderTextColor="white"
             value={email}
@@ -76,7 +92,7 @@ const SignIn = () => {
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-4 mx-8 h-[56px]">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[200px] "
+            className=" text-white ml-2  w-[200px] font-lexend"
             placeholder="Mật khẩu"
             placeholderTextColor="white"
             secureTextEntry={!showPassword}
@@ -96,7 +112,7 @@ const SignIn = () => {
         </View>
 
         <TouchableOpacity className="mt-2 self-end mr-10 ">
-          <Text className="text-white text-right  font-bold">
+          <Text className="text-white text-right font-lexend font-bold">
             Quên mật khẩu?
           </Text>
         </TouchableOpacity>
@@ -105,12 +121,14 @@ const SignIn = () => {
           className="bg-[#CAFF4C] py-4 rounded-[32px] mt-4 w-[220px]  items-center justify-center"
           onPress={handleLogin}
         >
-          <Text className="text-[#374E00] font-bold text-[20px]">
+          <Text className="text-[#374E00] font-bold font-inter text-[20px]">
             Đăng nhập
           </Text>
         </TouchableOpacity>
       </View>
     </View>
+
+    // </KeyboardAwareScrollView>
   );
 };
 

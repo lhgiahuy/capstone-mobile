@@ -8,9 +8,11 @@ export default function Success() {
       source={require("../../assets/images/background-dark.png")}
       resizeMode="cover"
     >
-      <View>
-        <Text className="text-white text-[60px] font-premanent">ALL DONE!</Text>
-        <Text className="text-white  font-premanent">
+      <View className="justify-center items-center">
+        <Text className="text-white text-[60px] font-inter font-bold">
+          ALL DONE!
+        </Text>
+        <Text className="text-white  font-lexend">
           Get started to find your favorite event with us!
         </Text>
       </View>

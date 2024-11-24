@@ -5,20 +5,24 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  useWindowDimensions,
 } from "react-native";
 import React from "react";
 
 import { useQuery } from "@tanstack/react-query";
-import { EventData } from "@/constants/model/EventDetail";
+
 import { getTags } from "@/api/tags";
 import { Tag } from "@/constants/model/Tag";
 import { router } from "expo-router";
+import RenderHTML from "react-native-render-html";
 
 export default function EventTag() {
+  // const { width } = useWindowDimensions();
   const { data, isLoading, error } = useQuery<Tag[], Error>({
     queryKey: ["event"],
     queryFn: () => getTags(),
   });
+
   if (isLoading) return <ActivityIndicator size="large" />;
   if (error) return <Text>Error loading event details</Text>;
   const NavEventTypes = (tagName: string) => {
@@ -47,7 +51,18 @@ export default function EventTag() {
             onPress={() => NavEventTypes(tag.tagName)}
           >
             <View className="flex-row">
-              <Text className="text-white text-[14px] p-2 ">{tag.tagName}</Text>
+              {/* {tag.svgContent ? (
+                <RenderHTML
+                  contentWidth={width}
+                  source={{ html: tag.svgContent }}
+                  baseStyle={baseStyle}
+                />
+              ) : (
+                <Text>Không có mô tả</Text>
+              )} */}
+              <Text className="text-white text-[14px] font-lexend p-2 ">
+                {tag.tagName}
+              </Text>
             </View>
           </TouchableOpacity>
         ))}

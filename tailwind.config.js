@@ -21,6 +21,7 @@ module.exports = {
         inter: ["Inter", "cursive"],
         itim: ["Itim", "Regular"],
         premanent: ["Premanent", "cursive"],
+        lexend: ["Lexend", "cursive"],
       },
     },
   },
