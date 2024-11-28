@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getEventRecommendation } from "@/api/event";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { formatDate } from "@/lib/utils/date-time";
 
 export default function RecomentEvent() {
   const {
@@ -19,20 +20,9 @@ export default function RecomentEvent() {
     isLoading,
     error,
   } = useQuery<EventData[], Error>({
-    queryKey: ["events"],
+    queryKey: ["events", "recomemended"],
     queryFn: () => getEventRecommendation(),
   });
-
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const hours = date.getHours();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${hours}:00 , ${day} Tháng ${month} , ${year}`;
-  };
 
   if (isLoading) return <ActivityIndicator size="large" />;
 
@@ -41,7 +31,7 @@ export default function RecomentEvent() {
   }
 
   return (
-    <View className="py-2 mt-8">
+    <View className="py-2 mt-8 ">
       <Text className=" ml-4 text-[#CAFF4C] text-xl font-lexend font-bold">
         Các sự kiện nổi bật
       </Text>
@@ -49,33 +39,31 @@ export default function RecomentEvent() {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 12, gap: 16 }}
-        className="mt-6"
+        className="mt-6 p-2"
       >
         {events?.map((event) => (
           <TouchableOpacity
-            className="h-[220px]"
+            className="justify-between items-center w-[200px] "
             key={event.eventId}
             onPress={() => router.push(`/events/${event.eventId}`)}
           >
             <Image
-              source={{ uri: event.thumbnailImg }}
-              className="h-[140px] w-[224px] rounded-[20px]"
+              source={{ uri: event.posterImg }}
+              className="h-[260px] w-[180px] rounded-[20px]"
             />
 
-            <View className="h-[60px] w-[224px]">
+            <View className="h-[60px] w-[224px] justify-center px-2 mt-3">
               <Text
-                className="text-white font-bold mx-2 mt-2"
+                className="text-white font-bold mx-2 mt-2 text-center h-[40px]"
                 numberOfLines={2}
                 ellipsizeMode="tail"
               >
-                {/* [ORIENTATION WEEK] Tìm kiếm và ứng dụng vào cuộc sống xã hội
-               nhânnnnnnnnnn */}
                 {event.eventName}
               </Text>
-              <View className="flex-row mt-2">
+              <View className="flex-row items-center justify-center">
                 <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-                <Text className="text-white ml-2 font-lexend">
-                  {formatDateTime(event.startTime)}
+                <Text className="text-white ml-2 font-lexend ">
+                  {formatDate(event.startTime)}
                 </Text>
               </View>
             </View>

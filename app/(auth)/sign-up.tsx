@@ -59,7 +59,7 @@ const SignUp = () => {
     if (!username || !email || !password || !confirmPassword) {
       Toast.show({
         type: "error",
-        text1: "Lỗi",
+        text1: "Đăng ký thất bại",
         text2: "Vui lòng điền đầy đủ thông tin!",
         text1Style: {
           fontSize: 16,
@@ -76,7 +76,7 @@ const SignUp = () => {
     if (password.length < 8) {
       Toast.show({
         type: "error",
-        text1: "Lỗi",
+        text1: "Đăng ký thất bại",
         text2: "Mật khẩu phải có ít nhất 8 ký tự!",
         text1Style: {
           fontSize: 16,
@@ -92,7 +92,7 @@ const SignUp = () => {
     if (password !== confirmPassword) {
       Toast.show({
         type: "error",
-        text1: "Lỗi",
+        text1: "Đăng ký thất bại",
         text2: "Mật khẩu không khớp với xác nhận mật khẩu!",
         text1Style: {
           fontSize: 16,
@@ -135,7 +135,7 @@ const SignUp = () => {
           Đăng ký tài khoản bằng email của bạn
         </Text>
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
-          <Icon name="user-o" size={20} color={"white"} />
+          <Icon name="user-o" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px] font-lexend"
             placeholder="Tên người dùng"
@@ -145,7 +145,7 @@ const SignUp = () => {
           />
         </View>
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
-          <Ionicons name="mail-outline" size={20} color={"white"} />
+          <Ionicons name="mail-outline" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px] font-lexend"
             placeholder="Email"

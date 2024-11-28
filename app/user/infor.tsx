@@ -4,6 +4,8 @@ import {
   ActivityIndicator,
   SafeAreaView,
   TouchableOpacity,
+  Image,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -40,56 +42,72 @@ export default function UserInfor() {
   }
 
   return (
-    <SafeAreaProvider className="flex-1 bg-primary  ">
-      <SafeAreaView>
-        <View className="justify-center  mt-8 mx-2">
-          <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
-            Tên tài khoản
-          </Text>
-          <Text className="bg-[#171717]  h-[54px] w-full p-4 mb-2 rounded-[18px] text-gray-400">
-            {user?.username}
-          </Text>
-        </View>
+    <ScrollView className="flex-1 bg-primary">
+      <View className="justify-center  mt-8 mx-2">
+        <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
+          Họ và tên
+        </Text>
+        <Text className="bg-[#171717]  h-[54px] w-full p-4 mb-2 rounded-[18px] text-gray-400">
+          {user?.username}
+        </Text>
+      </View>
 
-        <View className="justify-center mx-2">
-          <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
-            Email
-          </Text>
-          <Text
-            className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400"
-            // 171717
-          >
-            {user?.email}
-          </Text>
-        </View>
-        <View className="justify-center mx-2">
-          <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
-            Số điện thoại
-          </Text>
-          <Text className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400">
-            {user?.phoneNumber}
-          </Text>
-        </View>
+      <View className="justify-center mx-2">
+        <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
+          Email
+        </Text>
+        <Text
+          className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400"
+          // 171717
+        >
+          {user?.email}
+        </Text>
+      </View>
+      <View className="justify-center mx-2">
+        <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
+          Số điện thoại
+        </Text>
+        <Text className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400">
+          {user?.phoneNumber}
+        </Text>
+      </View>
 
-        <View className="justify-center  mx-2">
-          <Text className="text-white my-2 ml-4 font-bold text-[18px]">
-            Vai trò
-          </Text>
-          <Text className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400">
-            {user?.roleName === "student" ? "Sinh viên" : user?.roleName}
-          </Text>
-        </View>
-        <View className="justify-center items-center">
-          <TouchableOpacity
-            onPress={() => router.push("/user/edit-profile")}
-            className="bg-[#CAFF4C] justify-center items-center w-[220px] h-[50px] rounded-[25px] mt-[60px]"
-          >
-            <Text className="text-[#214C53] text-[18px]">
-              Cập nhật thông tin
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      <View className="justify-center  mx-2">
+        <Text className="text-white my-2 ml-4 font-bold text-[18px]">
+          Vai trò
+        </Text>
+        <Text className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400">
+          {user?.roleName === "student" ? "Sinh viên" : user?.roleName}
+        </Text>
+      </View>
+      <View className="justify-center items-center px-4 mt-6">
+        <Text className="text-white font-bold text-[18px]">Thẻ FPT</Text>
+        {/* <Image
+          source={{
+            uri: user?.cardUrl || require("../../assets/images/profile.jpg"),
+          }}
+          className="h-[420px] w-full rounded-[12px] justify-center mt-6 "
+        /> */}
+        <Image
+          source={
+            user?.cardUrl || user?.cardUrl.startsWith("firebase")
+              ? { uri: user.cardUrl }
+              : require("../../assets/images/OIP.jpg")
+          }
+          className="h-[420px] w-full rounded-[12px] justify-center mt-6"
+        />
+      </View>
+
+      <View className="justify-center items-center">
+        <TouchableOpacity
+          onPress={() => router.push("/user/edit-profile")}
+          className="bg-[#CAFF4C] justify-center items-center w-[220px] h-[50px] rounded-[25px] mt-[52px] mb-3"
+        >
+          <Text className="text-[#214C53] text-[18px]">Cập nhật thông tin</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+    //   </SafeAreaView>
+    // </SafeAreaProvider>
   );
 }

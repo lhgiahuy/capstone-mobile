@@ -5,10 +5,18 @@ import { api } from "@/lib/axios";
 export const useAuth = () => {
   const [loading, setLoading] = useState(false);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (
+    email: string,
+    password: string,
+    fcmToken: string
+  ): Promise<boolean> => {
     setLoading(true);
     try {
-      const response = await api.post("/auth/login", { email, password });
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+        fcmToken,
+      });
       const { token } = response.data;
 
       // Lưu token vào SecureStore

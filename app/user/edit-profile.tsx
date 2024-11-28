@@ -1,4 +1,11 @@
-import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  Image,
+} from "react-native";
 import React, { useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -8,6 +15,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import Avatar from "@/components/User/Avatar";
 import SuccessModal from "@/components/Modal/SuccessModal";
+import Toast from "react-native-toast-message";
 
 export default function EditProfile() {
   const {
@@ -38,6 +46,31 @@ export default function EditProfile() {
     },
   });
   const handleSave = () => {
+    if (!userName.trim()) {
+      Toast.show({
+        type: "error",
+        text1: "Họ và tên không được để trống!",
+
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
+      return;
+    }
+
+    if (phoneNumber.length !== 10 || !/^\d+$/.test(phoneNumber)) {
+      Toast.show({
+        type: "error",
+        text1: "Vui lòng nhập đúng số điện thoại!",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
+      return;
+    }
+
     mutation.mutate({
       username: userName,
       avatarUrl,
@@ -69,7 +102,7 @@ export default function EditProfile() {
         </View>
         <View className="justify-center mt-8  mx-2">
           <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
-            Tên người dùng
+            Họ và tên
           </Text>
           <TextInput
             value={userName}

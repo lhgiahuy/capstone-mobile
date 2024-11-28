@@ -1,4 +1,11 @@
-import { ScrollView, Text, View } from "react-native";
+import {
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  FlatList,
+} from "react-native";
 import React, { useState, useMemo } from "react";
 import { Calendar } from "react-native-calendars";
 import CardEvent from "./CardEvent";
@@ -10,22 +17,33 @@ import { getUserParticipant } from "@/api/user";
 export default function UpcomingCalendar() {
   const [selected, setSelected] = useState<string>("");
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
   const {
     data: events,
     isLoading,
     error,
   } = useQuery<EventData[], Error>({
-    queryKey: ["events", "upcoming"],
+    queryKey: ["events", "calendar", "upcoming"],
     queryFn: () => getUserParticipant(false),
   });
 
-  // Create markedDates object based on events
+  // Danh sách các tháng
+  // const months = Array.from({ length: 12 }, (_, i) => {
+  //   const date = new Date(new Date().getFullYear(), i, 1);
+  //   return {
+  //     label: date.toLocaleString("default", { month: "long" }),
+  //     value: date.toISOString().split("T")[0].slice(0, 7) + "-01", // Lưu ngày đầu tháng
+  //   };
+  // });
+
+  // Tạo markedDates từ sự kiện
   const markedDates = useMemo(() => {
     if (!events) return {};
     const dates: { [key: string]: any } = {};
 
-    events.forEach((event) => {
-      const eventDate = new Date(event.startTime).toISOString().split("T")[0]; // Format to YYYY-MM-DD
+    events?.map((event) => {
+      const eventDate = new Date(event.startTime).toISOString().split("T")[0];
       dates[eventDate] = {
         marked: true,
         customStyles: {
@@ -40,13 +58,11 @@ export default function UpcomingCalendar() {
       };
     });
 
-    // Date event styling
     if (selected) {
       dates[selected] = {
         ...dates[selected],
         selected: true,
         disableTouchEvent: true,
-        // selectedDotColor: "orange",
       };
     }
 
@@ -59,10 +75,11 @@ export default function UpcomingCalendar() {
   return (
     <View className="flex-1 p-2 bg-black">
       <ScrollView className="flex-1">
+        {/* Calendar */}
         <Calendar
           className="h-[320px] justify-center p-2 rounded-[20px]"
           onDayPress={(day: DayObject) => {
-            setSelected(day.dateString);
+            setSelected(day.dateString); // Lưu ngày đã chọn
           }}
           markedDates={markedDates}
           markingType={"custom"}
@@ -71,13 +88,14 @@ export default function UpcomingCalendar() {
             dayTextColor: "#fff",
             monthTextColor: "#CAFF4C",
             arrowColor: "#CAFF4C",
-            // selectedDayBackgroundColor: "#CAFF4C",
+            selectedDayBackgroundColor: "#CAFF4C",
             selectedDayTextColor: "#000",
             todayTextColor: "#CAFF4C",
             dotColor: "#CAFF4C",
             selectedDotColor: "#000000",
           }}
         />
+
         <View className="mt-6 mb-4">
           <Text className="text-[#CAFF4C] font-bold font-inter text-[18px] mb-4">
             Sự kiện đăng ký

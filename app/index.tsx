@@ -17,14 +17,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function App() {
   const router = useRouter();
   return (
-    <SafeAreaView className="flex-1">
-      {/* <ScrollView
-        contentContainerStyle={{
-          height: "100%",
-          justifyContent: "space-between",
-        }}
-      > */}
-
+    <View className="flex-1">
       <ImageBackground
         className="flex-1 justify-center h-full"
         source={require("../assets/images/dark_background.png")}
@@ -68,6 +61,6 @@ export default function App() {
           <StatusBar style="auto" />
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </View>
   );
 }

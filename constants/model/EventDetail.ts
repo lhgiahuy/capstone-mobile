@@ -25,6 +25,9 @@ export interface EventData {
   thumbnailImg: string;
   status: string;
   isRegistered: boolean | null;
+  isReviewed: boolean | null;
+  isOverlap: boolean | null;
+  canReview: boolean | null;
   eventTags: string[];
   form: FormData[];
 }
@@ -50,6 +53,7 @@ export interface NavRating {
 
 export interface ButtonRegisterProps {
   eventId: string;
+  data: EventData;
   register: boolean | null;
   status: string;
   form: FormData[];

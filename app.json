@@ -17,12 +17,12 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.fvent.PushNotifications",
-      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/banner1.png",
         "backgroundColor": "#ffffff"
       },
+      "package": "com.fvent.PushNotifications",
+      "googleServicesFile": "./google-services.json",
       "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
@@ -37,9 +37,15 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/images/fpt.png",
+          "icon": "./assets/images/profile.jpg",
           "color": "#ffffff",
           "defaultChannel": "default"
+        }
+      ],
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "The app needs to access your calendar."
         }
       ]
     ],

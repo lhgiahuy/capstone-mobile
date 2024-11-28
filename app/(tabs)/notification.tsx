@@ -6,7 +6,7 @@ import {
   Image,
   // Pressable,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { Notification } from "@/constants/model/Notification";
@@ -92,7 +92,10 @@ export default function ListNotifications() {
             {notify.message}
           </Text>
 
-          <TouchableOpacity className="   rounded-md items-center w-auto flex-row ml-6 ">
+          <TouchableOpacity
+            className="   rounded-md items-center w-auto flex-row ml-6 "
+            onPress={() => router.push("/notificationsss/test")}
+          >
             <Ionicons name="checkmark-outline" size={18} color={"#22d334d2"} />
             <Text className="ml-1 text-green-500 font-bold font-lexend mb-2">
               Đánh giấu đã xem

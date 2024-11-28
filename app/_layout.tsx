@@ -86,20 +86,21 @@ export default function RootLayout() {
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="organizer/infor"
-              options={{
-                headerTitle: () => (
-                  <View>
-                    <Text className="font-bold text-[18px] text-[#000]">
-                      Ban tổ chức
-                    </Text>
-                  </View>
-                ),
-                headerTitleAlign: "center",
-                headerStyle: {
-                  backgroundColor: "#CAFF4C",
-                },
-              }}
+              name="organizer"
+              options={{ headerShown: false }}
+              // options={{
+              //   headerTitle: () => (
+              //     <View>
+              //       <Text className="font-bold text-[18px] text-[#000]">
+              //         Ban tổ chức
+              //       </Text>
+              //     </View>
+              //   ),
+              //   headerTitleAlign: "center",
+              //   headerStyle: {
+              //     backgroundColor: "#CAFF4C",
+              //   },
+              // }}
             />
             <Stack.Screen name="user" options={{ headerShown: false }} />
           </Stack>

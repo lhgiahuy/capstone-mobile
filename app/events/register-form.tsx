@@ -48,7 +48,7 @@ export default function RegisterForm() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["events"],
+        queryKey: ["events", eventId],
       });
 
       Toast.show({

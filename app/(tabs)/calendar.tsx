@@ -10,7 +10,7 @@ export default function calendar() {
     "upcoming"
   );
   return (
-    <View className="flex-1 bg-primary p-3">
+    <View className="flex-1 bg-primary ">
       <NavCalender selectedTab={selectedTab} onSelectTab={setSelectedTab} />
       <View className="flex-1  ">
         {selectedTab === "upcoming" ? <UpcomingCalendar /> : <EndedCalender />}

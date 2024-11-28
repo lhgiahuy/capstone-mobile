@@ -19,7 +19,7 @@ import { router } from "expo-router";
 export default function Ended({ organizerId }: NavOrganizerProps) {
   const status = "Completed";
   const { data, isLoading, error } = useQuery<EventData[], Error>({
-    queryKey: ["event-organizer", organizerId],
+    queryKey: ["event-organizer", organizerId, status],
     queryFn: () => getEventOfOrganizer(organizerId as string, status),
   });
   if (isLoading) {

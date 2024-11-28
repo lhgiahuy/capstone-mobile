@@ -19,7 +19,7 @@ export default function Home() {
     React.useCallback(() => {
       const onBackPress = () => {
         setIsModalVisible(true);
-        return true; // Chặn hành động quay lại
+        return true;
       };
 
       BackHandler.addEventListener("hardwareBackPress", onBackPress);
@@ -40,7 +40,6 @@ export default function Home() {
           <BannerEvent />
         </View>
         <SpecialEvent />
-        {/* <TrendEvent /> */}
         <UpcomingEvent />
         <CurrentEvent />
       </ScrollView>
