@@ -14,6 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Ionicons } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import usePushNotifications from "@/lib/utils/push-notification";
 
 const SignIn = () => {
   const router = useRouter();
@@ -21,9 +22,11 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { devicePushToken } = usePushNotifications();
+  console.log(devicePushToken);
 
   const handleLogin = async () => {
-    const success = await login(email, password);
+    const success = await login(email, password, devicePushToken);
     if (success) {
       router.push("/home");
       console.log("Thành công");

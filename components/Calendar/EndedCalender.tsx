@@ -18,7 +18,7 @@ import { formatDateTime, getDay, getMonth } from "@/lib/utils/date-time";
 
 export default function EndedCalender() {
   const { data, isLoading, error } = useQuery<EventData[], Error>({
-    queryKey: ["events", "completed"],
+    queryKey: ["events", "calendar", "completed"],
     queryFn: () => getUserParticipant(true),
   });
 
@@ -49,7 +49,7 @@ export default function EndedCalender() {
     if (!eventId) {
       Toast.show({
         type: "error",
-        text1: "Không tìm tháya dữ liệu về sự kiên này",
+        text1: "Không tìm thấy dữ liệu về sự kiện này",
 
         text1Style: {
           fontSize: 16,
@@ -66,11 +66,11 @@ export default function EndedCalender() {
   return (
     <ScrollView className="bg-primary flex-1 mx-2 p-1">
       <Text className="text-[#CAFF4C] text-[19px] font-inter font-bold mt-7 ">
-        Sự kiện bạn đã tham gia
+        Đã kết thúc
       </Text>
       {data?.map((event) => (
         <TouchableOpacity
-          className="flex-row  h-[200px] my-2"
+          className="flex-row  h-[160px] my-2"
           key={event.eventId}
           onPress={() => router.push(`/events/${event.eventId}`)}
         >
@@ -88,7 +88,7 @@ export default function EndedCalender() {
           />
           <View className="bg-[#373737] w-[70%] p-4 justify-center rounded-l-[20px] rounded-r-[12px] ">
             <Text
-              className="text-[#CAFF4C] font-bold font-inter w-[200px] text-center text-[16px]"
+              className="text-[#CAFF4C] font-bold font-inter w-[200px] text-center text-[14px]"
               numberOfLines={2}
               ellipsizeMode="tail"
             >
@@ -96,29 +96,20 @@ export default function EndedCalender() {
             </Text>
             <View className="flex-row mt-4 ">
               <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-              <Text className="text-white ml-2 font-lexend  ">
+              <Text className="text-white ml-2 font-lexend text-[12px] ">
                 {formatDateTime(event.startTime)}
               </Text>
             </View>
 
             <View className="flex-row mt-2">
               <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
-              <Text className="text-white ml-2 font-lexend  ">
+              <Text className="text-white ml-2 font-lexend  text-[12px]">
                 {event.location}
               </Text>
             </View>
-            <View className="flex-row mt-2">
-              <Ionicons
-                name="person-circle-outline"
-                size={20}
-                color={"#CAFF4C"}
-              />
-              <Text className="text-white ml-2 font-lexend  ">
-                {event.organizerName}
-              </Text>
-            </View>
+
             <TouchableOpacity
-              className="rounded-[24px] p-1 mt-4 mb-2 flex-row justify-center items-center"
+              className="rounded-[24px] p-1 mt-3 mb-2 flex-row justify-center items-center"
               onPress={() => NavReview(event.eventId)}
             >
               <Ionicons
@@ -126,8 +117,8 @@ export default function EndedCalender() {
                 size={20}
                 color={"#CAFF4C"}
               />
-              <Text className="font-lexend text-center text-[18px] text-[#CAFF4C] ml-2">
-                Đánh giá sự kiện
+              <Text className="font-lexend text-center text-[16px] text-[#CAFF4C] ml-2">
+                {event.canReview ? "Xem đánh giá" : "Đánh giá sự kiện"}
               </Text>
             </TouchableOpacity>
             {/* <View className="flex-row mt-4 justify-center ">

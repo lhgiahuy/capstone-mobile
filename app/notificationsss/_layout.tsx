@@ -68,7 +68,7 @@ export default function NotficationLayout() {
             headerTitle: () => (
               <View>
                 <Text className="font-bold text-[18px] text-[#000]">
-                  Chỉnh sửa hồ sơ
+                  TEst: {expoPushToken}
                 </Text>
               </View>
             ),

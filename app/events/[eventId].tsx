@@ -4,13 +4,10 @@ import {
   ActivityIndicator,
   Image,
   ScrollView,
-  Pressable,
   SafeAreaView,
-  Alert,
-  TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
-import { router, useLocalSearchParams } from "expo-router";
+import React from "react";
+import { useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
@@ -22,15 +19,12 @@ import SubscribeButton from "@/components/DetailEvent/SubscribeButton";
 
 import CardOrganizer from "@/components/DetailEvent/CardOrganizer";
 
-import { useWindowDimensions } from "react-native";
-
 import Description from "@/components/DetailEvent/Description";
 import { formatDateTime } from "@/lib/utils/date-time";
+import Toast from "react-native-toast-message";
 
 export default function DetailEvent() {
   const { eventId } = useLocalSearchParams();
-  const { width } = useWindowDimensions();
-
   const { data, isLoading, error } = useQuery<EventData, Error>({
     queryKey: ["events", eventId],
     queryFn: () => getEventById(eventId as string),
@@ -48,7 +42,9 @@ export default function DetailEvent() {
     return (
       <SafeAreaView className="bg-primary h-full justify-center items-center">
         <ActivityIndicator size="large" color="#CAFF4C" />
-        <Text className="text-white mt-2">Đang tải sự kiện...</Text>
+        <Text className="text-white mt-2">
+          Sự kiện tải lên đang gặp vấn đề...
+        </Text>
       </SafeAreaView>
     );
   }
@@ -57,18 +53,29 @@ export default function DetailEvent() {
     return (
       <View style={{ padding: 16 }}>
         <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-          Event Not Found
+          Sự kiện không tìm thấy
         </Text>
-        <Text>This event does not exist or has been removed.</Text>
+        <Text>Có thể sự kiện này đã bị hủy .</Text>
       </View>
     );
   }
-  const baseStyle = {
-    fontFamily: "lexend",
-    fontSize: 16,
-    color: "#000000",
-  };
 
+  if (data.isOverlap && !data.isRegistered) {
+    Toast.show({
+      type: "error",
+      text1: "Thời gian sự kiện này trùng lịch của bạn",
+      text2: "Vui lòng cân nhắc trước khi ấn đăng ký",
+      text1Style: {
+        fontSize: 16,
+        fontWeight: "bold",
+        flexWrap: "wrap",
+      },
+      text2Style: {
+        fontSize: 14,
+        flexWrap: "wrap",
+      },
+    });
+  }
   return (
     <View className="flex-1 bg-primary ">
       <ScrollView contentContainerStyle={{ paddingBottom: 62 }}>
@@ -148,6 +155,7 @@ export default function DetailEvent() {
         register={data.isRegistered}
         status={data.status}
         form={data.form}
+        data={data}
       />
     </View>
   );

@@ -16,35 +16,35 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from "react-native";
+import { formatDateTime } from "@/lib/utils/date-time";
 
 export default function ListEvent() {
   const pageSize = 3;
   const [pageNumber, setPageNumber] = useState<number>(1);
-  // const { data, isLoading, error } = useQuery<EventDetail, Error>({
-  //   queryKey: ["events", keyword, pageNumber, pageSize],
-  //   queryFn: () => getEventsByKeyword(keyword, pageNumber as number, pageSize),
-  // });
-  const status = "InProgress";
+  const { status } = useLocalSearchParams();
+  const statusValue = status as string | undefined;
+  console.log(statusValue);
+
   const {
     data: events,
     isLoading,
     error,
   } = useQuery<EventDetail, Error>({
-    queryKey: ["events", status, pageSize],
-    queryFn: () => getEvent({ Status: status, PageSize: pageSize }),
+    queryKey: ["list-event", status, pageNumber, pageSize],
+    queryFn: () =>
+      getEvent({
+        Status: statusValue,
+        PageNumber: pageNumber,
+        PageSize: pageSize,
+      }),
   });
 
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const hours = date.getHours();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${hours}:00 | ${day}/${month}/${year}`;
-  };
-
+  // let statusText = "";
+  // if (status === "inProgress" || status === "ongoing") {
+  //   statusText = "Sự kiện đang diễn ra";
+  // } else if (status === "completed") {
+  //   statusText = "Sự kiện đã diễn ra";
+  // }
   if (isLoading) {
     return (
       <SafeAreaView className="bg-primary h-full justify-center items-center">
@@ -74,7 +74,7 @@ export default function ListEvent() {
     return (
       <SafeAreaView className="bg-primary h-full justify-center items-center">
         <Text className="text-white font-bold text-lg text-center">
-          Hiện tại chưa có sự kiện nào đang diễn ra
+          Hiện tại chưa có sự kiện
         </Text>
         <Image
           source={require("../../assets/images/not-found.png")}
@@ -84,12 +84,13 @@ export default function ListEvent() {
     );
   }
   return (
-    <SafeAreaView className="flex-1 bg-primary h-full">
+    <SafeAreaView className="flex-1 bg-primary h-full ">
+      {/* <Text className="text-white text-[18px]">{statusText}</Text> */}
       <ScrollView>
         {events?.items?.map((event) => (
           <TouchableOpacity
             // className="h-[220px] justify-center my-2 p-2 border-line border-[1px]"
-            className="flex-row w-full h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black"
+            className="flex-row  h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black px-1"
             key={event?.eventId}
             onPress={() => router.push(`/events/${event?.eventId}`)}
           >
@@ -99,7 +100,7 @@ export default function ListEvent() {
             />
             <View className="mt-6 h-[60px] w-[204px]  items-center ">
               <Text
-                className="text-white w-[160px] font-bold font-inter text-[18px] text-center"
+                className="text-white w-[160px] font-bold font-inter text-[16px] text-center"
                 numberOfLines={2}
                 ellipsizeMode="tail"
               >
@@ -112,14 +113,20 @@ export default function ListEvent() {
                 </Text>
               </View>
 
-              <Text
+              {/* <Text
                 className="text-white h-[60px] mt-4 text-[14px] mx-2 overflow-hidden text-ellipsis whitespace-nowrap"
                 numberOfLines={3}
                 ellipsizeMode="tail"
               >
                 FPT University HCM đang nóng lên từng ngày trước thềm Lễ Tôn
                 Vinh Top 100 Sinh Viên Xuất Sắc
-              </Text>
+              </Text> */}
+              <View className="flex-row mt-4 w-[80%] justify-center items-center">
+                <Ionicons name="location-outline" size={22} color={"#CAFF4C"} />
+                <Text className="text-white font-lexend text-[16px] text-center">
+                  {event.location}
+                </Text>
+              </View>
               {/* <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -137,7 +144,7 @@ export default function ListEvent() {
                 </View>
               </ScrollView> */}
 
-              <View className="flex-row justify-center items-center mt-2">
+              <View className="flex-row justify-center items-center mt-8">
                 <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] ">
                   Xem chi tiết
                 </Text>

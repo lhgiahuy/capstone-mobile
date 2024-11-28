@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,7 +20,7 @@ interface dataProps {
 
 export default function CardEvent({ data }: dataProps) {
   // const { data, isLoading, error } = useQuery<EventData[], Error>({
-  //   queryKey: ["events"],
+  //   queryKey: ["events", "upcoming"],
   //   queryFn: () => getUserParticipant(false),
   //   // refetchOnWindowFocus: true,
   //   // refetchOnMount: true,
@@ -35,9 +36,9 @@ export default function CardEvent({ data }: dataProps) {
   // }
   // if (error) return <Text>Error loading event details</Text>;
 
-  if (!data || data.length === 0) {
+  if (!data || data.length === 0 || !Array.isArray(data)) {
     return (
-      <SafeAreaView className="bg-primary justify-center items-center">
+      <SafeAreaView className="bg-primary justify-center items-center ">
         <Text className="text-white font-bold text-lg text-center">
           Chưa có sự kiện đăng ký
         </Text>
@@ -49,7 +50,7 @@ export default function CardEvent({ data }: dataProps) {
     );
   }
   return (
-    <View>
+    <ScrollView>
       {data?.map((event) => (
         <TouchableOpacity
           className="flex-row  h-[160px] my-2"
@@ -107,6 +108,6 @@ export default function CardEvent({ data }: dataProps) {
           </View>
         </TouchableOpacity>
       ))}
-    </View>
+    </ScrollView>
   );
 }

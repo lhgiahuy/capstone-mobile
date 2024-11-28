@@ -8,7 +8,7 @@ export default function Setting() {
   const handleLogout = async () => {
     try {
       await SecureStore.deleteItemAsync("authToken");
-      router.replace("/sign-in");
+      router.replace("/");
     } catch (error) {
       console.error("Đăng xuất thất bại:", error);
       Alert.alert("Lỗi", "Không thể đăng xuất. Vui lòng thử lại.");
