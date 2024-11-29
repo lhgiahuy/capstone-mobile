@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Toast from "react-native-toast-message";
+import { AxiosError, isAxiosError } from "axios";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -14,6 +15,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [studentId, setStudentId] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -44,22 +46,46 @@ const SignUp = () => {
       setConfirmPassword("");
     },
     onError: (error) => {
-      // console.error("Failed to update user:", error);
+      // cacth message error
+      if (isAxiosError(error)) {
+        const axiosError = error;
+        if (axiosError.response) {
+          const errorMessage =
+            axiosError.response.data?.error || "Unknown error";
+          console.log(errorMessage);
+          return Toast.show({
+            type: "error",
+            text1: "Đăng ký không thành công!",
+            text2: errorMessage,
+            text1Style: {
+              fontSize: 16,
+              fontWeight: "bold",
+            },
+            text2Style: {
+              fontSize: 14,
+            },
+          });
+        }
+      }
       Toast.show({
         type: "error",
         text1: "Đăng ký không thành công!",
+        text2: "Email hoặc MSSV của bạn đã được đăng ký!",
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
         },
       });
     },
   });
   const handleRegister = () => {
-    if (!username || !email || !password || !confirmPassword) {
+    if (!username || !email || !password || !confirmPassword || !studentId) {
       Toast.show({
         type: "error",
-        text1: "Đăng ký thất bại",
+        text1: "Đăng ký không thành công!",
         text2: "Vui lòng điền đầy đủ thông tin!",
         text1Style: {
           fontSize: 16,
@@ -76,7 +102,7 @@ const SignUp = () => {
     if (password.length < 8) {
       Toast.show({
         type: "error",
-        text1: "Đăng ký thất bại",
+        text1: "Đăng ký không thành công!",
         text2: "Mật khẩu phải có ít nhất 8 ký tự!",
         text1Style: {
           fontSize: 16,
@@ -92,7 +118,7 @@ const SignUp = () => {
     if (password !== confirmPassword) {
       Toast.show({
         type: "error",
-        text1: "Đăng ký thất bại",
+        text1: "Đăng ký không thành công",
         text2: "Mật khẩu không khớp với xác nhận mật khẩu!",
         text1Style: {
           fontSize: 16,
@@ -110,6 +136,7 @@ const SignUp = () => {
       email,
       password,
       phoneNumber: "",
+      studentId,
       role: "student",
     });
   };
@@ -154,16 +181,16 @@ const SignUp = () => {
             onChangeText={setEmail}
           />
         </View>
-        {/* <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
-          <Ionicons name="call-outline" size={20} color={"white"} />
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
+          <Ionicons name="id-card-outline" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px]"
-            placeholder="Số điện thoại"
+            placeholder="Mã số sinh viên"
             placeholderTextColor="white"
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
+            value={studentId}
+            onChangeText={setStudentId}
           />
-        </View> */}
+        </View>
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput

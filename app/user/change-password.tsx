@@ -40,7 +40,7 @@ export default function ChangePassword() {
         // console.error("Failed to update password:", error);
         Toast.show({
           type: "error",
-          text1: "Mật khẩu cũ không chính xác.",
+          text1: "Mật khẩu cũ không chính xác!",
           text1Style: {
             fontSize: 16,
             fontWeight: "bold",
@@ -50,7 +50,7 @@ export default function ChangePassword() {
         // console.error("Failed to update password:", error);
         Toast.show({
           type: "error",
-          text1: "Cập nhật mật khẩu thất bại.",
+          text1: "Cập nhật mật khẩu thất bại!",
           text1Style: {
             fontSize: 16,
             fontWeight: "bold",
@@ -64,7 +64,7 @@ export default function ChangePassword() {
     if (newPassword !== confirmPassword) {
       Toast.show({
         type: "error",
-        text1: "Mật khẩu và xác nhận mật khẩu không khớp.",
+        text1: "Mật khẩu và xác nhận mật khẩu không khớp!",
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",

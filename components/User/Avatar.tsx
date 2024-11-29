@@ -61,6 +61,7 @@ export default function Avatar({
           username: user?.username || "",
           avatarUrl,
           phoneNumber: user?.phoneNumber || "",
+          studentId: user?.studentId,
         });
 
         // Call function onAvatarChange to update avatarUrl in edit-profile

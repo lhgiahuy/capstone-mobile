@@ -142,6 +142,7 @@ export default function VerifyInfo() {
       <TouchableOpacity
         className="bg-[#1F1F1F] flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-6"
         onPress={handleImageUpload}
+        disabled={user?.verifyStatus === "Verified"}
       >
         <View className="items-center">{getStatusIcon()}</View>
 

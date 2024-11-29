@@ -51,21 +51,6 @@ export const changePassword = async (Password: Partial<Password>) => {
   return response.data;
 };
 
-export const getNotifications = async () => {
-  const token = await getAuthToken();
-
-  if (!token) {
-    throw new Error("No authentication token found");
-  }
-
-  const response = await api.get(`/users/notifications`, {
-    headers: {
-      Cookie: `authCookie=${token}`,
-    },
-  });
-  return response.data;
-};
-
 export const getUserParticipant = async (isCompleted: boolean) => {
   const token = await getAuthToken();
 

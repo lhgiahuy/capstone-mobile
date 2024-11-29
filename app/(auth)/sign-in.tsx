@@ -1,19 +1,11 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
 import { useAuth } from "@/hooks/useAuth";
 import { Ionicons } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import usePushNotifications from "@/lib/utils/push-notification";
 
 const SignIn = () => {
@@ -57,13 +49,6 @@ const SignIn = () => {
   };
 
   return (
-    // <KeyboardAwareScrollView
-    //   className="flex-1"
-    //   resetScrollToCoords={{ x: 0, y: 0 }} // Đặt lại vị trí cuộn khi đóng bàn phím
-    //   contentContainerStyle={{ flexGrow: 1 }} // Cho phép màn hình tự động mở rộng
-    //   keyboardShouldPersistTaps="handled" // Đảm bảo rằng các hành động khác không bị gián đoạn khi bàn phím hiển thị
-    // >
-
     <View className="bg-[#CAFF4C] flex-1 justify-center  ">
       <View className="h-[30%] justify-center ml-4">
         <Ionicons
@@ -131,8 +116,6 @@ const SignIn = () => {
         </TouchableOpacity>
       </View>
     </View>
-
-    // </KeyboardAwareScrollView>
   );
 };
 

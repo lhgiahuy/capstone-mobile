@@ -79,7 +79,6 @@ export default function Account() {
           <Ionicons name="chevron-forward-outline" color={"white"} size={30} />
         </TouchableOpacity>
       </View>
-      {/* ))} */}
     </View>
   );
 }

@@ -40,7 +40,7 @@ export default function SubscribeButton({
       setRegister(true);
       Toast.show({
         type: "success",
-        text1: "Đăng ký thành công",
+        text1: "Đăng ký sự kiện thành công",
         visibilityTime: 3000,
         text1Style: {
           fontSize: 16,
@@ -92,7 +92,7 @@ export default function SubscribeButton({
       console.log("Lỗi khi hủy đăng ký sự kiện:", error.message);
       Toast.show({
         type: "error",
-        text1: "Lỗi khi hủy đăng ký không thành công!",
+        text1: "Lỗi khi hủy đăng ký!",
         visibilityTime: 3000,
         text1Style: {
           fontSize: 16,

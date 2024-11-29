@@ -5,14 +5,17 @@ export interface User {
   email: string;
   verifyStatus: string;
   phoneNumber: string;
+  studentId: string;
   cardUrl: string;
   roleName: string;
+  isHaveUnreadNoti: boolean;
 }
 
 export interface Register {
   username: string;
   email: string;
   password: string;
+  studentId: string;
   phoneNumber: string;
   role: string;
 }
@@ -28,6 +31,7 @@ export interface InforUser {
   username: string;
   avatarUrl: string;
   phoneNumber: string;
+  studentId: string;
 }
 
 export interface FptCard {

@@ -21,13 +21,12 @@ export default function RegisterForm() {
     { question: string; answer: string }[]
   >([]);
 
-  // Fetching form data from API
   const {
     data: eventData,
     isLoading,
     error,
   } = useQuery<EventData, Error>({
-    queryKey: ["events", eventId],
+    queryKey: ["events", eventId, "form"],
     queryFn: () => getEventById(eventId as string),
   });
 
@@ -53,7 +52,7 @@ export default function RegisterForm() {
 
       Toast.show({
         type: "success",
-        text1: "Đăng kí thành công",
+        text1: "Đăng ký sự kiện thành công",
         visibilityTime: 2000,
         text1Style: {
           fontSize: 16,
@@ -78,6 +77,23 @@ export default function RegisterForm() {
 
   // Submit form
   const handleSubmit = () => {
+    const unansweredQuestions = formData.some((item) => !item.answer.trim());
+    if (unansweredQuestions) {
+      Toast.show({
+        type: "error",
+        text1: "Lỗi đăng ký sự kiện",
+        text2: "Vui lòng hoàn tất trả lời trong phiếu đăng ký!",
+        visibilityTime: 5000,
+        text1Style: {
+          fontSize: 18,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
+      return;
+    }
     formSubmitMutation.mutate(formData);
   };
 

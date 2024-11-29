@@ -37,7 +37,7 @@ export default function ReviewModal({
           />
 
           <Text className="text-lg font-bold text-[#214C53] mb-1">
-            Chia sẻ của bạn đã được gửi!
+            Đánh giá của bạn đã được gửi
           </Text>
 
           <Text className=" text-center text-gray-700 mb-6">{message}</Text>
