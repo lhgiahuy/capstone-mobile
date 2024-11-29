@@ -1,10 +1,19 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { Link, Tabs } from "expo-router";
+import { Link, router, Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import ProtectedRoute from "../(auth)/protected-route";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "@/api/user";
+import { User } from "@/constants/model/User";
+import NotificationIcon from "@/components/NotificationEvent/NotificationIcon";
 
 export default function TabLayout() {
+  const { data: user } = useQuery<User>({
+    queryKey: ["user", "StatusNoti"],
+    queryFn: getUser,
+  });
+
   return (
     <ProtectedRoute>
       <Tabs
@@ -38,16 +47,21 @@ export default function TabLayout() {
             headerRight: () => {
               return (
                 <View style={{ flexDirection: "row", marginRight: 10 }}>
-                  <TouchableOpacity style={{ marginRight: 15 }}>
-                    <Link href="/search">
-                      <Ionicons name="search" size={24} color="black" />
-                    </Link>
+                  <TouchableOpacity
+                    style={{ marginRight: 15 }}
+                    onPress={() => router.push("/search")}
+                  >
+                    <Ionicons name="search" size={24} color="black" />
                   </TouchableOpacity>
 
-                  <TouchableOpacity>
-                    <Link href="/(tabs)/notification">
+                  <TouchableOpacity
+                    onPress={() => router.push("/(tabs)/notification")}
+                  >
+                    {user?.isHaveUnreadNoti === true ? (
+                      <NotificationIcon isHaveUnreadNoti />
+                    ) : (
                       <Ionicons name="notifications" size={24} color="black" />
-                    </Link>
+                    )}
                   </TouchableOpacity>
                 </View>
               );

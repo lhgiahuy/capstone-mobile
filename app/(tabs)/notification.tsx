@@ -10,9 +10,11 @@ import React, { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { Notification } from "@/constants/model/Notification";
-import { getNotifications } from "@/api/user";
+
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import ButtonReadNoti from "@/components/NotificationEvent/ButtonReadNoti";
+import { getNotifications } from "@/api/notification";
 
 export default function ListNotifications() {
   const {
@@ -67,52 +69,39 @@ export default function ListNotifications() {
   }
 
   return (
-    <ScrollView className="flex-1 bg-primary p-3">
-      {notification?.map((notify) => (
-        <View
-          className="bg-[#1F1F1F]  w-full  rounded-[20px] justify-center mt-2 p-2 border-[1px]  "
-          key={notify.notiId}
-        >
-          <View className="mt-2 mx-2 flex-row items-center  ">
-            <View className="flex-row items-center w-[60%]   ">
-              <Ionicons
-                name="notifications-circle-outline"
-                size={20}
-                color={"#CAFF4C"}
-              />
-              <Text className="font-bold font-inter text-[18px] ml-2 text-[#CAFF4C]">
-                Sắp có event mới !
-              </Text>
+    <View className="flex-1 bg-primary">
+      <ScrollView className="flex-1 bg-primary px-3 mb-2">
+        {notification?.map((notify) => (
+          <View
+            className="bg-[#1F1F1F]  w-full  rounded-[20px] justify-center my-2 p-2 border-[1px] "
+            key={notify.notiId}
+          >
+            <View className="mt-2 mx-2 flex-row items-center  ">
+              <View className="flex-row items-center    ">
+                <Ionicons
+                  name="notifications-circle-outline"
+                  size={20}
+                  color={"#CAFF4C"}
+                />
+                <Text className="font-bold font-inter text-[18px] ml-2 text-[#CAFF4C]">
+                  {notify.title}
+                </Text>
+              </View>
             </View>
-          </View>
-          <Text className=" font-lexend p-2 text-white">
-            {formatDateTime(notify.sendTime)}
-          </Text>
-          <Text className="mx-2 mb-2  font-lexend text-white">
-            {notify.message}
-          </Text>
-
-          <TouchableOpacity
-            className="   rounded-md items-center w-auto flex-row ml-6 "
-            onPress={() => router.push("/notificationsss/test")}
-          >
-            <Ionicons name="checkmark-outline" size={18} color={"#22d334d2"} />
-            <Text className="ml-1 text-green-500 font-bold font-lexend mb-2">
-              Đánh giấu đã xem
+            <Text className=" font-lexend p-2 text-white">
+              {formatDateTime(notify.sendTime)}
             </Text>
-          </TouchableOpacity>
-          {/* <TouchableOpacity className=" py-2 rounded-md items-center w-[100px] ml-4">
-            <Text className="text-black font-bold">Coi chi tiết</Text>
-          </TouchableOpacity> */}
-          {/* <TouchableOpacity
-            onPress={() => {
-              router.push("/notification/test");
-            }}
-          >
-            <Text className="">Aloi</Text>
-          </TouchableOpacity> */}
-        </View>
-      ))}
-    </ScrollView>
+            <Text className="mx-2 mb-2  font-lexend text-white">
+              {notify.message}
+            </Text>
+
+            <ButtonReadNoti
+              notiId={notify.notiId}
+              readStatus={notify.readStatus}
+            />
+          </View>
+        ))}
+      </ScrollView>
+    </View>
   );
 }

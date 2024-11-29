@@ -45,24 +45,7 @@ export default function EndedCalender() {
       </SafeAreaView>
     );
   }
-  const NavReview = (eventId: string) => {
-    if (!eventId) {
-      Toast.show({
-        type: "error",
-        text1: "Không tìm thấy dữ liệu về sự kiện này",
 
-        text1Style: {
-          fontSize: 16,
-          fontWeight: "bold",
-        },
-      });
-    } else {
-      router.push({
-        pathname: "/events/review",
-        params: { eventId: eventId },
-      });
-    }
-  };
   return (
     <ScrollView className="bg-primary flex-1 mx-2 p-1">
       <Text className="text-[#CAFF4C] text-[19px] font-inter font-bold mt-7 ">
@@ -108,19 +91,6 @@ export default function EndedCalender() {
               </Text>
             </View>
 
-            <TouchableOpacity
-              className="rounded-[24px] p-1 mt-3 mb-2 flex-row justify-center items-center"
-              onPress={() => NavReview(event.eventId)}
-            >
-              <Ionicons
-                name="arrow-forward-outline"
-                size={20}
-                color={"#CAFF4C"}
-              />
-              <Text className="font-lexend text-center text-[16px] text-[#CAFF4C] ml-2">
-                {event.canReview ? "Xem đánh giá" : "Đánh giá sự kiện"}
-              </Text>
-            </TouchableOpacity>
             {/* <View className="flex-row mt-4 justify-center ">
               {event.eventTags.map((tag, index) => (
                 <Text

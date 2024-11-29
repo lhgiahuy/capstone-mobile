@@ -25,7 +25,7 @@ export default function SuccessModal({
           <View className="flex-row">
             <Ionicons name="checkmark-outline" size={25} color={"#35f849"} />
             <Text className="text-lg font-bold text-[#214C53] mb-2">
-              Đã lưu thay đổi!
+              Đã lưu thay đổi
             </Text>
           </View>
 

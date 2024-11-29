@@ -22,7 +22,15 @@ export default function Profile() {
   const handleAvatarChange = (url: string) => {
     setAvatarUrl(url);
   };
-  if (isLoading) return <ActivityIndicator size="large" />;
+  if (isLoading)
+    return (
+      <View className="flex-1 bg-primary justify-center">
+        <Text className="text-white text-center mb-8 font-bold text-[16px]">
+          Mạng đang chậm vui lòng chờ trong giây lát
+        </Text>
+        <ActivityIndicator size="large" />
+      </View>
+    );
 
   if (error) {
     return (

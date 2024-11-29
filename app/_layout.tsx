@@ -80,28 +80,11 @@ export default function RootLayout() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
             <Stack.Screen name="search" options={{ headerShown: false }} />
+
             <Stack.Screen name="events" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="notificationsss"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="organizer"
-              options={{ headerShown: false }}
-              // options={{
-              //   headerTitle: () => (
-              //     <View>
-              //       <Text className="font-bold text-[18px] text-[#000]">
-              //         Ban tổ chức
-              //       </Text>
-              //     </View>
-              //   ),
-              //   headerTitleAlign: "center",
-              //   headerStyle: {
-              //     backgroundColor: "#CAFF4C",
-              //   },
-              // }}
-            />
+
+            <Stack.Screen name="organizer" options={{ headerShown: false }} />
+
             <Stack.Screen name="user" options={{ headerShown: false }} />
           </Stack>
         </QueryClientProvider>

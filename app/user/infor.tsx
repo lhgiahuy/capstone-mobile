@@ -65,6 +65,17 @@ export default function UserInfor() {
       </View>
       <View className="justify-center mx-2">
         <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
+          Mã số sinh viên
+        </Text>
+        <Text
+          className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400"
+          // 171717
+        >
+          {user?.studentId}
+        </Text>
+      </View>
+      <View className="justify-center mx-2">
+        <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
           Số điện thoại
         </Text>
         <Text className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400">

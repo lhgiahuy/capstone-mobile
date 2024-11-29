@@ -19,7 +19,7 @@ export default function RatingEvent({ eventId, status }: NavRating) {
     if (!eventId) {
       Toast.show({
         type: "error",
-        text1: "Danh sách chia sẻ sẽ hiện đang trống",
+        text1: "Danh sách chia sẻ sẽ hiện đang trống!",
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",
