@@ -158,7 +158,7 @@ const SignUp = () => {
         <Text className="text-4xl font-inter font-bold  text-white text-center  ">
           Tạo tài khoản
         </Text>
-        <Text className="text-center font-lexend text-white  text-[16px] mb-3 ">
+        <Text className="text-center font-lexend text-white  text-[16px] mb-2 ">
           Đăng ký tài khoản bằng email của bạn
         </Text>
         <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
@@ -171,7 +171,7 @@ const SignUp = () => {
             onChangeText={setUsername}
           />
         </View>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
           <Ionicons name="mail-outline" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px] font-lexend"
@@ -181,7 +181,7 @@ const SignUp = () => {
             onChangeText={setEmail}
           />
         </View>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
           <Ionicons name="id-card-outline" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px]"
@@ -191,7 +191,7 @@ const SignUp = () => {
             onChangeText={setStudentId}
           />
         </View>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-3 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[200px] font-lexend"
@@ -213,7 +213,7 @@ const SignUp = () => {
           </TouchableOpacity>
         </View>
 
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 my-3 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 my-2 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[200px] font-lexend"
@@ -236,11 +236,11 @@ const SignUp = () => {
         </View>
 
         <TouchableOpacity
-          className="bg-[#CAFF4C] py-4 rounded-[32px] mt-4 w-[220px]  items-center justify-center"
+          className="bg-[#CAFF4C] py-3 rounded-[32px] mt-3 w-[220px]  items-center justify-center"
           onPress={handleRegister}
         >
           <Text className="text-[#374E00] font-bold font-inter text-[20px]">
-            Đăng kí
+            Đăng ký
           </Text>
         </TouchableOpacity>
       </View>

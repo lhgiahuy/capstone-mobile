@@ -186,7 +186,7 @@ export default function EditProfile() {
               <Text className="text-white font-bold text-[18px]">
                 Mã số sinh viên
               </Text>
-              (không thể chỉnh sửa vì đã được xác minh)
+              (Tài khoản của bạn đã được xác minh)
             </Text>
             <TextInput
               value={studentId}
