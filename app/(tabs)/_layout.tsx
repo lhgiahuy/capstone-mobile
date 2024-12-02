@@ -89,6 +89,25 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
+          name="scan-qr"
+          options={{
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[20px] text-[#000]">
+                  Quét QR sự kiện
+                </Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="scan-circle-outline" size={30} color={color} />
+            ),
+            headerStyle: {
+              backgroundColor: "#CAFF4C",
+            },
+          }}
+        />
+        <Tabs.Screen
           name="notification"
           options={{
             headerTitle: () => (

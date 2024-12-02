@@ -17,13 +17,19 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/banner1.png",
-        "backgroundColor": "#ffffff"
-      },
       "package": "com.fvent.PushNotifications",
       "googleServicesFile": "./google-services.json",
-      "softwareKeyboardLayoutMode": "pan"
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_CALENDAR",
+        "android.permission.WRITE_CALENDAR"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -43,6 +49,20 @@
         }
       ],
       [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Fvent to access your camera",
+          "microphonePermission": "Allow Fvent to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ],
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow this app to use the camera to scan QR codes."
+        }
+      ],
+      [
         "expo-calendar",
         {
           "calendarPermission": "The app needs to access your calendar."
@@ -59,6 +79,13 @@
       "eas": {
         "projectId": "13cc41da-c77c-4626-9032-9064b457830c"
       }
+    },
+    "owner": "tson26",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/13cc41da-c77c-4626-9032-9064b457830c"
     }
   }
 }

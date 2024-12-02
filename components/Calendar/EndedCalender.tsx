@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  Button,
 } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";

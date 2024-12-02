@@ -203,3 +203,20 @@ export const sumbitForm = async (eventId: string, data: any) => {
   });
   return response.data;
 };
+
+//CheckIn
+export const checkIn = async (eventId: string) => {
+  const token = await getAuthToken();
+  console.log("day la token:", token);
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.put(`/events/${eventId}/checkin`, {
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
+  return response.data;
+};

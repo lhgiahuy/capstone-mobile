@@ -41,18 +41,11 @@ export default function Setting() {
         onPress={() => handleLogout()}
       >
         <View className="flex-row items-center">
-          <Ionicons
-            name="walk-outline"
-            color={"white"}
-            size={30}
-            className=""
-          />
-          <Text className="text-white text-[18px] font-bold text-center ml-2 ">
+          <Ionicons name="log-out-outline" color={"#d73535"} size={30} />
+          <Text className="text-[#d73535] text-[18px] font-bold text-center ml-2 ">
             Đăng xuất
           </Text>
         </View>
-
-        <Ionicons name="log-out-outline" color={"white"} size={30} />
       </TouchableOpacity>
     </View>
   );

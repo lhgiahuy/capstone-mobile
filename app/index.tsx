@@ -28,31 +28,31 @@ export default function App() {
             FVENT
           </Text>
 
-          <Text className="text-[70px] text-center  font-inter font-bold text-white ">
-            Welcome
+          <Text className="text-[48px] text-center  font-inter font-bold text-white ">
+            CHÀO MỪNG
           </Text>
 
-          <Text className="text-[18px] text-center  font-lexend  text-white">
-            Find your favorite event with Fvent!
-            {/* Tìm kiếm sự kiện yêu thích với Fvent */}
+          <Text className="text-[18px] text-center  font-lexend  text-white mt-1">
+            {/* Sự kiện yêu thích trong tầm tay với Fvent! */}
+            Tìm kiếm sự kiện yêu thích với Fvent!
           </Text>
 
           <View className="flex-row mt-12 justify-center">
             <TouchableOpacity
-              className="bg-[#CAFF4C] w-[70%] h-[46px] rounded-[26px]"
+              className="bg-[#CAFF4C] w-[60%] h-[46px] rounded-[26px] justify-center py-2"
               onPress={() => router.push("/sign-up")}
             >
-              <Text className="text-center font-bold font-lexend text-[18px] text-black p-2">
+              <Text className="text-center font-bold font-lexend text-[18px] text-black ">
                 Tạo tài khoản
               </Text>
             </TouchableOpacity>
           </View>
           <View className="flex-row mt-4 justify-center">
             <TouchableOpacity
-              className="bg-[#CAFF4C] w-[70%] h-[46px] rounded-[26px]"
+              className="bg-[#CAFF4C] w-[60%] h-[46px] rounded-[26px] justify-center py-2"
               onPress={() => router.push("/sign-in")}
             >
-              <Text className="text-center  font-bold font-lexend text-[18px] text-black p-2">
+              <Text className="text-center  font-bold font-lexend text-[18px] text-black ">
                 Đăng nhập
               </Text>
             </TouchableOpacity>

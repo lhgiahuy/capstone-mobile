@@ -72,9 +72,10 @@ export default function ListNotifications() {
     <View className="flex-1 bg-primary">
       <ScrollView className="flex-1 bg-primary px-3 mb-2">
         {notification?.map((notify) => (
-          <View
+          <TouchableOpacity
             className="bg-[#1F1F1F]  w-full  rounded-[20px] justify-center my-2 p-2 border-[1px] "
             key={notify.notiId}
+            onPress={() => router.push(`/events/${notify?.eventId}`)}
           >
             <View className="mt-2 mx-2 flex-row items-center  ">
               <View className="flex-row items-center    ">
@@ -99,7 +100,7 @@ export default function ListNotifications() {
               notiId={notify.notiId}
               readStatus={notify.readStatus}
             />
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
