@@ -3,6 +3,7 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
+import Toast from "react-native-toast-message";
 
 export default function Setting() {
   const handleLogout = async () => {
@@ -10,8 +11,19 @@ export default function Setting() {
       await SecureStore.deleteItemAsync("authToken");
       router.replace("/");
     } catch (error) {
-      console.error("Đăng xuất thất bại:", error);
-      Alert.alert("Lỗi", "Không thể đăng xuất. Vui lòng thử lại.");
+      Toast.show({
+        type: "error",
+        text1: "Không thể đăng xuất",
+        text2: "Vui lòng thử lại!",
+        visibilityTime: 5000,
+        text1Style: {
+          fontSize: 18,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
     }
   };
   return (
@@ -30,6 +42,24 @@ export default function Setting() {
           />
           <Text className="text-white text-[18px] font-bold text-center ml-2 ">
             Tài khoản
+          </Text>
+        </View>
+
+        <Ionicons name="chevron-forward-outline" color={"white"} size={30} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        className="bg-[#1F1F1F] flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-2"
+        onPress={() => router.push("/user/dashboard")}
+      >
+        <View className="flex-row items-center">
+          <Ionicons
+            name="layers-outline"
+            color={"white"}
+            size={25}
+            className=""
+          />
+          <Text className="text-white text-[18px] font-bold text-center ml-2 ">
+            Thống kê
           </Text>
         </View>
 

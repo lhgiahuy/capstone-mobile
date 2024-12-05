@@ -46,3 +46,18 @@ export const removeNotification = async (notiId: string) => {
   });
   return response.data;
 };
+
+export const clearAllNotification = async () => {
+  const token = await getAuthToken();
+
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const response = await api.delete("/users/clear-notifications", {
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
+  return response.data;
+};

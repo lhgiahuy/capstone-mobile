@@ -60,7 +60,7 @@ export default function DetailEvent() {
     );
   }
 
-  if (data.isOverlap && !data.isRegistered) {
+  if (data.isOverlap && !data.isRegistered && data.status !== "Completed") {
     Toast.show({
       type: "error",
       text1: "Thời gian sự kiện này trùng lịch của bạn",
@@ -118,6 +118,15 @@ export default function DetailEvent() {
               {data.location}
             </Text>
           </View>
+          {data.maxAttendees != null && data.maxAttendees > 0 && (
+            <View className="flex-row mt-4 w-[80%] justify-center items-center">
+              <Ionicons name="people-outline" size={22} color={"#CAFF4C"} />
+              <Text className="text-white ml-2 font-lexend text-[16px] text-center">
+                Số lượng tham gia: {data.maxAttendees}
+              </Text>
+            </View>
+          )}
+
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}

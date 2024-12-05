@@ -59,15 +59,13 @@ export default function ListReview() {
               <View className="flex-row items-center justify-between ">
                 <View className="flex-row items-center">
                   <Image
-                    source={{
-                      uri:
-                        review?.avatar ||
-                        require("../../assets/images/profile.jpg"),
-                    }}
+                    source={require("../../assets/images/OIP.jpg")}
                     className="h-[60px] w-[60px] rounded-[40px] border-gray-400 border-[1px]"
                   />
                   <View className="ml-6 justify-center items-center ">
-                    <Text className="text-white w-full">{review.fullname}</Text>
+                    <Text className="text-white w-full font-lexend">
+                      Ẩn danh
+                    </Text>
 
                     <View style={{ flexDirection: "row", marginTop: 8 }}>
                       {[...Array(5)].map((_, index) => (
@@ -94,3 +92,7 @@ export default function ListReview() {
     </ScrollView>
   );
 }
+
+// uri:
+// review?.avatar   }}
+// require("../../assets/images/profile.jpg"),

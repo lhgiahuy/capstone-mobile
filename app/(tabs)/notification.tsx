@@ -4,23 +4,28 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  RefreshControl,
   // Pressable,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Notification } from "@/constants/model/Notification";
 
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonReadNoti from "@/components/NotificationEvent/ButtonReadNoti";
 import { getNotifications } from "@/api/notification";
+import ButtonClearAll from "@/components/NotificationEvent/ButtonClearAll";
 
 export default function ListNotifications() {
+  const [refreshing, setRefreshing] = useState(false);
+
   const {
     data: notification,
     isLoading,
     error,
+    refetch,
   } = useQuery<Notification[]>({
     queryKey: ["notification"],
     queryFn: getNotifications,
@@ -30,11 +35,21 @@ export default function ListNotifications() {
     const date = new Date(dateTime);
 
     const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padEnd(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
 
-    return `${hours}:00 , ${day}/${month}/${year}`;
+    return `${hours}:${minutes} , ${day}/${month}/${year}`;
+  };
+
+  const onRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await refetch();
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   if (isLoading) {
@@ -70,7 +85,13 @@ export default function ListNotifications() {
 
   return (
     <View className="flex-1 bg-primary">
-      <ScrollView className="flex-1 bg-primary px-3 mb-2">
+      <ScrollView
+        className="flex-1 bg-primary px-3 mb-2"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <ButtonClearAll />
         {notification?.map((notify) => (
           <TouchableOpacity
             className="bg-[#1F1F1F]  w-full  rounded-[20px] justify-center my-2 p-2 border-[1px] "

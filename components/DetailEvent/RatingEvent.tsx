@@ -58,7 +58,8 @@ export default function RatingEvent({ eventId, status }: NavRating) {
       >
         <Ionicons name="star-outline" size={20} color={"#CAFF4C"} />
         <Text className="text-white ml-1 font-itim text-[16px] mt-1">
-          {data?.avgRate?.toFixed(1) || 0}/5 ({data?.totalRate || "0"} chia sẻ)
+          {data?.avgRate?.toFixed(1) || 0}/5 ({data?.totalRate || "0"} lượt đánh
+          giá)
         </Text>
       </TouchableOpacity>
     </View>

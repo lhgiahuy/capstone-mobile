@@ -14,7 +14,6 @@ import { EventData } from "@/constants/model/EventDetail";
 import { getUserParticipant } from "@/api/user";
 import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
-import Toast from "react-native-toast-message";
 import { formatDateTime, getDay, getMonth } from "@/lib/utils/date-time";
 
 export default function EndedCalender() {
@@ -31,7 +30,7 @@ export default function EndedCalender() {
       </SafeAreaView>
     );
   }
-  if (error) return <Text>Error loading event details</Text>;
+  // if (error) return <Text>Error loading event details</Text>;
 
   if (!data || data.length === 0) {
     return (
@@ -48,7 +47,7 @@ export default function EndedCalender() {
   }
 
   return (
-    <ScrollView className="bg-primary flex-1 mx-2 p-1">
+    <ScrollView className="bg-primary flex-1 mx-2 p-1 mb-3">
       <Text className="text-[#CAFF4C] text-[19px] font-inter font-bold mt-7 ">
         Đã kết thúc
       </Text>
@@ -62,7 +61,7 @@ export default function EndedCalender() {
             <Text className=" w-[120px] font-lexend text-[26px] p-2 text-center text-[#CAFF4C]">
               {getDay(event.startTime)}
             </Text>
-            <Text className="w-[120px] font-lexend text-[17px] text-center">
+            <Text className="w-[120px] font-lexend text-[17px] text-center text-white">
               {getMonth(event.startTime)}
             </Text>
           </View>
@@ -91,17 +90,6 @@ export default function EndedCalender() {
                 {event.location}
               </Text>
             </View>
-
-            {/* <View className="flex-row mt-4 justify-center ">
-              {event.eventTags.map((tag, index) => (
-                <Text
-                  key={index}
-                  className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
-                >
-                  {tag}
-                </Text>
-              ))}
-            </View> */}
           </View>
         </TouchableOpacity>
       ))}

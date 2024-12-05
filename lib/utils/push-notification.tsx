@@ -43,7 +43,7 @@ export default function usePushNotifications() {
         console.log("Expo Push Token:", token);
         setExpoPushToken(token);
 
-        // Fetch Device Token (FCM/APNs token)
+        // Fetch Device Token
         if (Platform.OS === "android" || Platform.OS === "ios") {
           const deviceToken = (await Notifications.getDevicePushTokenAsync())
             .data;
@@ -51,6 +51,23 @@ export default function usePushNotifications() {
           console.log("Device Push Token:", deviceToken);
           setDevicePushToken(deviceToken);
         }
+
+        // Listen to notifications when app is in foreground
+        Notifications.addNotificationReceivedListener((notification) => {
+          console.log("Notification received in foreground:", notification);
+
+          // Show notification in app when recive
+          Notifications.presentNotificationAsync({
+            title: notification.request.content.title,
+            body: notification.request.content.body,
+            data: notification.request.content.data,
+          });
+        });
+
+        // Log notification respone (when user taps on notification)
+        Notifications.addNotificationResponseReceivedListener((response) => {
+          console.log("Notification response received:", response);
+        });
       } catch (error) {
         console.error("Error fetching Expo Push Token:", error);
       }
