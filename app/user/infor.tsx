@@ -67,11 +67,8 @@ export default function UserInfor() {
         <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
           Mã số sinh viên
         </Text>
-        <Text
-          className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400"
-          // 171717
-        >
-          {user?.studentId}
+        <Text className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400">
+          {user?.studentId ? user.studentId : "MSSV*"}
         </Text>
       </View>
       <View className="justify-center mx-2">
@@ -91,24 +88,26 @@ export default function UserInfor() {
           {user?.roleName === "student" ? "Sinh viên" : user?.roleName}
         </Text>
       </View>
-      <View className="justify-center items-center px-4 mt-6">
-        <Text className="text-white font-bold text-[18px]">Thẻ FPT</Text>
-        {/* <Image
+      {user?.cardUrl && user.cardUrl.startsWith("firebase") ? (
+        <View className="justify-center items-center px-4 mt-6">
+          <Text className="text-white font-bold text-[18px]">Thẻ FPT</Text>
+          {/* <Image
           source={{
             uri: user?.cardUrl || require("../../assets/images/profile.jpg"),
           }}
           className="h-[420px] w-full rounded-[12px] justify-center mt-6 "
         /> */}
-        <Image
-          source={
-            user?.cardUrl || user?.cardUrl.startsWith("firebase")
-              ? { uri: user.cardUrl }
-              : require("../../assets/images/OIP.jpg")
-          }
-          className="h-[420px] w-full rounded-[12px] justify-center mt-6"
-        />
-      </View>
-
+          <Image
+            source={
+              // user?.cardUrl || user?.cardUrl.startsWith("firebase")
+              //   ?
+              { uri: user.cardUrl }
+              // : require("../../assets/images/OIP.jpg")
+            }
+            className="h-[420px] w-full rounded-[12px] justify-center mt-6"
+          />
+        </View>
+      ) : null}
       <View className="justify-center items-center">
         <TouchableOpacity
           onPress={() => router.push("/user/edit-profile")}

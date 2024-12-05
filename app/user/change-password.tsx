@@ -33,6 +33,9 @@ export default function ChangePassword() {
       changePassword(passwordData),
     onSuccess: (data) => {
       setModalVisible(true);
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
       console.log("User updated password successfully:", data);
     },
     onError: (error) => {
@@ -40,10 +43,14 @@ export default function ChangePassword() {
         // console.error("Failed to update password:", error);
         Toast.show({
           type: "error",
-          text1: "Mật khẩu cũ không chính xác!",
+          text1: "Cập nhật mật khẩu thất bại!",
+          text2: "Mật khẩu cũ không chính xác",
           text1Style: {
             fontSize: 16,
             fontWeight: "bold",
+          },
+          text2Style: {
+            fontSize: 14,
           },
         });
       } else {
@@ -61,13 +68,43 @@ export default function ChangePassword() {
   });
 
   const handleSave = () => {
-    if (newPassword !== confirmPassword) {
+    if (!oldPassword || !newPassword || !confirmPassword) {
       Toast.show({
         type: "error",
-        text1: "Mật khẩu và xác nhận mật khẩu không khớp!",
+        text1: "Vui lòng điền vào chỗ trống!",
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",
+        },
+      });
+      return;
+    }
+    if (newPassword.length < 8) {
+      Toast.show({
+        type: "error",
+        text1: "Cập nhật mật khẩu thất bại!",
+        text2: "Mật khẩu mới phải có ít nhất 8 ký tự!",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      Toast.show({
+        type: "error",
+        text1: "Cập nhật mật khẩu thất bại!",
+        text2: "Mật khẩu và xác nhận mật khẩu không khớp!",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
         },
       });
       return;

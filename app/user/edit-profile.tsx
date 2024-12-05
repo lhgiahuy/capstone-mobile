@@ -31,7 +31,7 @@ export default function EditProfile() {
   const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || "");
   const [userName, setUserName] = useState(user?.username || "");
   const [avatarUrl, setAvatarUrl] = useState(user?.avatarUrl || "");
-  const [studentId, setStudentId] = useState(user?.studentId);
+  const [studentId, setStudentId] = useState(user?.studentId || "");
   const [modalVisible, setModalVisible] = useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -93,7 +93,10 @@ export default function EditProfile() {
       return;
     }
 
-    if (!studentId || !studentId.trim()) {
+    if (
+      (!studentId || !studentId.trim()) &&
+      user?.verifyStatus !== "Verified"
+    ) {
       Toast.show({
         type: "error",
         text1: "MSSV không được để trống!",
@@ -156,17 +159,6 @@ export default function EditProfile() {
             className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400"
           />
         </View>
-        {/* { user?.verifyStatus==="Verified" } */}
-        {/* <View className="justify-center mx-2">
-          <Text className="text-white  ml-4 my-2 font-bold text-[18px]">
-            Mã số sinh viên
-          </Text>
-          <TextInput
-            value={studentId}
-            onChangeText={setStudentId}
-            className="bg-[#171717]  h-[54px] w-full  p-4 mb-2 rounded-[18px] text-gray-400"
-          />
-        </View> */}
         {user?.verifyStatus !== "Verified" && (
           <View className="justify-center mx-2">
             <Text className="text-white ml-4 my-2 font-bold text-[18px]">
@@ -182,12 +174,14 @@ export default function EditProfile() {
 
         {user?.verifyStatus === "Verified" && (
           <View className="justify-center mx-2">
-            <Text className="text-gray-400 ml-4 my-2 font-lexend">
+            <View className=" ml-4 my-2 ">
               <Text className="text-white font-bold text-[18px]">
                 Mã số sinh viên
               </Text>
-              (Tài khoản của bạn đã được xác minh)
-            </Text>
+              <Text className="text-gray-400 font-lexend">
+                (Tài khoản của bạn đã được xác minh)
+              </Text>
+            </View>
             <TextInput
               value={studentId}
               editable={false}

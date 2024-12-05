@@ -48,11 +48,11 @@ export default function UpcomingCalendar() {
         marked: true,
         customStyles: {
           container: {
-            backgroundColor: "#1F1F1F",
-            borderRadius: 8,
+            backgroundColor: "#CAFF4C",
+            borderRadius: 16,
           },
           text: {
-            color: "yellow",
+            color: "black",
           },
         },
       };
@@ -91,7 +91,7 @@ export default function UpcomingCalendar() {
             selectedDayBackgroundColor: "#CAFF4C",
             selectedDayTextColor: "#000",
             todayTextColor: "#CAFF4C",
-            dotColor: "#CAFF4C",
+            dotColor: "#1F1F1F",
             selectedDotColor: "#000000",
           }}
         />

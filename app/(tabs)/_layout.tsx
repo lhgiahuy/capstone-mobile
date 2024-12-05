@@ -3,12 +3,14 @@ import React from "react";
 import { Link, router, Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import ProtectedRoute from "../(auth)/protected-route";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUser } from "@/api/user";
 import { User } from "@/constants/model/User";
 import NotificationIcon from "@/components/NotificationEvent/NotificationIcon";
 
 export default function TabLayout() {
+  const queryClient = useQueryClient();
+
   const { data: user } = useQuery<User>({
     queryKey: ["user", "StatusNoti"],
     queryFn: getUser,
@@ -119,7 +121,16 @@ export default function TabLayout() {
             ),
             headerTitleAlign: "center",
             tabBarIcon: ({ color }) => (
-              <Ionicons name="notifications" size={24} color={color} />
+              // <Ionicons name="notifications" size={24} color={color} />
+              <TouchableOpacity
+                onPress={() => router.push("/(tabs)/notification")}
+              >
+                {user?.isHaveUnreadNoti === true ? (
+                  <NotificationIcon isHaveUnreadNoti />
+                ) : (
+                  <Ionicons name="notifications" size={24} color={color} />
+                )}
+              </TouchableOpacity>
             ),
             headerStyle: {
               backgroundColor: "#CAFF4C",

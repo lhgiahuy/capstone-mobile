@@ -24,6 +24,12 @@ export default function AuthRoutesLayout() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="forgot-password"
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack>
 
       {/* <Loader isLoading={loading} />

@@ -27,7 +27,7 @@ export const getEventOfOrganizer = async (Id: string, status: string) => {
   }
 
   const response = await api.get(
-    `/events/organizer?OrganizerId=${Id}&status=${status}`,
+    `/events/organizerPublic?OrganizerId=${Id}&status=${status}`,
     {
       headers: {
         Cookie: `authCookie=${token}`,

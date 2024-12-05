@@ -13,7 +13,6 @@ import { EventData } from "@/constants/model/EventDetail";
 import { useQuery } from "@tanstack/react-query";
 import { getEventOfOrganizer } from "@/api/organizer";
 import { SafeAreaView } from "react-native-safe-area-context";
-import HTMLView from "react-native-htmlview";
 import { router } from "expo-router";
 
 export default function Ended({ organizerId }: NavOrganizerProps) {

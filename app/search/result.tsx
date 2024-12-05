@@ -104,7 +104,7 @@ export default function Result() {
   return (
     <SafeAreaView className="flex-1 bg-primary h-full p-3">
       <ScrollView>
-        <Text className="text-white font-bold text-[18px] mt-3 ml-4">
+        <Text className="text-white font-lexend text-[18px] mt-3 ml-4">
           Danh sách sự kiện : {keyword || tagName}
         </Text>
         <DateTime
@@ -172,13 +172,14 @@ export default function Result() {
                 className="flex-row justify-center items-center mt-2 w-[100%] h-[10%]"
                 onPress={() => router.push(`/events/${event?.eventId}`)}
               >
-                <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] ">
+                <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] text-center">
                   Xem chi tiết
                 </Text>
                 <Ionicons
+                  className="items-center justify-center"
                   name="chevron-forward-outline"
                   color={"#CAFF4C"}
-                  size={20}
+                  size={22}
                 />
               </TouchableOpacity>
             </View>

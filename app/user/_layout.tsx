@@ -72,6 +72,22 @@ export default function AccountLayout() {
             },
           }}
         />
+        <Stack.Screen
+          name="dashboard"
+          options={{
+            headerTitle: () => (
+              <View>
+                <Text className="font-bold text-[18px] text-[#000]">
+                  Thống kê
+                </Text>
+              </View>
+            ),
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#CAFF4C",
+            },
+          }}
+        />
       </Stack>
 
       {/* <Loader isLoading={loading} />

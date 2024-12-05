@@ -1,6 +1,8 @@
 import { checkIn } from "@/api/event";
 import { useMutation } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
   Button,
@@ -26,22 +28,44 @@ export default function ScanIcon() {
       // });
       Toast.show({
         type: "success",
-        text1: "Quét mã thành công!",
+        text1: "Check in thành công!",
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",
         },
       });
+      router.push(`/events/${eventId}`);
     },
-    onError: () => {
-      return Toast.show({
-        type: "error",
-        text1: "Quét mã không thành công!",
-        text1Style: {
-          fontSize: 16,
-          fontWeight: "bold",
-        },
-      });
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        const axiosError = error;
+        if (axiosError.response) {
+          const errorMessage =
+            axiosError.response.data?.error ||
+            "Sự kiện sắp diễn ra hoặc đã quá hạn check in";
+          console.log(errorMessage);
+          return Toast.show({
+            type: "error",
+            text1: "Quét mã không thành công!",
+            text2: errorMessage,
+            text1Style: {
+              fontSize: 16,
+              fontWeight: "bold",
+            },
+            text2Style: {
+              fontSize: 14,
+            },
+          });
+        }
+      }
+      // return Toast.show({
+      //   type: "error",
+      //   text1: "Quét mã không thành công!",
+      //   text1Style: {
+      //     fontSize: 16,
+      //     fontWeight: "bold",
+      //   },
+      // });
     },
   });
 
@@ -81,36 +105,36 @@ export default function ScanIcon() {
   }) {
     setScanned(true);
 
-    const dataId = data.split("/").pop(); // split by '/' and get the last element
-    console.log("Extracted ID:", dataId); // prints EventId
-    setEventId(dataId as string);
+    // const dataId = data.split("/").pop(); // split by '/' and get the last element
+    console.log("Extracted ID:", data);
+    setEventId(data as string);
 
-    mutation.mutate(dataId as string);
+    mutation.mutate(data as string);
     // Check if the scanned data is a valid URL
-    const isValidUrl = /^https?:\/\//i.test(data);
-    if (isValidUrl) {
-      // Navigate to the URL if it is a valid link
-      Linking.openURL(data).catch((err) => {
-        Toast.show({
-          type: "error",
-          text1: "Không thể mở URL",
-          text1Style: {
-            fontSize: 16,
-            fontWeight: "bold",
-          },
-        });
-      });
-    } else {
-      // If it's not a valid URL, show an error message
-      Toast.show({
-        type: "error",
-        text1: "Mã không hợp lệ",
-        text1Style: {
-          fontSize: 16,
-          fontWeight: "bold",
-        },
-      });
-    }
+    // const isValidUrl = /^https?:\/\//i.test(data);
+    // if (isValidUrl) {
+    //   // Navigate to the URL if it is a valid link
+    //   Linking.openURL(data).catch((err) => {
+    //     Toast.show({
+    //       type: "error",
+    //       text1: "Không thể mở URL",
+    //       text1Style: {
+    //         fontSize: 16,
+    //         fontWeight: "bold",
+    //       },
+    //     });
+    //   });
+    // } else {
+    //   // If it's not a valid URL, show an error message
+    //   Toast.show({
+    //     type: "error",
+    //     text1: "Mã không hợp lệ",
+    //     text1Style: {
+    //       fontSize: 16,
+    //       fontWeight: "bold",
+    //     },
+    //   });
+    // }
   }
 
   return (
@@ -125,7 +149,9 @@ export default function ScanIcon() {
             className="flex-1 self-end items-center"
             onPress={toggleCameraFacing}
           >
-            <Text className="text-2xl font-bold text-white">Flip Camera</Text>
+            <Text className="text-[18px] font-lexend text-white">
+              XOAY MÁY ẢNH
+            </Text>
           </TouchableOpacity>
         </View>
         {scanned && (

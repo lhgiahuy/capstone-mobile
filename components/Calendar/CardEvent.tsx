@@ -19,13 +19,6 @@ interface dataProps {
 }
 
 export default function CardEvent({ data }: dataProps) {
-  // const { data, isLoading, error } = useQuery<EventData[], Error>({
-  //   queryKey: ["events", "upcoming"],
-  //   queryFn: () => getUserParticipant(false),
-  //   // refetchOnWindowFocus: true,
-  //   // refetchOnMount: true,
-  // });
-
   // if (isLoading) {
   //   return (
   //     <SafeAreaView className="bg-primary h-full justify-center items-center">
@@ -61,7 +54,7 @@ export default function CardEvent({ data }: dataProps) {
             <Text className=" w-[120px] font-lexend text-[26px] p-2 text-center text-[#CAFF4C]">
               {getDay(event.startTime)}
             </Text>
-            <Text className="w-[120px] font-lexend text-[17px] text-center">
+            <Text className="w-[120px] font-lexend text-[17px] text-center text-white">
               {getMonth(event.startTime)}
             </Text>
           </View>
@@ -94,17 +87,6 @@ export default function CardEvent({ data }: dataProps) {
                 {event.location}
               </Text>
             </View>
-
-            {/* <View className="flex-row mt-4 justify-center ">
-              {event.eventTags.map((tag, index) => (
-                <Text
-                  key={index}
-                  className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
-                >
-                  {tag}
-                </Text>
-              ))}
-            </View> */}
           </View>
         </TouchableOpacity>
       ))}

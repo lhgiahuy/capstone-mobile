@@ -1,4 +1,4 @@
-import { View, ScrollView, BackHandler } from "react-native";
+import { View, ScrollView, BackHandler, RefreshControl } from "react-native";
 import React, { useState } from "react";
 
 import SpecialEvent from "@/components/SpecialEvent";
@@ -11,9 +11,32 @@ import BannerEvent from "@/components/Banner";
 import LogoutModal from "@/components/Modal/LogoutModal";
 import { router, useFocusEffect } from "expo-router";
 import * as SecureStore from "expo-secure-store";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Home() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+
+    await queryClient.invalidateQueries({
+      queryKey: ["notification"],
+    });
+    await queryClient.invalidateQueries({
+      queryKey: ["user", "StatusNoti"],
+    });
+    await queryClient.invalidateQueries({
+      queryKey: ["events", "upcoming"],
+    });
+    await queryClient.invalidateQueries({
+      queryKey: ["events", "InProgress"],
+    });
+
+    setRefreshing(false);
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -35,7 +58,12 @@ export default function Home() {
 
   return (
     <SafeAreaView className="bg-black flex-1 px-2">
-      <ScrollView className="flex-1 bg-primary">
+      <ScrollView
+        className="flex-1 bg-primary"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View className="h-[258px]">
           <BannerEvent />
         </View>

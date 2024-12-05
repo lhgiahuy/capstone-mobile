@@ -108,6 +108,18 @@ export default function SubscribeButton({
       setVerifyAlertVisible(true);
       return;
     }
+    // if (data?.maxAttendees !== "Verified") {
+    //   Toast.show({
+    //     type: "error",
+    //     text1: "Số lượng người đăng ký đã hết!",
+    //     visibilityTime: 3000,
+    //     text1Style: {
+    //       fontSize: 16,
+    //       fontWeight: "bold",
+    //     },
+    //   });
+    //   return;
+    // }
 
     if (!register) {
       // registerMutation.mutate(eventId);
@@ -145,7 +157,7 @@ export default function SubscribeButton({
             bottom: 10,
             alignSelf: "center",
           }}
-          disabled={isEventCompleted}
+          disabled={isEventCompleted || data.status === "InProgress"}
         >
           <Text className="text-black text-[20px] font-bold ">
             {isEventCompleted

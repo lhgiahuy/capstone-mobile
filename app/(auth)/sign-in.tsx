@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Linking } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
 import { useAuth } from "@/hooks/useAuth";
@@ -15,7 +15,6 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { devicePushToken } = usePushNotifications();
-  console.log(devicePushToken);
 
   const handleLogin = async () => {
     const success = await login(email, password, devicePushToken);
@@ -100,7 +99,10 @@ const SignIn = () => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity className="mt-2 self-end mr-10 ">
+        <TouchableOpacity
+          className="mt-2 self-end mr-10 "
+          onPress={() => router.push("/(auth)/forgot-password")}
+        >
           <Text className="text-white text-right font-lexend font-bold">
             Quên mật khẩu?
           </Text>

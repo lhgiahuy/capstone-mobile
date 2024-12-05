@@ -39,12 +39,13 @@ export default function ListEvent() {
       }),
   });
 
-  // let statusText = "";
-  // if (status === "inProgress" || status === "ongoing") {
-  //   statusText = "Sự kiện đang diễn ra";
-  // } else if (status === "completed") {
-  //   statusText = "Sự kiện đã diễn ra";
-  // }
+  const statusText =
+    statusValue === "InProgress"
+      ? "Sự kiện đang diễn ra"
+      : statusValue === "upcoming"
+        ? "Sự kiện sắp diễn ra"
+        : "Danh sách sự kiện";
+
   if (isLoading) {
     return (
       <SafeAreaView className="bg-primary h-full justify-center items-center">
@@ -85,8 +86,10 @@ export default function ListEvent() {
   }
   return (
     <SafeAreaView className="flex-1 bg-primary h-full ">
-      {/* <Text className="text-white text-[18px]">{statusText}</Text> */}
       <ScrollView>
+        <Text className="text-white text-[18px] font-lexend ml-3 my-3 text-center">
+          {statusText}
+        </Text>
         {events?.items?.map((event) => (
           <TouchableOpacity
             // className="h-[220px] justify-center my-2 p-2 border-line border-[1px]"
@@ -98,10 +101,10 @@ export default function ListEvent() {
               source={{ uri: event.thumbnailImg }}
               className="h-[240px] w-[160px] rounded-[16px]"
             />
-            <View className="mt-6 h-[60px] w-[204px]  items-center ">
+            <View className="mt-6 h-[60px] w-[204px]  items-center px-1">
               <Text
                 className="text-white w-[160px] font-bold font-inter text-[16px] text-center"
-                numberOfLines={2}
+                numberOfLines={3}
                 ellipsizeMode="tail"
               >
                 {event?.eventName}
@@ -123,26 +126,14 @@ export default function ListEvent() {
               </Text> */}
               <View className="flex-row mt-4 w-[80%] justify-center items-center">
                 <Ionicons name="location-outline" size={22} color={"#CAFF4C"} />
-                <Text className="text-white font-lexend text-[16px] text-center">
+                <Text
+                  className="text-white font-lexend text-[14px] text-center"
+                  numberOfLines={2}
+                  ellipsizeMode="tail"
+                >
                   {event.location}
                 </Text>
               </View>
-              {/* <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ paddingHorizontal: 16, gap: 16 }}
-              >
-                <View className="flex-row mt-2">
-                  {event.eventTags.map((tag, index) => (
-                    <Text
-                      key={index}
-                      className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded"
-                    >
-                      {tag}
-                    </Text>
-                  ))}
-                </View>
-              </ScrollView> */}
 
               <View className="flex-row justify-center items-center mt-8">
                 <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] ">
@@ -151,7 +142,7 @@ export default function ListEvent() {
                 <Ionicons
                   name="chevron-forward-outline"
                   color={"#CAFF4C"}
-                  size={20}
+                  size={22}
                 />
               </View>
             </View>
