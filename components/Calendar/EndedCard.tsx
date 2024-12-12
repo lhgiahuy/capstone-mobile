@@ -60,12 +60,35 @@ export default function EndedCard({ data }: dataProps) {
               </Text>
             </View>
 
-            <View className="flex-row mt-2">
+            {/* <View className="flex-row mt-2">
               <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
               <Text className="text-white ml-2 font-lexend text-[12px]">
                 {event.location}
               </Text>
-            </View>
+            </View> */}
+            {!event.location ? (
+              <View className=" flex-row mt-2">
+                <Ionicons name="link-outline" size={20} color={"#CAFF4C"} />
+                <Text
+                  className="text-white ml-2 font-lexend text-[12px] "
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                >
+                  Link tham gia: {event.linkEvent}
+                </Text>
+              </View>
+            ) : (
+              <View className="flex-row mt-2">
+                <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
+                <Text
+                  className="text-white ml-2 font-lexend text-[12px]"
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                >
+                  {event.location}
+                </Text>
+              </View>
+            )}
           </View>
         </TouchableOpacity>
       ))}

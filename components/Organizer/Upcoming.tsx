@@ -63,7 +63,7 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
             source={{ uri: event.thumbnailImg }}
             className="h-[240px] w-[160px] rounded-[16px] items-center"
           />
-          <View className="h-auto  items-center  p-2 mr-1 ">
+          <View className="h-[240px] items-center  p-2">
             <Text
               className="text-white w-[160px] font-bold text-[16px] text-center"
               numberOfLines={2}
@@ -73,20 +73,34 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
             </Text>
             <View className="flex-row mt-4">
               <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
-              <Text className="text-white font-lexend ml-1 ">
+              <Text className="text-white font-lexend ml-2 ">
                 {formatDateTime(event.startTime)}
               </Text>
             </View>
-            <View className="flex-row mt-4  h-">
-              <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
-              <Text
-                className="text-white font-lexend ml-2 w-[120px] "
-                numberOfLines={3}
-                ellipsizeMode="tail"
-              >
-                {event.location}
-              </Text>
-            </View>
+
+            {!event.location ? (
+              <View className=" flex-row mt-4">
+                <Ionicons name="link-outline" size={20} color={"#CAFF4C"} />
+                <Text
+                  className="text-white font-lexend ml-2 w-[120px] "
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                >
+                  Link tham gia: {event.linkEvent}
+                </Text>
+              </View>
+            ) : (
+              <View className="flex-row mt-4">
+                <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
+                <Text
+                  className="text-white font-lexend ml-2 w-[120px] "
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                >
+                  {event.location}
+                </Text>
+              </View>
+            )}
 
             <View className="items-center justify-center w-[178px] px-2 mt-3">
               <ScrollView

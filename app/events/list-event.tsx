@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
 import { formatDateTime } from "@/lib/utils/date-time";
 
@@ -101,9 +102,9 @@ export default function ListEvent() {
               source={{ uri: event.thumbnailImg }}
               className="h-[240px] w-[160px] rounded-[16px]"
             />
-            <View className="mt-6 h-[60px] w-[204px]  items-center px-1">
+            <View className="w-[204px] items-center px-1 ">
               <Text
-                className="text-white w-[160px] font-bold font-inter text-[16px] text-center"
+                className="text-white w-[160px] font-bold font-inter text-[16px] text-center mt-6"
                 numberOfLines={3}
                 ellipsizeMode="tail"
               >
@@ -116,24 +117,33 @@ export default function ListEvent() {
                 </Text>
               </View>
 
-              {/* <Text
-                className="text-white h-[60px] mt-4 text-[14px] mx-2 overflow-hidden text-ellipsis whitespace-nowrap"
-                numberOfLines={3}
-                ellipsizeMode="tail"
-              >
-                FPT University HCM đang nóng lên từng ngày trước thềm Lễ Tôn
-                Vinh Top 100 Sinh Viên Xuất Sắc
-              </Text> */}
-              <View className="flex-row mt-4 w-[80%] justify-center items-center">
-                <Ionicons name="location-outline" size={22} color={"#CAFF4C"} />
-                <Text
-                  className="text-white font-lexend text-[14px] text-center"
-                  numberOfLines={2}
-                  ellipsizeMode="tail"
-                >
-                  {event.location}
-                </Text>
-              </View>
+              {!event.location ? (
+                <View className="flex-row mt-4 w-[80%] justify-center items-center p-1">
+                  <Ionicons name="link-outline" size={22} color={"#CAFF4C"} />
+                  <Text
+                    className="text-white font-lexend text-[14px] text-center"
+                    numberOfLines={3}
+                    ellipsizeMode="tail"
+                  >
+                    Link tham gia: {event.linkEvent}
+                  </Text>
+                </View>
+              ) : (
+                <View className="flex-row mt-4 w-[80%] justify-center items-center">
+                  <Ionicons
+                    name="location-outline"
+                    size={22}
+                    color={"#CAFF4C"}
+                  />
+                  <Text
+                    className="text-white font-lexend text-[14px] text-center"
+                    numberOfLines={3}
+                    ellipsizeMode="tail"
+                  >
+                    {event.location}
+                  </Text>
+                </View>
+              )}
             </View>
           </TouchableOpacity>
         ))}
