@@ -3,6 +3,12 @@ import { api } from "@/lib/axios";
 
 import { getAuthToken } from "./auth";
 
+interface getUserParticipant {
+  isCompleted: boolean;
+  inMonth?: number;
+  inYear?: number;
+}
+
 export const getUser = async () => {
   const token = await getAuthToken();
 
@@ -54,21 +60,19 @@ export const forgotPassword = async (email: string) => {
   return response.data;
 };
 
-export const getUserParticipant = async (isCompleted: boolean) => {
+export const getUserParticipant = async (props?: getUserParticipant) => {
   const token = await getAuthToken();
 
   if (!token) {
     throw new Error("No authentication token found");
   }
 
-  const response = await api.get(
-    `/users/participant?isCompleted=${isCompleted}`,
-    {
-      headers: {
-        Cookie: `authCookie=${token}`,
-      },
-    }
-  );
+  const response = await api.get("/users/participant", {
+    params: props,
+    headers: {
+      Cookie: `authCookie=${token}`,
+    },
+  });
   return response.data;
 };
 

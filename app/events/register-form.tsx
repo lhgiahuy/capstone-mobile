@@ -63,8 +63,17 @@ export default function RegisterForm() {
       router.push("/(tabs)/home");
     },
     onError: (err) => {
+      Toast.show({
+        type: "error",
+        text1: "Đăng ký không thành công!",
+        visibilityTime: 3000,
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
       console.error("Submit error: ", err);
-      Alert.alert("Lỗi", `Có lỗi xảy ra: ${err.message}`);
+      // Alert.alert("Lỗi", `Có lỗi xảy ra: ${err.message}`);
     },
   });
 
@@ -117,8 +126,11 @@ export default function RegisterForm() {
 
   return (
     <ScrollView className="flex-1 bg-primary p-4">
+      {/* <Text className="text-[22px] text-[#CAFF4C] mb-4 text-center font-inter font-bold">
+        ĐĂNG KÝ THAM GIA
+      </Text> */}
       <Text className="text-[22px] text-[#CAFF4C] mb-4 text-center font-inter font-bold">
-        ĐĂNG KÝ THAM GIA : {eventData?.eventName}
+        {eventData?.eventName}
       </Text>
 
       {form?.map((question, index) => (

@@ -13,6 +13,7 @@ import { getEventRecommendation } from "@/api/event";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { formatDate } from "@/lib/utils/date-time";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RecomentEvent() {
   const {
@@ -29,11 +30,27 @@ export default function RecomentEvent() {
   if (error) {
     return <Text>Error fetching events: {error.message}</Text>;
   }
+  if (!events || events.length === 0) {
+    return (
+      <SafeAreaView className=" justify-center">
+        <Text className="ml-4 text-[#CAFF4C] text-xl font-bold">
+          Sự kiện đề xuất
+        </Text>
+        <Text className="text-white text-[16px] font-lexend text-center mt-2">
+          Chưa có sự kiện đề xuất dành cho bạn
+        </Text>
+        <Image
+          source={require("../../assets/images/Coming Soon.png")}
+          className=" h-[300px] w-full rounded-[16px] mx-2 items-center"
+        />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <View className="py-2 mt-8 ">
       <Text className=" ml-4 text-[#CAFF4C] text-xl font-lexend font-bold">
-        Các sự kiện nổi bật
+        Sự kiện đề xuất
       </Text>
       <ScrollView
         horizontal

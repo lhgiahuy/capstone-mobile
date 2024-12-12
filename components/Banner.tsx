@@ -1,8 +1,15 @@
 import { getListBanner } from "@/api/event";
 import { Banner } from "@/constants/model/Banner";
 import { useQuery } from "@tanstack/react-query";
+import { router } from "expo-router";
 import React from "react";
-import { View, Image, ActivityIndicator, Text } from "react-native";
+import {
+  View,
+  Image,
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swiper from "react-native-swiper";
 
@@ -42,9 +49,10 @@ export default function BannerEvent() {
         paginationStyle={{ bottom: -20 }}
       >
         {data?.map((banner) => (
-          <View
+          <TouchableOpacity
             className="flex-1 justify-center items-center"
             key={banner?.eventId}
+            onPress={() => router.push(`/events/${banner.eventId}`)}
           >
             <Image
               source={
@@ -54,7 +62,7 @@ export default function BannerEvent() {
               }
               className="w-full h-full object-cover rounded-md"
             />
-          </View>
+          </TouchableOpacity>
         ))}
       </Swiper>
     </View>

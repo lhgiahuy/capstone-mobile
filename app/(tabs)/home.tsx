@@ -34,6 +34,9 @@ export default function Home() {
     await queryClient.invalidateQueries({
       queryKey: ["events", "InProgress"],
     });
+    await queryClient.invalidateQueries({
+      queryKey: ["events", "banner-recomemended"],
+    });
 
     setRefreshing(false);
   };

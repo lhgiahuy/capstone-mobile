@@ -98,7 +98,7 @@ export default function Ongoing({ organizerId }: NavOrganizerProps) {
               </Text>
             </View>
 
-            <View className="  items-center justify-center w-[178px] px-2">
+            <View className="  items-center justify-center w-[178px] px-2 mt-3">
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -107,7 +107,7 @@ export default function Ongoing({ organizerId }: NavOrganizerProps) {
                 {event.eventTags.map((tag, index) => (
                   <Text
                     key={index}
-                    className="text-[#797777d6] text-[14px] font-lexend px-2 rounded-[20px] mt-3"
+                    className="bg-[#CAFF4C] text-[#000000d6]  text-[14px] font-lexend px-2 rounded-[20px] mt-3"
                   >
                     {tag}
                   </Text>
@@ -115,7 +115,7 @@ export default function Ongoing({ organizerId }: NavOrganizerProps) {
               </ScrollView>
             </View>
             <TouchableOpacity
-              className="flex-row justify-center items-center mt-3"
+              className="flex-row justify-center items-center mt-6"
               onPress={() => router.push(`/events/${event.eventId}`)}
             >
               <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] ">

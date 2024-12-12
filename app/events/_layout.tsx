@@ -22,22 +22,7 @@ export default function EventLayout() {
             },
           }}
         />
-        <Stack.Screen
-          name="list-event"
-          options={{
-            headerTitle: () => (
-              <View>
-                <Text className="font-bold text-[18px] text-[#000]">
-                  Danh sách sự kiện
-                </Text>
-              </View>
-            ),
-            headerTitleAlign: "center",
-            headerStyle: {
-              backgroundColor: "#CAFF4C",
-            },
-          }}
-        />
+        <Stack.Screen name="list-event" options={{ headerShown: false }} />
         <Stack.Screen
           name="review"
           options={{

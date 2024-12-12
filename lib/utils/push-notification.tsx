@@ -53,21 +53,28 @@ export default function usePushNotifications() {
         }
 
         // Listen to notifications when app is in foreground
-        Notifications.addNotificationReceivedListener((notification) => {
-          console.log("Notification received in foreground:", notification);
+        const subscription = Notifications.addNotificationReceivedListener(
+          (notification) => {
+            console.log("Notification received in foreground:", notification);
 
-          // Show notification in app when recive
-          Notifications.presentNotificationAsync({
-            title: notification.request.content.title,
-            body: notification.request.content.body,
-            data: notification.request.content.data,
-          });
-        });
+            // Show notification in app when recive
+            Notifications.presentNotificationAsync({
+              title: notification.request.content.title,
+              body: notification.request.content.body,
+              data: notification.request.content.data,
+            });
+          }
+        );
 
         // Log notification respone (when user taps on notification)
         Notifications.addNotificationResponseReceivedListener((response) => {
           console.log("Notification response received:", response);
         });
+
+        // Remove listener when unmount
+        return () => {
+          subscription.remove();
+        };
       } catch (error) {
         console.error("Error fetching Expo Push Token:", error);
       }

@@ -26,7 +26,7 @@ export default function Account() {
       {/* {data?data.map((user) => ( */}
       <View className="mt-8 items-center ">
         <TouchableOpacity
-          className="bg-gray-950 flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between "
+          className="bg-[#1F1F1F] flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between "
           onPress={() => router.push(`/user/edit-profile`)}
         >
           <View className="flex-row items-center">
@@ -44,7 +44,7 @@ export default function Account() {
           <Ionicons name="chevron-forward-outline" color={"white"} size={30} />
         </TouchableOpacity>
         <TouchableOpacity
-          className="bg-gray-950 flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-4"
+          className="bg-[#1F1F1F] flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-4"
           onPress={() => router.push("/user/change-password")}
         >
           <View className="flex-row items-center">
@@ -62,7 +62,7 @@ export default function Account() {
           <Ionicons name="chevron-forward-outline" color={"white"} size={30} />
         </TouchableOpacity>
         <TouchableOpacity
-          className="bg-gray-950 flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-4"
+          className="bg-[#1F1F1F] flex-row w-[324px] p-4 rounded-[12px]  items-center justify-between mt-4"
           onPress={() => router.push(`/user/infor`)}
         >
           <View className="flex-row items-center">

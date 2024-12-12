@@ -5,6 +5,8 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
+  Pressable,
+  Linking,
 } from "react-native";
 import React from "react";
 import { useLocalSearchParams } from "expo-router";
@@ -29,6 +31,41 @@ export default function DetailEvent() {
     queryKey: ["events", eventId],
     queryFn: () => getEventById(eventId as string),
   });
+
+  const handleLinkPress = async (linkEvent: string) => {
+    try {
+      const supported = await Linking.canOpenURL(linkEvent); // Check Link is valid?
+      if (supported) {
+        await Linking.openURL(linkEvent);
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Không thể mở URL!",
+          text2: "URL không hợp lệ",
+          text1Style: {
+            fontSize: 16,
+            fontWeight: "bold",
+          },
+          text2Style: {
+            fontSize: 14,
+          },
+        });
+      }
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Không thể mở URL!",
+        text2: "Xảy ra lỗi khi chạy URL",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
+    }
+  };
 
   if (isLoading) {
     return (
@@ -89,13 +126,13 @@ export default function DetailEvent() {
         >
           <Image
             source={{ uri: data.posterImg }}
-            className="h-[260px] w-[330px] rounded-[20px] mt-6 opacity-75"
+            className="h-[260px] w-[100%] rounded-[20px] m-1 opacity-75"
           />
-          <Text className="text-[#CAFF4C] font-bold font-inter text-[22px] my-2 text-center mx-2">
+          <Text className="text-[#CAFF4C] font-bold font-inter text-[20px] my-2 text-center">
             {data.eventName}
           </Text>
 
-          <View className="flex-row">
+          <View className="flex-row my-1">
             <Ionicons
               name="calendar-clear-outline"
               size={20}
@@ -112,17 +149,32 @@ export default function DetailEvent() {
             </Text>
           </View>
 
-          <View className="flex-row mt-4 w-[80%] justify-center items-center">
-            <Ionicons name="location-outline" size={22} color={"#CAFF4C"} />
-            <Text className="text-white ml-2 font-lexend text-[16px] text-center">
-              {data.location}
-            </Text>
-          </View>
-          {data.maxAttendees != null && data.maxAttendees > 0 && (
-            <View className="flex-row mt-4 w-[80%] justify-center items-center">
+          {!data.location ? (
+            <Pressable
+              className="flex-row mt-3 w-[80%] justify-center items-center"
+              onPress={() => {
+                handleLinkPress(data.linkEvent);
+              }}
+            >
+              <Ionicons name="link-outline" size={22} color={"#CAFF4C"} />
+              <Text className="text-white ml-2 font-lexend text-[16px] text-center">
+                Link tham gia: {data.linkEvent}
+              </Text>
+            </Pressable>
+          ) : (
+            <View className="flex-row mt-3 w-[80%] justify-center items-center">
+              <Ionicons name="location-outline" size={22} color={"#CAFF4C"} />
+              <Text className="text-white ml-2 font-lexend text-[16px] text-center">
+                {data.location}
+              </Text>
+            </View>
+          )}
+
+          {data.maxAttendees != null && data.maxAttendees >= 0 && (
+            <View className="flex-row mt-3 w-[80%] justify-center items-center">
               <Ionicons name="people-outline" size={22} color={"#CAFF4C"} />
               <Text className="text-white ml-2 font-lexend text-[16px] text-center">
-                Số lượng tham gia: {data.maxAttendees}
+                Số lượng còn lại: {data.maxAttendees}
               </Text>
             </View>
           )}
@@ -136,7 +188,7 @@ export default function DetailEvent() {
               {data.eventTags.map((tag, index) => (
                 <Text
                   key={index}
-                  className="text-white text-[14px] bg-[#797777d6] mx-1 px-2 rounded font-lexend"
+                  className="text-black text-[14px] bg-[#CAFF4C] mx-1 px-2 rounded font-lexend"
                 >
                   {tag}
                 </Text>
@@ -144,6 +196,10 @@ export default function DetailEvent() {
             </View>
           </ScrollView>
           <RatingEvent eventId={data.eventId} status={data.status} />
+          <CardOrganizer
+            organizerName={data.organizerName}
+            organizerId={data.organizerId}
+          />
           <View className="bg-white w-full rounded-[24px] p-4 mt-4">
             <Text className="font-bold font-inter text-[18px] mb-2">
               Giới thiệu
@@ -152,10 +208,6 @@ export default function DetailEvent() {
               <Description description={data.description} />
             </View>
           </View>
-          <CardOrganizer
-            organizerName={data.organizerName}
-            organizerId={data.organizerId}
-          />
         </LinearGradient>
       </ScrollView>
 

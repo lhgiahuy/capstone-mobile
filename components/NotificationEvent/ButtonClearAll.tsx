@@ -49,8 +49,8 @@ export default function ButtonClearAll() {
         className="flex-row rounded-[12px] p-2 bg-[#1F1F1F] w-[220px] justify-center items-center"
         onPress={HandleClearAll}
       >
-        <Ionicons name="trash-bin-outline" size={18} color={"#FF4C4C"} />
-        <Text className="text-[16px] text-[#FF4C4C] text-center font-lexend ml-2">
+        <Ionicons name="trash-bin-outline" size={18} color={"#f2d3d3"} />
+        <Text className="text-[16px] text-[#f2d3d3] text-center font-lexend ml-2">
           Xóa tất cả thông báo
         </Text>
       </TouchableOpacity>

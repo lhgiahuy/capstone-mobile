@@ -1,4 +1,11 @@
-import { View, Text, Pressable, Image, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  Image,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { router } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
@@ -29,20 +36,21 @@ export default function CardOrganizer({
     }
   };
   return (
-    <View className="bg-white w-full rounded-[24px] p-4 mt-4 mb-2">
+    <View className="bg-white w-full rounded-[24px] p-3 mt-4">
       <Text className="font-bold text-[18px] mb-2">Ban tổ chức</Text>
-      <View className="flex-row justify-around items-center">
-        <Pressable onPress={() => NavInforOrganizer(organizerId)}>
-          <Image
-            source={{ uri: data?.avatarUrl }}
-            className="h-[100px] w-[100px] rounded-[60px]"
-          />
-        </Pressable>
+      <TouchableOpacity
+        className="flex-row justify-around items-center"
+        onPress={() => NavInforOrganizer(organizerId)}
+      >
+        <Image
+          source={{ uri: data?.avatarUrl }}
+          className="h-[80px] w-[80px] rounded-[60px]"
+        />
 
-        <Text className="ml-6 font-inter font-bold w-[148px] text-center text-[20px]">
+        <Text className=" font-inter font-bold w-[168px] text-center text-[20px]">
           {organizerName}
         </Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

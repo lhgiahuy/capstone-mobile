@@ -17,13 +17,9 @@ export default function DateTime({
   onYearChange,
 }: DateTimeProps) {
   return (
-    <SafeAreaView className="flex-1 bg-primary">
-      <View className="flex-row justify-around p-4">
-        {/* Picker for Months */}
+    <SafeAreaView className="bg-primary pb-3">
+      <View className="flex-row justify-around">
         <View className="w-[45%]">
-          <Text className="text-white mb-2 text-center font-bold">
-            Chọn Tháng
-          </Text>
           <View
             style={{
               borderRadius: 8,
@@ -35,7 +31,7 @@ export default function DateTime({
               selectedValue={selectedMonth}
               onValueChange={(value) => onMonthChange(value)}
               style={{ color: "#fff", backgroundColor: "#333" }}
-              dropdownIconColor="#CAFF4C" // Icon color
+              dropdownIconColor="#CAFF4C"
             >
               <Picker.Item label="Tháng" value={null} />
               {[...Array(12)].map((_, i) => (
@@ -45,11 +41,7 @@ export default function DateTime({
           </View>
         </View>
 
-        {/* Picker for Years */}
         <View className="w-[45%]">
-          <Text className="text-white mb-2 text-center font-bold">
-            Chọn Năm
-          </Text>
           <View
             style={{
               borderRadius: 8,
@@ -61,13 +53,13 @@ export default function DateTime({
               selectedValue={selectedYear}
               onValueChange={(value) => onYearChange(value)}
               style={{ color: "#fff", backgroundColor: "#333" }}
-              dropdownIconColor="#CAFF4C" // Icon color
+              dropdownIconColor="#CAFF4C"
             >
               <Picker.Item label="Năm" value={null} />
-              {[...Array(31)].map((_, i) => {
-                const year = 2000 + i;
+              {[...Array(8)].map((_, i) => {
+                const year = 2020 + i;
                 return (
-                  <Picker.Item key={year} label={`Năm ${year}`} value={year} />
+                  <Picker.Item key={year} label={`${year}`} value={year} />
                 );
               })}
             </Picker>
