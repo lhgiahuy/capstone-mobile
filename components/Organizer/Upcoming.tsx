@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getEventOfOrganizer } from "@/api/organizer";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { formatDateTime } from "@/lib/utils/date-time";
 
 export default function Upcoming({ organizerId }: NavOrganizerProps) {
   const status = "Upcoming";
@@ -51,22 +52,11 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
     );
   }
 
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const hours = date.getHours();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${hours}:00 , ${day}/${month}/${year}`;
-  };
-
   return (
     <ScrollView className="mt-2 mb-4">
       {data?.map((event) => (
         <View
-          className="flex-row w-full h-[260px] bg-gray-900 p-2 rounded-[28px] my-2 "
+          className="flex-row w-full h-[260px] bg-gray-900 p-2 rounded-[28px] my-2"
           key={event?.eventId}
         >
           <Image
@@ -98,7 +88,7 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
               </Text>
             </View>
 
-            <View className="  items-center justify-center w-[178px] px-2">
+            <View className="items-center justify-center w-[178px] px-2 mt-3">
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -107,7 +97,7 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
                 {event.eventTags.map((tag, index) => (
                   <Text
                     key={index}
-                    className="text-[#797777d6] text-[14px] font-lexend px-2 rounded-[20px] mt-3"
+                    className="bg-[#CAFF4C] text-[#000000d6]  text-[14px] font-lexend px-2 rounded-[20px] mt-3"
                   >
                     {tag}
                   </Text>
@@ -115,7 +105,7 @@ export default function Upcoming({ organizerId }: NavOrganizerProps) {
               </ScrollView>
             </View>
             <TouchableOpacity
-              className="flex-row justify-center items-center mt-3"
+              className="flex-row justify-center items-center mt-6"
               onPress={() => router.push(`/events/${event.eventId}`)}
             >
               <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] ">

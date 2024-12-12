@@ -3,6 +3,7 @@
 import { getEvent, getEventsByKeyword } from "@/api/event";
 import DateTime from "@/components/Search/DateTime";
 import { EventDetail } from "@/constants/model/EventDetail";
+import { formatDateTime } from "@/lib/utils/date-time";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
@@ -51,17 +52,6 @@ export default function Result() {
         PageSize: pageSize,
       }),
   });
-
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-
-    const hours = date.getHours();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${hours}:00 | ${day}/${month}/${year}`;
-  };
 
   if (isLoading) {
     return (
@@ -115,44 +105,66 @@ export default function Result() {
         />
         {data?.items?.map((event) => (
           <View
-            // className="h-[220px] justify-center my-2 p-2 border-line border-[1px]"
-            className="flex-row w-full h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black"
+            className="flex-row w-full h-[260px] bg-[#171717] p-1 rounded-[20px] border-y-1 border-black mt-3 "
             key={event?.eventId}
           >
-            <Image
-              source={{ uri: event.thumbnailImg }}
-              className="h-[100%] w-[46%] rounded-[16px]"
-            />
-            <View className="p-2  w-[54%] h-[100%] items-center  ">
+            <View className="relative w-[48%] h-[100%]">
+              <Image
+                source={{ uri: event.thumbnailImg }}
+                className="h-[100%] rounded-[16px]"
+              />
+              <View
+                className={`absolute top-2 right-1 px-2 py-1 rounded-md ${
+                  event.status === "Upcoming"
+                    ? "bg-blue-500"
+                    : event.status === "InProgress"
+                      ? "bg-[#CAFF4C]"
+                      : event.status === "Completed"
+                        ? "bg-orange-500"
+                        : "bg-gray-500"
+                }`}
+              >
+                <Text className="text-black font-lexend text-[12px]">
+                  {event.status === "Upcoming"
+                    ? "Sắp diễn ra"
+                    : event.status === "InProgress"
+                      ? "Đang diễn ra"
+                      : event.status === "Completed"
+                        ? "Đã kết thúc"
+                        : ""}
+                </Text>
+              </View>
+            </View>
+            <View className="p-3  w-[52%] h-[100%]  ">
               <Text
-                className="text-white w-[100%] font-bold text-[18px] text-center"
+                className="text-white w-[100%] font-bold text-[17px]  px-1"
                 numberOfLines={2}
                 ellipsizeMode="tail"
               >
                 {event?.eventName}
               </Text>
-              <View className="flex-row mt-3 h-[10%] ">
+              <View className="flex-row mt-6 h-[10%] ">
                 <Ionicons name="calendar" size={20} color={"#CAFF4C"} />
                 <Text className="text-white font-lexend ml-2">
                   {formatDateTime(event.startTime)}
                 </Text>
               </View>
 
-              <View className="flex-row mt-4 h-[20%] ">
+              <View className="flex-row h-[20%] items-center">
                 <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
                 <Text
-                  className="text-white font-lexend ml-2 w-[120px] text-center"
+                  className="text-white font-lexend ml-2 w-[120px] "
                   numberOfLines={2}
                   ellipsizeMode="tail"
                 >
                   {event.location}
                 </Text>
               </View>
-              <Text className="text-white font-lexend ml-2 w-[100%] text-center my-2 h-[10%] ">
+              {/* <Text className="text-white font-lexend ml-2 w-[100%] text-center my-2 h-[10%] ">
                 {event.eventTypeName}
-              </Text>
+              </Text> */}
 
-              <View className="  items-center justify-center w-[100%] px-2">
+              <View className="  items-center justify-center w-[100%] p-2 mt-2">
                 <ScrollView
                   horizontal
                   showsHorizontalScrollIndicator={false}
@@ -161,7 +173,7 @@ export default function Result() {
                   {event.eventTags.map((tag, index) => (
                     <Text
                       key={index}
-                      className="text-[#797777d6] text-[14px] font-lexend  px-2 rounded-[20px] "
+                      className="bg-[#CAFF4C] text-[#000000d6]  text-[14px] font-lexend  px-2 rounded-[20px] "
                     >
                       {tag}
                     </Text>
@@ -169,7 +181,7 @@ export default function Result() {
                 </ScrollView>
               </View>
               <TouchableOpacity
-                className="flex-row justify-center items-center mt-2 w-[100%] h-[10%]"
+                className="flex-row justify-center items-center mt-3 w-[100%] h-[10%]"
                 onPress={() => router.push(`/events/${event?.eventId}`)}
               >
                 <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] text-center">

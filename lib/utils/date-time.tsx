@@ -7,7 +7,7 @@ export const formatDateTime = (dateTime: string): string => {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
 
-  return `${hours}:${minutes} , ${day}/${month}/${year}`;
+  return `${hours}:${minutes}, ${day}/${month}/${year}`;
 };
 export const formatDate = (dateTime: string): string => {
   const date = new Date(dateTime);

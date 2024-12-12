@@ -88,7 +88,7 @@ export default function UserInfor() {
           {user?.roleName === "student" ? "Sinh viên" : user?.roleName}
         </Text>
       </View>
-      {user?.cardUrl && user.cardUrl.startsWith("firebase") ? (
+      {user?.cardUrl || user?.cardUrl.startsWith("firebase") ? (
         <View className="justify-center items-center px-4 mt-6">
           <Text className="text-white font-bold text-[18px]">Thẻ FPT</Text>
           {/* <Image
@@ -99,15 +99,15 @@ export default function UserInfor() {
         /> */}
           <Image
             source={
-              // user?.cardUrl || user?.cardUrl.startsWith("firebase")
-              //   ?
               { uri: user.cardUrl }
               // : require("../../assets/images/OIP.jpg")
             }
             className="h-[420px] w-full rounded-[12px] justify-center mt-6"
           />
         </View>
-      ) : null}
+      ) : (
+        <View></View>
+      )}
       <View className="justify-center items-center">
         <TouchableOpacity
           onPress={() => router.push("/user/edit-profile")}

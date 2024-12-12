@@ -11,4 +11,5 @@ export interface Notification {
 export interface ButtonRead {
   notiId: string;
   readStatus: string;
+  eventId: string;
 }

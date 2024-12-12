@@ -1,35 +1,29 @@
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-} from "react-native";
+import { View, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import Toast from "react-native-toast-message";
+// import Toast from "react-native-toast-message";
 
 export default function SearchBar() {
   const [keyword, setKeyword] = useState<string>("");
 
   const handleSearch = () => {
-    if (keyword.trim() === "") {
-      Toast.show({
-        type: "error",
-        text1: "Bạn chưa nhập từ khóa tìm kiếm!",
-        text1Style: {
-          fontSize: 16,
-          fontWeight: "bold",
-        },
-      });
-    } else {
-      router.push({
-        pathname: "/search/result",
-        params: { keyword: keyword },
-      });
-      setKeyword("");
-    }
+    // if (keyword.trim() === "") {
+    //   Toast.show({
+    //     type: "error",
+    //     text1: "Bạn chưa nhập từ khóa tìm kiếm!",
+    //     text1Style: {
+    //       fontSize: 16,
+    //       fontWeight: "bold",
+    //     },
+    //   });
+    // } else {
+    router.push({
+      pathname: "/search/result",
+      params: { keyword: keyword },
+    });
+    setKeyword("");
+    // }
   };
   return (
     <View className="py-2">

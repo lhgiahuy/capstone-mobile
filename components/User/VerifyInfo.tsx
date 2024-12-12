@@ -109,8 +109,8 @@ export default function VerifyInfo() {
               color={"#FF0000"}
               size={30}
             />
-            <Text className="text-white text-[18px] font-bold text-center ml-2 ">
-              Xác thực thất bại
+            <Text className="text-white text-[17px] font-bold text-center ml-2 ">
+              Yêu cầu xác thực bị từ chối
             </Text>
           </View>
         );

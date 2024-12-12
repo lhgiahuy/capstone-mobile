@@ -73,14 +73,14 @@ export default function UpcomingEvent() {
   }
 
   return (
-    <View className="py-2">
-      <View className="flex-row  justify-between items-center">
+    <View className="py-3">
+      <View className="flex-row justify-between items-center ">
         <Text className=" ml-4 text-[#CAFF4C] text-xl font-bold">
           Sự kiện sắp diễn ra
         </Text>
 
         <Pressable
-          className="flex-row mr-2"
+          className="flex-row mr-2 justify-center items-center"
           onPress={() => NavListEvent(status)}
         >
           <Text className="text-[#CAFF4C] text-[14px] font-lexend">

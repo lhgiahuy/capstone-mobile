@@ -12,7 +12,7 @@ export default function ReviewButton({ eventId, data }: ReviewButtonProps) {
   console.log(data.canReview);
 
   const handlePress = () => {
-    if (data.canReview === true || data.isReviewed === false) {
+    if (data.canReview === true && data.isReviewed === false) {
       router.push({
         pathname: "/events/review",
         params: { eventId: eventId },
@@ -37,7 +37,7 @@ export default function ReviewButton({ eventId, data }: ReviewButtonProps) {
         }}
       >
         <Text className="text-black text-[20px] font-bold">
-          {data.canReview === true || data.isReviewed === false
+          {data.canReview === true && data.isReviewed === false
             ? "Đánh giá sự kiện"
             : "Xem đánh giá"}
         </Text>

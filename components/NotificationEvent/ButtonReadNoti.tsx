@@ -6,7 +6,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { readNotification, removeNotification } from "@/api/notification";
 import { ButtonRead } from "@/constants/model/Notification";
 
-export default function ButtonReadNoti({ notiId, readStatus }: ButtonRead) {
+export default function ButtonReadNoti({
+  notiId,
+  readStatus,
+  eventId,
+}: ButtonRead) {
   const queryClient = useQueryClient();
   const ReadNoti = useMutation({
     mutationFn: (notiId: string) => readNotification(notiId),
@@ -41,7 +45,15 @@ export default function ButtonReadNoti({ notiId, readStatus }: ButtonRead) {
   });
 
   const HandleRead = () => {
+    // if (!eventId) {
+    //   ReadNoti.mutate(notiId);
+    // } else
+    if (!eventId) {
+      ReadNoti.mutate(notiId);
+      return;
+    } else router.push(`/events/${eventId}`);
     ReadNoti.mutate(notiId);
+    // router.push(`/events/${eventId}`);
   };
 
   const HandleRemove = () => {
@@ -49,32 +61,31 @@ export default function ButtonReadNoti({ notiId, readStatus }: ButtonRead) {
   };
 
   return (
-    <View className="flex-1 justify-center mb-2">
+    <View className="flex-1 justify-center my-2 items-center">
       {readStatus === "Unread" ? (
         <TouchableOpacity
-          className="rounded-md items-center  w-auto flex-row ml-6 "
-          // onPress={() => router.push("/notificationsss/test")}
+          className="rounded-md items-center  w-auto flex-row  "
           onPress={() => HandleRead()}
         >
-          <Ionicons name="checkmark-outline" size={18} color={"#22d334d2"} />
+          <Ionicons name="send-outline" size={16} color={"#CAFF4C"} />
           <Text
-            className=" ml-1 font-bold font-lexend   
-        text-[#22d334d2] "
+            className=" ml-1  font-lexend   
+        text-[#CAFF4C] "
           >
-            Đánh dấu đã xem
+            Xem chi tiết sự kiện
           </Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
-          className="rounded-md items-center  w-auto flex-row ml-6 "
+          className="rounded-md items-center  w-auto flex-row  "
           onPress={() => HandleRemove()}
         >
-          <Ionicons name="remove-circle-outline" size={18} color={"#FF4C4C"} />
+          <Ionicons name="remove-circle-outline" size={18} color={"#f2d3d3"} />
           <Text
-            className="ml-1 font-bold font-lexend   
-       text-[#FF4C4C]"
+            className="ml-1  font-lexend   
+       text-[#f2d3d3] "
           >
-            Ẩn thông báo
+            Xóa
           </Text>
         </TouchableOpacity>
       )}

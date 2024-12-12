@@ -28,20 +28,22 @@ export default function UnsubscribeModal({
           <Text className="text-[20px] font-bold text-center mb-4">
             Bạn có muốn hủy đăng ký sự kiện này không?
           </Text>
-          <View className="flex-row justify-around w-full">
+          <View className="flex-row justify-around items-center w-full">
             <TouchableOpacity
               onPress={onCancel}
-              className="bg-gray-400 rounded-md py-2 px-4"
+              className="bg-gray-400 rounded-md p-4"
             >
-              <Text className="text-white font-bold w-[60px] text-center">
+              <Text className="text-white font-lexend w-[60px] text-center">
                 Hủy
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={onConfirm}
-              className="bg-black rounded-md py-2 px-4"
+              className="bg-black rounded-md p-4 "
             >
-              <Text className="text-white font-bold w-[60px]">Xác nhận</Text>
+              <Text className="text-white font-lexend text-center">
+                Xác nhận
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -15,7 +15,7 @@ export default function NavCalender({
       <TouchableOpacity onPress={() => onSelectTab("upcoming")}>
         <View className="items-center">
           <Text className="text-[#CAFF4C] text-[17px] font-bold">
-            Sắp diễn ra
+            Đã đăng ký
           </Text>
           {selectedTab === "upcoming" && (
             <View
@@ -29,7 +29,7 @@ export default function NavCalender({
       <TouchableOpacity onPress={() => onSelectTab("ended")}>
         <View className="items-center">
           <Text className="text-[#CAFF4C] text-[17px] font-bold">
-            Đã diễn ra
+            Đã tham gia
           </Text>
           {selectedTab === "ended" && (
             <View

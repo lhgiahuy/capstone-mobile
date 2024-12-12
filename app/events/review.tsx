@@ -53,7 +53,7 @@ export default function ReviewEvent() {
     <View className="bg-primary flex-1  ">
       <View className=" rounded-[20px] p-4">
         <Text className="font-bold font-inter text-[24px] text-center mt-4 text-gray-200">
-          Đánh giá trải nghiệm của bạn
+          Đánh giá của bạn về sự kiện
         </Text>
         <Text className="ml-2 mt-2 text-gray-200 font-lexend">
           Bạn cảm thấy thế nào về sự kiện?
@@ -69,18 +69,18 @@ export default function ReviewEvent() {
               size={42}
               color="#FFD700"
               style={{ marginHorizontal: 2 }}
-              onPress={() => setRating(index + 1)} // Update rating when a star is clicked
+              onPress={() => setRating(index + 1)}
             />
           ))}
         </View>
         <View className=" mt-4 ">
           <Text className="m-2 text-gray-200 font-lexend">
-            Hãy chia sẽ trải nghiệm của bạn ở dưới đây :
+            Hãy đưa ra đánh giá của bạn ở dưới đây :
           </Text>
           <TextInput
-            placeholder="Nhập bình luận của bạn..."
-            className="bg-[#1F1F1F] border border-gray-300 rounded-lg p-4 font-lexend
-            text-base h-[200px] text-gray-300 placeholder:text-gray-300focus:border-black focus:outline-none"
+            placeholder="Nhập nội dung của bạn..."
+            className="bg-[#616060] border border-gray-300 rounded-lg p-4 font-lexend
+            text-base h-[180px] text-gray-300 placeholder:text-gray-300 focus:border-black focus:outline-none"
             multiline
             numberOfLines={4}
             textAlignVertical="top"
@@ -102,7 +102,7 @@ export default function ReviewEvent() {
       <ReviewModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-        message="Cảm ơn bạn đã chia sẻ trải ngiệm!"
+        message="Cảm ơn bạn đã gửi đánh giá!"
       />
       <ErrorModal
         visible={errorModalVisible}

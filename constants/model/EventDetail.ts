@@ -26,6 +26,7 @@ export interface EventData {
   status: string;
   isRegistered: boolean | null;
   isReviewed: boolean | null;
+  isCheckIn: boolean | null;
   isOverlap: boolean | null;
   canReview: boolean | null;
   eventTags: string[];

@@ -17,25 +17,19 @@ import { getUserParticipant } from "@/api/user";
 export default function UpcomingCalendar() {
   const [selected, setSelected] = useState<string>("");
 
-  const [isModalVisible, setModalVisible] = useState(false);
-
+  // const [isModalVisible, setModalVisible] = useState(false);
+  // const isCompleted = true;
   const {
     data: events,
     isLoading,
     error,
   } = useQuery<EventData[], Error>({
     queryKey: ["events", "calendar", "upcoming"],
-    queryFn: () => getUserParticipant(false),
+    queryFn: () =>
+      getUserParticipant({
+        isCompleted: false,
+      }),
   });
-
-  // Danh sách các tháng
-  // const months = Array.from({ length: 12 }, (_, i) => {
-  //   const date = new Date(new Date().getFullYear(), i, 1);
-  //   return {
-  //     label: date.toLocaleString("default", { month: "long" }),
-  //     value: date.toISOString().split("T")[0].slice(0, 7) + "-01", // Lưu ngày đầu tháng
-  //   };
-  // });
 
   // Tạo markedDates từ sự kiện
   const markedDates = useMemo(() => {
@@ -79,7 +73,7 @@ export default function UpcomingCalendar() {
         <Calendar
           className="h-[320px] justify-center p-2 rounded-[20px]"
           onDayPress={(day: DayObject) => {
-            setSelected(day.dateString); // Lưu ngày đã chọn
+            setSelected(day.dateString); // Save date select
           }}
           markedDates={markedDates}
           markingType={"custom"}

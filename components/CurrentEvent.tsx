@@ -74,18 +74,18 @@ export default function CurrentEvent() {
   }
   return (
     <>
-      <View className="py-2">
+      <View className="pb-2">
         <View className="flex-row  justify-between items-center">
           <Text className=" ml-4 text-[#CAFF4C] text-xl font-bold">
             Sự kiện đang diễn ra
           </Text>
 
           <Pressable
-            className="flex-row mr-2"
+            className="flex-row mr-2 justify-center items-center"
             onPress={() => NavListEvent(status)}
           >
             <Text className="text-[#CAFF4C] text-[14px] font-lexend">
-              Xem thêm{" "}
+              Xem thêm
             </Text>
             <Ionicons
               name="chevron-forward-outline"

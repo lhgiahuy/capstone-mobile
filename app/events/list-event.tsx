@@ -4,7 +4,7 @@ import { EventDetail } from "@/constants/model/EventDetail";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+// import { useState } from "react";
 
 // import { Button } from "react-native";
 import {
@@ -19,8 +19,8 @@ import {
 import { formatDateTime } from "@/lib/utils/date-time";
 
 export default function ListEvent() {
-  const pageSize = 3;
-  const [pageNumber, setPageNumber] = useState<number>(1);
+  // const pageSize = 3;
+  // const [pageNumber, setPageNumber] = useState<number>(1);
   const { status } = useLocalSearchParams();
   const statusValue = status as string | undefined;
   console.log(statusValue);
@@ -30,12 +30,12 @@ export default function ListEvent() {
     isLoading,
     error,
   } = useQuery<EventDetail, Error>({
-    queryKey: ["list-event", status, pageNumber, pageSize],
+    queryKey: ["list-event", status],
     queryFn: () =>
       getEvent({
         Status: statusValue,
-        PageNumber: pageNumber,
-        PageSize: pageSize,
+        // PageNumber: pageNumber,
+        // PageSize: pageSize,
       }),
   });
 
@@ -59,17 +59,17 @@ export default function ListEvent() {
     return <Text>Error fetching events: {error.message}</Text>;
   }
 
-  const handleNextPage = () => {
-    if (events && events.pageNumber < events.totalPages) {
-      setPageNumber((prev) => prev + 1);
-    }
-  };
+  // const handleNextPage = () => {
+  //   if (events && events.pageNumber < events.totalPages) {
+  //     setPageNumber((prev) => prev + 1);
+  //   }
+  // };
 
-  const handlePreviousPage = () => {
-    if (pageNumber > 1) {
-      setPageNumber((prev) => prev - 1);
-    }
-  };
+  // const handlePreviousPage = () => {
+  //   if (pageNumber > 1) {
+  //     setPageNumber((prev) => prev - 1);
+  //   }
+  // };
 
   if (!events || !events.items || events.items.length === 0) {
     return (
@@ -85,15 +85,15 @@ export default function ListEvent() {
     );
   }
   return (
-    <SafeAreaView className="flex-1 bg-primary h-full ">
-      <ScrollView>
+    <SafeAreaView className="flex-1 bg-primary h-full p-1">
+      <ScrollView className="p-1">
         <Text className="text-white text-[18px] font-lexend ml-3 my-3 text-center">
           {statusText}
         </Text>
         {events?.items?.map((event) => (
           <TouchableOpacity
             // className="h-[220px] justify-center my-2 p-2 border-line border-[1px]"
-            className="flex-row  h-[260px] bg-gray-950 p-2 rounded-[20px] border-y-1 border-black px-1"
+            className="flex-row  h-[260px] bg-gray-950 p-3 rounded-[20px] border-y-1 border-black px-1 my-2"
             key={event?.eventId}
             onPress={() => router.push(`/events/${event?.eventId}`)}
           >
@@ -134,42 +134,9 @@ export default function ListEvent() {
                   {event.location}
                 </Text>
               </View>
-
-              <View className="flex-row justify-center items-center mt-8">
-                <Text className="text-[#CAFF4C] font-bold font-lexend text-[16px] ">
-                  Xem chi tiết
-                </Text>
-                <Ionicons
-                  name="chevron-forward-outline"
-                  color={"#CAFF4C"}
-                  size={22}
-                />
-              </View>
             </View>
           </TouchableOpacity>
         ))}
-        <View className="flex-row justify-between p-4">
-          <Text className="text-white font-bold text-[16px]">
-            Trang {events.pageNumber || 1} / {events.totalPages || 1}
-          </Text>
-          <View className="flex-row ">
-            <Ionicons
-              name="chevron-back-outline"
-              size={22}
-              color={"#CAFF4C"}
-              onPress={handlePreviousPage}
-              disabled={pageNumber === 1}
-            />
-            <Ionicons
-              name="chevron-forward-outline"
-              size={22}
-              color={"#CAFF4C"}
-              onPress={handleNextPage}
-              disabled={events?.pageNumber === events?.totalPages}
-              style={{ marginLeft: 16 }}
-            />
-          </View>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );

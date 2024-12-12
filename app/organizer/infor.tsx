@@ -19,7 +19,7 @@ export default function Infor() {
   >("upcoming");
 
   return (
-    <View className="flex-1 bg-black ">
+    <View className="flex-1 bg-black">
       <ScrollView>
         <LinearGradient
           colors={["#2B2B2B", "#A8E063", "#000000"]}
@@ -30,7 +30,7 @@ export default function Infor() {
         >
           <BannerOrganizer organizerId={organizerId as string} />
           <Nav selectedTab={selectedTab} onSelectTab={setSelectedTab} />
-          <View className="flex-1  ">
+          <View className="flex-1 ">
             {selectedTab === "upcoming" && (
               <Upcoming organizerId={organizerId as string} />
             )}

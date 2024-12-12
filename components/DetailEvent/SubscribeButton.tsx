@@ -26,6 +26,7 @@ export default function SubscribeButton({
   const [isVerifyAlertVisible, setVerifyAlertVisible] = useState(false);
   const [isConfirmUnregisterVisible, setConfirmUnregisterVisible] =
     useState(false);
+  const [cooldown, setCooldown] = useState(false);
   const isEventCompleted = status === "Completed";
   const queryClient = useQueryClient();
 
@@ -57,7 +58,7 @@ export default function SubscribeButton({
     onError: (error: Error) => {
       Toast.show({
         type: "error",
-        text1: "Lỗi khi đăng ký sự kiện",
+        text1: "Đăng ký sự kiện thất bại",
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",
@@ -70,17 +71,11 @@ export default function SubscribeButton({
     mutationFn: (eventId: string) => EventUnregister(eventId),
     onSuccess: (data: any) => {
       console.log("Hủy sự kiện thành công", data);
-      // Toast.show({
-      //   type: "success",
-      //   text1: "Hủy đăng ký sự kiện thành công!",
-      //   visibilityTime: 3000,
-      //   text1Style: {
-      //     fontSize: 16,
-      //     fontWeight: "bold",
-      //   },
-      // });
+
       setConfirmUnregisterVisible(false);
       setRegister(false);
+      setCooldown(true);
+      setTimeout(() => setCooldown(false), 10000);
       queryClient.invalidateQueries({
         queryKey: ["events", "calendar", "upcoming"],
       });
@@ -108,18 +103,35 @@ export default function SubscribeButton({
       setVerifyAlertVisible(true);
       return;
     }
-    // if (data?.maxAttendees !== "Verified") {
-    //   Toast.show({
-    //     type: "error",
-    //     text1: "Số lượng người đăng ký đã hết!",
-    //     visibilityTime: 3000,
-    //     text1Style: {
-    //       fontSize: 16,
-    //       fontWeight: "bold",
-    //     },
-    //   });
-    //   return;
-    // }
+    if (data?.maxAttendees === 0 && !data.isRegistered) {
+      Toast.show({
+        type: "error",
+        text1: "Số lượng người đăng ký đã hết!",
+        visibilityTime: 3000,
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
+      return;
+    }
+    if (cooldown) {
+      Toast.show({
+        type: "info",
+        text1: "Bạn vừa hủy đăng ký!",
+        text2: "Vui lòng chờ vài giây để đăng ký lại ",
+        visibilityTime: 3000,
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+      });
+      return;
+    }
 
     if (!register) {
       // registerMutation.mutate(eventId);
@@ -149,7 +161,7 @@ export default function SubscribeButton({
             isEventCompleted
               ? "bg-[#FFA500]"
               : register
-                ? "bg-[#FF4C4C]"
+                ? "bg-slate-400"
                 : "bg-[#CAFF4C]"
           }`}
           style={{
@@ -157,7 +169,7 @@ export default function SubscribeButton({
             bottom: 10,
             alignSelf: "center",
           }}
-          disabled={isEventCompleted || data.status === "InProgress"}
+          disabled={isEventCompleted || data.isCheckIn === true}
         >
           <Text className="text-black text-[20px] font-bold ">
             {isEventCompleted

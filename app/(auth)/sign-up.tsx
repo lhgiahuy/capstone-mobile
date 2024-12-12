@@ -161,7 +161,7 @@ const SignUp = () => {
         <Text className="text-center font-lexend text-white  text-[16px] mb-2 ">
           Đăng ký tài khoản bằng email của bạn
         </Text>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] h-[48px] px-4 py-1 mt-2 mx-8">
           <Icon name="user-o" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px] font-lexend"
@@ -171,7 +171,7 @@ const SignUp = () => {
             onChangeText={setUsername}
           />
         </View>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] h-[48px] px-4 py-1 mt-2 mx-8">
           <Ionicons name="mail-outline" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[250px] font-lexend"
@@ -181,17 +181,17 @@ const SignUp = () => {
             onChangeText={setEmail}
           />
         </View>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] h-[48px] px-4 py-1 mt-2 mx-8">
           <Ionicons name="id-card-outline" size={25} color={"white"} />
           <TextInput
-            className=" text-white ml-2  w-[250px]"
+            className=" text-white ml-2 w-[250px] font-lexend"
             placeholder="Mã số sinh viên"
             placeholderTextColor="white"
             value={studentId}
             onChangeText={setStudentId}
           />
         </View>
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 mt-2 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] h-[48px] px-4 py-1 mt-2 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[200px] font-lexend"
@@ -203,7 +203,7 @@ const SignUp = () => {
           />
           <TouchableOpacity
             onPress={() => setShowPassword(!showPassword)}
-            className="px-4 py-1"
+            className="px-5 "
           >
             <Ionicons
               name={showPassword ? "eye-outline" : "eye-off-outline"}
@@ -213,7 +213,7 @@ const SignUp = () => {
           </TouchableOpacity>
         </View>
 
-        <View className="flex-row items-center border border-gray-400 rounded-[16px] px-4 py-2 my-2 mx-8">
+        <View className="flex-row items-center border border-gray-400 rounded-[16px] h-[48px] px-4 py-1 my-2 mx-8">
           <Icon name="lock" size={25} color={"white"} />
           <TextInput
             className=" text-white ml-2  w-[200px] font-lexend"
@@ -225,7 +225,7 @@ const SignUp = () => {
           />
           <TouchableOpacity
             onPress={() => setShowConfirmPassword(!showConfirmPassword)}
-            className="px-4 py-1"
+            className="px-5"
           >
             <Ionicons
               name={showConfirmPassword ? "eye-outline" : "eye-off-outline"}

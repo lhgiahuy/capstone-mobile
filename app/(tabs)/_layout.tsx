@@ -9,8 +9,6 @@ import { User } from "@/constants/model/User";
 import NotificationIcon from "@/components/NotificationEvent/NotificationIcon";
 
 export default function TabLayout() {
-  const queryClient = useQueryClient();
-
   const { data: user } = useQuery<User>({
     queryKey: ["user", "StatusNoti"],
     queryFn: getUser,
