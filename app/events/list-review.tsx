@@ -19,8 +19,6 @@ import { formatDateTime } from "@/lib/utils/date-time";
 
 export default function ListReview() {
   const { eventId } = useLocalSearchParams();
-  console.log("lisReview", eventId);
-
   const { data, isLoading, error } = useQuery<ListReviewData[], Error>({
     queryKey: ["reviews", eventId],
     queryFn: () => getListReview(eventId as string),
@@ -92,7 +90,3 @@ export default function ListReview() {
     </ScrollView>
   );
 }
-
-// uri:
-// review?.avatar   }}
-// require("../../assets/images/profile.jpg"),

@@ -23,8 +23,8 @@ export default function ErrorModal({
       <View className="flex-1 justify-center items-center bg-black/50">
         <View className="w-72 p-5 bg-white rounded-2xl items-center shadow-lg">
           <View className="flex-row  items-center">
-            <Ionicons name="alert-circle-outline" size={32} color={"#FF0000"} />
-            <Text className="text-[20px] font-bold text-[#214C53]  text-center">
+            <Ionicons name="alert-circle-outline" size={30} color={"#FF0000"} />
+            <Text className="text-[22px] font-bold text-[#214C53]  text-center">
               Lỗi!
             </Text>
           </View>

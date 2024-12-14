@@ -56,7 +56,7 @@ export default function Profile() {
     return (
       <View className="flex-1 bg-primary justify-center">
         <Text className="text-white font-bold items-center">
-          Dữ liệu đang chạy xin vui lòng chờ trong giây lát
+          Dữ liệu đang chạy xin vui lòng chờ trong giây lát!
         </Text>
       </View>
     );
@@ -74,10 +74,6 @@ export default function Profile() {
         <Text className=" text-white text-[20px] font-bold font-inter w-[260px] h-auto text-center mt-6 ">
           {user?.username}
         </Text>
-        {/* <Text className=" text-gray-400 text-[16px]  w-[260px] h-auto text-center">
-          Hồ Chí Minh , Việt Nam
-        </Text> */}
-
         <VerifyInfo />
         <Setting />
       </View>

@@ -14,8 +14,8 @@ interface dataProps {
 export default function EndedCard({ data }: dataProps) {
   if (!data || data.length === 0) {
     return (
-      <SafeAreaView className="bg-primary justify-center items-center">
-        <Text className="text-white font-bold text-lg text-center">
+      <SafeAreaView className="bg-primary justify-center items-center mt-3">
+        <Text className="text-white font-bold text-lg text-center mt-8">
           Chưa có sự kiện đã tham gia
         </Text>
         <Image

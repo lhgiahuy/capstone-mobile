@@ -39,11 +39,12 @@ const SignUp = () => {
       router.push("/all-done");
       setTimeout(() => {
         router.push("/sign-in");
-      }, 3000);
+      }, 5000);
       setUsername("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+      setStudentId("");
     },
     onError: (error) => {
       // cacth message error

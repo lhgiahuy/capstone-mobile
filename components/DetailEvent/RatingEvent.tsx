@@ -19,7 +19,7 @@ export default function RatingEvent({ eventId, status }: NavRating) {
     if (!eventId) {
       Toast.show({
         type: "error",
-        text1: "Danh sách chia sẻ sẽ hiện đang trống!",
+        text1: "Không tìm thấy đánh giá sự kiện!",
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",
@@ -31,7 +31,7 @@ export default function RatingEvent({ eventId, status }: NavRating) {
       Toast.show({
         type: "error",
         text1: "Vui lòng chờ tới khi sự kiện kết thúc",
-        text2: "Danh sách chia sẻ sẽ được cập nhật",
+        text2: "Danh sách đánh giá sẽ được cập nhật",
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",

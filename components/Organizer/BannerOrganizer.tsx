@@ -17,7 +17,7 @@ export default function BannerOrganizer({ organizerId }: NavOrganizerProps) {
   return (
     <View className="bg-white h-[360px]  mt-4 mx-2 rounded-[30px] items-center ">
       <Image
-        source={{ uri: data?.cardUrl }}
+        source={{ uri: data?.avatarUrl }}
         className="h-[248px] w-[346px] rounded-[26px] "
       />
 

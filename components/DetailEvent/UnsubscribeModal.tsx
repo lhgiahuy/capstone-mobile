@@ -20,7 +20,7 @@ export default function UnsubscribeModal({
       onRequestClose={onCancel}
     >
       <View className="flex-1 bg-black/50 justify-center items-center">
-        <View className="w-[300px] p-5 bg-white rounded-[20px] items-center">
+        <View className="w-[320px] p-5 bg-white rounded-[20px] items-center">
           <Image
             source={require("@/assets/images/oops!.png")}
             className="w-[300px]  h-[180px]"
@@ -41,7 +41,7 @@ export default function UnsubscribeModal({
               onPress={onConfirm}
               className="bg-black rounded-md p-4 "
             >
-              <Text className="text-white font-lexend text-center">
+              <Text className="text-white font-lexend text-center  w-[80px]">
                 Xác nhận
               </Text>
             </TouchableOpacity>

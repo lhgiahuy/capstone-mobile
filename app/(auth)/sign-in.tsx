@@ -1,41 +1,43 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Linking } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
-import { useAuth } from "@/hooks/useAuth";
 import { Ionicons } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
 
 import usePushNotifications from "@/lib/utils/push-notification";
+import { useMutation } from "@tanstack/react-query";
+import { Login } from "@/constants/model/User";
+import { userLogin } from "@/api/auth";
 
 const SignIn = () => {
   const router = useRouter();
-  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { devicePushToken } = usePushNotifications();
 
-  const handleLogin = async () => {
-    const success = await login(email, password, devicePushToken);
-    if (success) {
-      router.push("/home");
+  const mutation = useMutation({
+    mutationFn: (loginData: Partial<Login>) => userLogin(loginData),
+    onSuccess: () => {
+      router.replace("/home");
       console.log("Thành công");
       Toast.show({
         type: "success",
         text1: "Đăng nhập thành công",
-        visibilityTime: 2000,
         text1Style: {
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: "bold",
         },
       });
-      setEmail(""), setPassword("");
-    } else {
+      setEmail("");
+      setPassword("");
+    },
+    onError: () => {
       Toast.show({
         type: "error",
-        text1: "Đăng nhập thất bại",
-        text2: "Vui lòng kiểm tra email và mật khẩu của bạn.",
+        text1: "Đăng nhập không thành công!",
+        text2: "Vui lòng kiểm tra lại email hoặc mật khẩu",
         text1Style: {
           fontSize: 16,
           fontWeight: "bold",
@@ -44,7 +46,30 @@ const SignIn = () => {
           fontSize: 14,
         },
       });
+    },
+  });
+  const handleLogin = () => {
+    if (!email || !password) {
+      Toast.show({
+        type: "error",
+        text1: "Đăng nhập không thành công!",
+        text2: "Vui lòng điền đầy đủ thông tin!",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
+      return;
     }
+
+    mutation.mutate({
+      email,
+      password,
+      fcmToken: devicePushToken,
+    });
   };
 
   return (

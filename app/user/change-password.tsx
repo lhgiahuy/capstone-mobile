@@ -79,6 +79,21 @@ export default function ChangePassword() {
       });
       return;
     }
+    if (oldPassword === newPassword) {
+      Toast.show({
+        type: "error",
+        text1: "Cập nhật không thành công!",
+        text2: "Mật khẩu cũ trùng với mật khẩu mới",
+        text1Style: {
+          fontSize: 16,
+          fontWeight: "bold",
+        },
+        text2Style: {
+          fontSize: 14,
+        },
+      });
+      return;
+    }
     if (newPassword.length < 8) {
       Toast.show({
         type: "error",

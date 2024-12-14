@@ -88,7 +88,7 @@ export default function ListEvent() {
   return (
     <SafeAreaView className="flex-1 bg-primary h-full p-1">
       <ScrollView className="p-1">
-        <Text className="text-white text-[18px] font-lexend ml-3 my-3 text-center">
+        <Text className="text-white text-[18px] font-lexend ml-3 mt-8 mb-3 text-center">
           {statusText}
         </Text>
         {events?.items?.map((event) => (

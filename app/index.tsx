@@ -8,14 +8,12 @@ import {
 } from "react-native";
 import React from "react";
 // import { Link } from "expo-router";
-import { useRouter } from "expo-router";
+import { router, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
 // import { SafeAreaView } from "react-native-safe-area-context";
 // import { ScrollView } from "react-native";
 
 export default function App() {
-  const router = useRouter();
   return (
     <View className="flex-1">
       <ImageBackground

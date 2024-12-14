@@ -1,3 +1,9 @@
+export interface Login {
+  email: string;
+  password: string;
+  fcmToken?: string;
+}
+
 export interface User {
   userId: string;
   username: string;
