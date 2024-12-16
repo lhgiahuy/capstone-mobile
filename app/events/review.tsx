@@ -58,9 +58,7 @@ export default function ReviewEvent() {
         <Text className="font-bold font-inter text-[24px] text-center mt-4 mb-3 text-gray-200">
           Đánh giá của bạn về sự kiện
         </Text>
-        <Text className="ml-2 mt-2 text-gray-200 text-[16px] font-lexend">
-          Bạn cảm thấy thế nào về sự kiện?
-        </Text>
+
         <View
           style={{ flexDirection: "row", marginTop: 8 }}
           className="flex-row items-center mt-4 justify-center"

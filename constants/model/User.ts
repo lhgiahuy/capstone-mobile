@@ -15,6 +15,7 @@ export interface User {
   cardUrl: string;
   roleName: string;
   isHaveUnreadNoti: boolean;
+  isBanned: boolean;
 }
 
 export interface Register {

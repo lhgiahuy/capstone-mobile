@@ -70,6 +70,13 @@ export default function Profile() {
       }
     >
       <View className="flex-1  items-center mb-2">
+        {user?.isBanned === true ? (
+          <Text className="text-white font-lexend bg-[#ed6a6a] w-full text-center p-1">
+            Tài khoản của bạn hiện đang bị khóa
+          </Text>
+        ) : (
+          <></>
+        )}
         <Avatar onAvatarChange={handleAvatarChange} />
         <Text className=" text-white text-[20px] font-bold font-inter w-[260px] h-auto text-center mt-6 ">
           {user?.username}
