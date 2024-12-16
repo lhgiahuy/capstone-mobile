@@ -3,16 +3,16 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   TouchableOpacity,
-  Alert,
+  ActivityIndicator,
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ScrollView } from "react-native";
-import { EventRegister, getEventById, sumbitForm } from "@/api/event";
+import { getEventById, sumbitForm } from "@/api/event";
 import { EventData } from "@/constants/model/EventDetail";
 import Toast from "react-native-toast-message";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RegisterForm() {
   const queryClient = useQueryClient();
@@ -60,9 +60,9 @@ export default function RegisterForm() {
         },
       });
 
-      router.push("/(tabs)/home");
+      router.replace("/(tabs)/home");
     },
-    onError: (err) => {
+    onError: () => {
       Toast.show({
         type: "error",
         text1: "Đăng ký không thành công!",
@@ -72,8 +72,6 @@ export default function RegisterForm() {
           fontWeight: "bold",
         },
       });
-      console.error("Submit error: ", err);
-      // Alert.alert("Lỗi", `Có lỗi xảy ra: ${err.message}`);
     },
   });
 
@@ -108,17 +106,20 @@ export default function RegisterForm() {
 
   if (isLoading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <Text>Đang tải...</Text>
-      </View>
+      <SafeAreaView className="bg-primary h-full justify-center items-center">
+        <ActivityIndicator size="large" color="#CAFF4C" />
+        <Text className="text-white mt-2">Đang tải ...</Text>
+      </SafeAreaView>
     );
   }
-
   if (error) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <Text>Có lỗi xảy ra: {error.message}</Text>
-      </View>
+      <SafeAreaView className="bg-primary h-full justify-center items-center">
+        <ActivityIndicator size="large" color="#CAFF4C" />
+        <Text className="text-white mt-2">
+          Form đăng ký tải lên đang gặp vấn đề...
+        </Text>
+      </SafeAreaView>
     );
   }
 
@@ -126,25 +127,20 @@ export default function RegisterForm() {
 
   return (
     <ScrollView className="flex-1 bg-primary p-4">
-      {/* <Text className="text-[22px] text-[#CAFF4C] mb-4 text-center font-inter font-bold">
-        ĐĂNG KÝ THAM GIA
-      </Text> */}
       <Text className="text-[22px] text-[#CAFF4C] mb-4 text-center font-inter font-bold">
         {eventData?.eventName}
       </Text>
 
       {form?.map((question, index) => (
         <View key={index} className="mb-4">
-          <Text className="text-white mb-2 font-bold font-inter">
-            {question.name}
-          </Text>
+          <Text className="text-white mb-2 font-lexend ">{question.name}</Text>
 
           {question.type === "Choice" && (
             <View>
               {question.options.map((option, i) => (
                 <TouchableOpacity
                   key={i}
-                  className={`p-3 bg-gray-700 mb-2 rounded-[8px] ${
+                  className={`p-3 bg-gray-700 mb-2 rounded-[8px] font- ${
                     formData[index]?.answer === option ? "bg-gray-500" : ""
                   }`}
                   onPress={() => handleInputChange(index, option)}
@@ -157,8 +153,8 @@ export default function RegisterForm() {
 
           {question.type === "Plain Text" && (
             <TextInput
-              className="p-3 bg-white text-black rounded-[8px]"
-              placeholder={`Nhập ${question.name}`}
+              className="p-3 bg-white text-black rounded-[8px] "
+              placeholder="Nhập câu trả lời của bạn"
               value={formData[index]?.answer || ""}
               onChangeText={(text) => handleInputChange(index, text)}
             />

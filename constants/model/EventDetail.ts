@@ -17,6 +17,7 @@ export interface EventData {
   linkEvent: string;
   passwordMeeting: string;
   maxAttendees: number;
+  subMaxAttendees: number;
   processNote: string;
   organizerId: string;
   organizerName: string;

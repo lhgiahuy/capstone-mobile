@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, Modal } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 interface SuccessModalProps {
   visible: boolean;
@@ -13,6 +14,12 @@ export default function SuccessModal({
   onClose,
   message,
 }: SuccessModalProps) {
+  const handleClose = () => {
+    onClose();
+    setTimeout(() => {
+      router.back();
+    });
+  };
   return (
     <Modal
       animationType="fade"
@@ -34,7 +41,7 @@ export default function SuccessModal({
           </Text>
           <TouchableOpacity
             className="bg-[#CAFF4C] rounded-full py-2 px-6"
-            onPress={onClose}
+            onPress={handleClose}
           >
             <Text className="text-[#214C53] font-semibold">Đóng</Text>
           </TouchableOpacity>

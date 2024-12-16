@@ -4,11 +4,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-toast-message";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Setting() {
+  const queryClient = useQueryClient();
   const handleLogout = async () => {
     try {
       await SecureStore.deleteItemAsync("authToken");
+      queryClient.removeQueries();
       router.replace("/");
     } catch (error) {
       Toast.show({

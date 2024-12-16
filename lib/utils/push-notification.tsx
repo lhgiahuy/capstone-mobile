@@ -4,7 +4,7 @@ import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 
 export default function usePushNotifications() {
-  const [expoPushToken, setExpoPushToken] = useState("");
+  // const [expoPushToken, setExpoPushToken] = useState("");
   const [devicePushToken, setDevicePushToken] = useState("");
 
   useEffect(() => {
@@ -34,14 +34,14 @@ export default function usePushNotifications() {
         }
 
         // Fetch Expo Push Token
-        const projectId =
-          Constants?.expoConfig?.extra?.eas?.projectId ||
-          Constants?.easConfig?.projectId;
-        const token = (await Notifications.getExpoPushTokenAsync({ projectId }))
-          .data;
+        // const projectId =
+        //   Constants?.expoConfig?.extra?.eas?.projectId ||
+        //   Constants?.easConfig?.projectId;
+        // const token = (await Notifications.getExpoPushTokenAsync({ projectId }))
+        //   .data;
 
-        console.log("Expo Push Token:", token);
-        setExpoPushToken(token);
+        // console.log("Expo Push Token:", token);
+        // setExpoPushToken(token);
 
         // Fetch Device Token
         if (Platform.OS === "android" || Platform.OS === "ios") {
@@ -83,5 +83,5 @@ export default function usePushNotifications() {
     registerForPushNotificationsAsync();
   }, []);
 
-  return { expoPushToken, devicePushToken };
+  return { devicePushToken };
 }

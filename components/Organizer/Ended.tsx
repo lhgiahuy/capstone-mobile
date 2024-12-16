@@ -88,7 +88,7 @@ export default function Ended({ organizerId }: NavOrganizerProps) {
                 {formatDateTime(event.startTime)}
               </Text>
             </View>
-            <View className="flex-row mt-4  h-">
+            {/* <View className="flex-row mt-4  h-">
               <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
               <Text
                 className="text-white font-lexend ml-2 w-[120px] "
@@ -97,7 +97,30 @@ export default function Ended({ organizerId }: NavOrganizerProps) {
               >
                 {event.location}
               </Text>
-            </View>
+            </View> */}
+            {!event.location ? (
+              <View className=" flex-row mt-4">
+                <Ionicons name="link-outline" size={20} color={"#CAFF4C"} />
+                <Text
+                  className="text-white font-lexend ml-2 w-[120px] "
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                >
+                  Link tham gia: {event.linkEvent}
+                </Text>
+              </View>
+            ) : (
+              <View className="flex-row mt-4">
+                <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
+                <Text
+                  className="text-white font-lexend ml-2 w-[120px] "
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                >
+                  {event.location}
+                </Text>
+              </View>
+            )}
 
             <View className="  items-center justify-center w-[178px] px-2 mt-3">
               <ScrollView

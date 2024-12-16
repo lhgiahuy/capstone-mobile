@@ -19,8 +19,6 @@ import { formatDateTime } from "@/lib/utils/date-time";
 
 export default function ListReview() {
   const { eventId } = useLocalSearchParams();
-  console.log("lisReview", eventId);
-
   const { data, isLoading, error } = useQuery<ListReviewData[], Error>({
     queryKey: ["reviews", eventId],
     queryFn: () => getListReview(eventId as string),
@@ -42,14 +40,25 @@ export default function ListReview() {
       </SafeAreaView>
     );
   }
-
+  if (!data || data.length === 0) {
+    return (
+      <SafeAreaView className="bg-primary h-full justify-center items-center">
+        <Text className="text-white font-bold text-lg text-center mb-3">
+          Chưa có đánh giá về sự kiện
+        </Text>
+        <Image
+          source={require("../../assets/images/not-found.png")}
+          className=" h-[320px] w-full rounded-[16px]"
+        />
+      </SafeAreaView>
+    );
+  }
   return (
     <ScrollView className="flex-1 bg-black bg-opacity-50">
       <SafeAreaView className="flex-1 px-2 w-full bg-black justify-center">
         <Text className="text-[17px] text-white font-bold font-inter ml-2 ">
           Các bài đánh giá về sự kiện :
         </Text>
-
         <View className="mt-4">
           {data?.map((review) => (
             <View
@@ -92,7 +101,3 @@ export default function ListReview() {
     </ScrollView>
   );
 }
-
-// uri:
-// review?.avatar   }}
-// require("../../assets/images/profile.jpg"),

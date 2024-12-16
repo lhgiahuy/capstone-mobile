@@ -72,7 +72,7 @@ export default function ButtonReadNoti({
             className=" ml-1  font-lexend   
         text-[#CAFF4C] "
           >
-            Xem chi tiết sự kiện
+            Xem chi tiết
           </Text>
         </TouchableOpacity>
       ) : (

@@ -11,7 +11,7 @@ import ErrorModal from "@/components/Modal/ErrorModal";
 
 export default function ReviewEvent() {
   const { eventId } = useLocalSearchParams();
-  console.log(eventId);
+
   const queryClient = useQueryClient();
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
@@ -29,6 +29,9 @@ export default function ReviewEvent() {
 
       queryClient.invalidateQueries({
         queryKey: ["reviews", eventId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["events", eventId],
       });
     },
     onError: (error) => {
@@ -52,15 +55,13 @@ export default function ReviewEvent() {
   return (
     <View className="bg-primary flex-1  ">
       <View className=" rounded-[20px] p-4">
-        <Text className="font-bold font-inter text-[24px] text-center mt-4 text-gray-200">
+        <Text className="font-bold font-inter text-[24px] text-center mt-4 mb-3 text-gray-200">
           Đánh giá của bạn về sự kiện
         </Text>
-        <Text className="ml-2 mt-2 text-gray-200 font-lexend">
-          Bạn cảm thấy thế nào về sự kiện?
-        </Text>
+
         <View
           style={{ flexDirection: "row", marginTop: 8 }}
-          className="flex-row items-center mt-4"
+          className="flex-row items-center mt-4 justify-center"
         >
           {[...Array(5)].map((_, index) => (
             <Ionicons
@@ -74,13 +75,13 @@ export default function ReviewEvent() {
           ))}
         </View>
         <View className=" mt-4 ">
-          <Text className="m-2 text-gray-200 font-lexend">
+          <Text className="m-2 text-gray-200 text-[16px] font-lexend">
             Hãy đưa ra đánh giá của bạn ở dưới đây :
           </Text>
           <TextInput
+            className="mt-2 bg-[#fefefe] border border-gray-300 rounded-lg p-4 font-lexend
+            text-base h-[180px]  focus:border-black focus:outline-none"
             placeholder="Nhập nội dung của bạn..."
-            className="bg-[#616060] border border-gray-300 rounded-lg p-4 font-lexend
-            text-base h-[180px] text-gray-300 placeholder:text-gray-300 focus:border-black focus:outline-none"
             multiline
             numberOfLines={4}
             textAlignVertical="top"
@@ -92,10 +93,10 @@ export default function ReviewEvent() {
       <View className="mt-[40px] justify-center">
         <TouchableOpacity
           onPress={handleSubmit}
-          className="bg-[#CAFF4C] items-center mx-10 h-[40px] justify-center rounded-[20px]"
+          className="bg-[#CAFF4C] items-center mx-20 h-[48px] justify-center rounded-[20px]"
         >
-          <Text className="text-center font-bold text-[20px] font-lexend">
-            Gửi đánh giá
+          <Text className="text-center font-bold text-[21px] font-lexend">
+            Gửi
           </Text>
         </TouchableOpacity>
       </View>

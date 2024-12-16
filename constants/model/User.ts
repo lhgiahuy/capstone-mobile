@@ -1,3 +1,9 @@
+export interface Login {
+  email: string;
+  password: string;
+  fcmToken?: string;
+}
+
 export interface User {
   userId: string;
   username: string;
@@ -9,6 +15,7 @@ export interface User {
   cardUrl: string;
   roleName: string;
   isHaveUnreadNoti: boolean;
+  isBanned: boolean;
 }
 
 export interface Register {

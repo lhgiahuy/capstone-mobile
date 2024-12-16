@@ -56,6 +56,7 @@ export default function Home() {
 
   const handleLogout = async () => {
     await SecureStore.deleteItemAsync("authToken");
+    queryClient.removeQueries();
     router.replace("/");
   };
 

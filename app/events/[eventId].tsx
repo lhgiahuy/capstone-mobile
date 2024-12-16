@@ -174,7 +174,7 @@ export default function DetailEvent() {
             <View className="flex-row mt-3 w-[80%] justify-center items-center">
               <Ionicons name="people-outline" size={22} color={"#CAFF4C"} />
               <Text className="text-white ml-2 font-lexend text-[16px] text-center">
-                Số lượng còn lại: {data.maxAttendees}
+                Lượt đăng ký còn lại: {data.maxAttendees}/{data.subMaxAttendees}
               </Text>
             </View>
           )}

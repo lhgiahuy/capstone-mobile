@@ -150,16 +150,33 @@ export default function Result() {
                 </Text>
               </View>
 
-              <View className="flex-row h-[20%] items-center">
-                <Ionicons name="location-outline" size={20} color={"#CAFF4C"} />
-                <Text
-                  className="text-white font-lexend ml-2 w-[120px] "
-                  numberOfLines={2}
-                  ellipsizeMode="tail"
-                >
-                  {event.location}
-                </Text>
-              </View>
+              {!event.location ? (
+                <View className=" flex-row h-[20%] items-center">
+                  <Ionicons name="link-outline" size={20} color={"#CAFF4C"} />
+                  <Text
+                    className="text-white font-lexend ml-2 text-[14px] w-[120px]"
+                    numberOfLines={2}
+                    ellipsizeMode="tail"
+                  >
+                    Link tham gia: {event.linkEvent}
+                  </Text>
+                </View>
+              ) : (
+                <View className="flex-row h-[20%] items-center">
+                  <Ionicons
+                    name="location-outline"
+                    size={20}
+                    color={"#CAFF4C"}
+                  />
+                  <Text
+                    className="text-white font-lexend ml-2 text-[14px] w-[120px]"
+                    numberOfLines={2}
+                    ellipsizeMode="tail"
+                  >
+                    {event.location}
+                  </Text>
+                </View>
+              )}
               {/* <Text className="text-white font-lexend ml-2 w-[100%] text-center my-2 h-[10%] ">
                 {event.eventTypeName}
               </Text> */}

@@ -32,7 +32,7 @@ export default function TabLayout() {
           options={{
             headerTitle: () => (
               <View>
-                <Text className="font-bold text-[20px] text-[#000]">Fvent</Text>
+                <Text className="font-bold text-[20px] text-[#000]">FVENT</Text>
               </View>
             ),
 
